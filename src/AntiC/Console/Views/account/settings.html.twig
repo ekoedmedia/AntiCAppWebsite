@@ -1,0 +1,63 @@
+{% extends "base/authenticated.base.html.twig" %}
+
+{# Beginning of Page Header #}
+{% block title %}
+Account Management
+{% endblock title %}
+
+{% block pageStylesheets %}
+    <link href="/css/global.css" rel="stylesheet">
+    <link href="/css/account.css" rel="stylesheet">
+{% endblock pageStylesheets %}
+
+{# Beginning of Page Content #}
+{% block accountActive %}
+class="active"
+{% endblock accountActive %}
+
+
+{% block content %}
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h1 class="page-header">Account</h1>
+
+        <h3>Account Details</h3>
+        <div class="account-details">
+            <div class="detail">Email: <strong>jsmereka@ualberta.ca</strong></div>
+        </div>
+
+        <hr>
+
+        <h3>Change Email Address</h3>
+        <form role="form" action="" method="post">
+            <div class="form-group">
+                <label for="changeEmail">New Email Address</label>
+                <input type="email" class="form-control" id="changeEmail" placeholder="Enter email" style="max-width:300px;">
+            </div>
+            <div class="form-group">
+                <label for="changePassword">Current Password</label>
+                <input type="password" class="form-control" id="changePassword" placeholder="Password" style="max-width:300px;">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        <hr>
+
+        <h3>Change Password</h3>
+        <form role="form" action="" method="post">
+            <div class="form-group">
+                <label for="currentPassword">Current Password</label>
+                <input type="password" class="form-control" id="currentPassword" placeholder="Current Password" style="max-width:300px;">
+            </div>
+            <div class="form-group">
+                <label for="newPassword">New Password</label>
+                <input type="password" class="form-control" id="newPassword" placeholder="New Password" style="max-width:300px;">
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" style="max-width:300px;">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+    </div>
+{% endblock content %}

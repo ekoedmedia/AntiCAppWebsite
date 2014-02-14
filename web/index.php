@@ -66,8 +66,8 @@ $app->match('/console/account', "AntiC\Console\Controller\ConsoleController::acc
 
 // Drugs Routes
 $app->get('/console', "AntiC\Console\Controller\DrugsController::indexAction");
-$app->match('/console/drug/add', "AntiC\Console\Controller\DrugsController::addAction")->method('GET|POST');
-$app->match('/console/drug/{ID}', "AntiC\Console\Controller\DrugsController::editAction")->method('GET|POST');
+$app->match('/console/drugs/add', "AntiC\Console\Controller\DrugsController::addAction")->method('GET|POST');
+$app->match('/console/drugs/{ID}', "AntiC\Console\Controller\DrugsController::editAction")->method('GET|POST');
 
 // Protocols Routes
 $app->get('/console/protocols', "AntiC\Console\Controller\ProtocolsController::indexAction");
