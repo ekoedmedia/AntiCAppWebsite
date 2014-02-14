@@ -1,0 +1,18 @@
+/**
+ * Styles for Pages: /console/protocols
+ *                   /console/protocols/add
+ *                   /console/protocols/NAMEOFDRUG
+ *
+ * Provides page specific styles for 
+ * console protocols page and specific protocols pages
+ **/
+
+/* Global Styles to both pages */
+
+
+/* Styles for Console page */
+.add-protocol-button {
+    margin-right:16px;
+}
+
+/* Styles for Protocols Add/Edit page */
