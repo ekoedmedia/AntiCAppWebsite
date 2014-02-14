@@ -59,12 +59,27 @@ $app->error(function (\Exception $e, $code) use ($app) {
     return $app['twig']->render($errorFile);
 });
 
-// Application Logic Goes Here
+/*******************************/
+/* Application Logic Goes Here */
 $app->get('/', "AntiC\Console\Controller\ConsoleController::indexAction");
-$app->get('/console', "AntiC\Console\Controller\DrugsController::indexAction");
 $app->match('/console/account', "AntiC\Console\Controller\ConsoleController::accountAction")->method('GET|POST');
+
+// Drugs Routes
+$app->get('/console', "AntiC\Console\Controller\DrugsController::indexAction");
+$app->match('/console/drug/add', "AntiC\Console\Controller\DrugsController::addAction")->method('GET|POST');
+$app->match('/console/drug/{ID}', "AntiC\Console\Controller\DrugsController::editAction")->method('GET|POST');
+
+// Protocols Routes
 $app->get('/console/protocols', "AntiC\Console\Controller\ProtocolsController::indexAction");
+$app->match('/console/protocols/add', "AntiC\Console\Controller\ProtocolsController::addAction")->method('GET|POST');
+$app->match('/console/protocols/{ID}', "AntiC\Console\Controller\ProtocolsController::editAction")->method('GET|POST');
+
+// Interactions Routes
 $app->get('/console/interactions', "AntiC\Console\Controller\InteractionsController::indexAction");
+$app->match('/console/interactions/add', "AntiC\Console\Controller\InteractionsController::addAction")->method('GET|POST');
+$app->match('/console/interactions/{ID}', "AntiC\Console\Controller\InteractionsController::editAction")->method('GET|POST');
+
+// About Routes
 $app->get('/console/about', "AntiC\Console\Controller\AboutController::indexAction");
 
 $app->run();

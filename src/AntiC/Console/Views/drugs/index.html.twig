@@ -1,4 +1,4 @@
-{% extends "base/base.html.twig" %}
+{% extends "base/authenticated.base.html.twig" %}
 
 {# Beginning of Page Header #}
 {% block title %}
@@ -6,14 +6,53 @@ Manage Drugs
 {% endblock title %}
 
 {% block pageStylesheets %}
-    <link href="./css/drugs.css" rel="stylesheet">
+    <link href="/css/global.css" rel="stylesheet">
+    <link href="/css/drugs.css" rel="stylesheet">
 {% endblock pageStylesheets %}
 
 {# Beginning of Page Content #}
-{% block header %}
-    
-{% endblock header %}
+{% block drugsActive %}
+class="active"
+{% endblock drugsActive %}
+
 
 {% block content %}
-    
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h1 class="page-header">Drugs</h1>
+
+        <div class="row controls">
+            <div class="col-xs-4">
+                <input type="text" class="form-control" placeholder="Search">
+            </div>
+            <div class="pull-right add-drug-button">
+                <a href="/console/drug/add" class="btn btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> Add Drug</a>
+            </div>
+        </div>
+
+        {# Note: This needs to be switched out for Fuel UX Table that sorts and filters out of the box #}
+        <div class="table-responsive">
+            <table class="table table-hover table-striped">
+                <tr>
+                    <th class="col-md-3">Common Name</th>
+                    <th class="col-md-3">Trade Name</th>
+                    <th class="col-md-6 text-right">Controls</th>
+                </tr>
+                <tr>
+                    <td class="col-md-3">Abiaterone</td>
+                    <td class="col-md-3">Zytiga</td>
+                    <td class="col-md-6 text-right"><button type="button" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-edit"></span> Edit</button> <button type="button" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-eye-close"></span> Hide</button></td>
+                </tr>
+                <tr>
+                    <td class="col-md-3">Acitretin</td>
+                    <td class="col-md-3">Soriatane</td>
+                    <td class="col-md-6 text-right"><button type="button" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-edit"></span> Edit</button> <button type="button" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-eye-close"></span> Hide</button></td>
+                </tr>
+                <tr>
+                    <td class="col-md-3">Anagralide</td>
+                    <td class="col-md-3">Agrylin</td>
+                    <td class="col-md-6 text-right"><button type="button" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-edit"></span> Edit</button> <button type="button" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-eye-close"></span> Hide</button></td>
+                </tr>
+            </table>
+        </div>
+    </div>
 {% endblock content %}
