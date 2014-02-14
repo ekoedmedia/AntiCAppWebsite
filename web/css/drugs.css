@@ -1,5 +1,6 @@
 /**
  * Styles for Pages: /console
+ *                   /console/drugs/add
  *                   /console/drugs/NAMEOFDRUG
  *
  * Provides page specific styles for 
@@ -14,4 +15,7 @@
     margin-right:16px;
 }
 
-/* Styles for Drugs page */
+/* Styles for Drugs Add/Edit page */
+.or-text {
+    padding-top:6px;
+}

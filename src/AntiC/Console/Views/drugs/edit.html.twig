@@ -1,0 +1,393 @@
+{% extends "base/authenticated.base.html.twig" %}
+
+{# Beginning of Page Header #}
+{% block title %}
+Edit - {{ drug_name }}
+{% endblock title %}
+
+{% block pageStylesheets %}
+    <link href="/css/global.css" rel="stylesheet">
+    <link href="/css/drugs.css" rel="stylesheet">
+{% endblock pageStylesheets %}
+
+{# Beginning of Page Content #}
+{% block drugsActive %}
+class="active"
+{% endblock drugsActive %}
+
+
+{% block content %}
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h1 class="page-header">Edit - {{ drug_name }}</h1>
+
+        <form role="form">
+            {# Todo: Figure out Sidebar Floating #}
+            <div class="col-sm-3 well">
+                <div class="form-group">
+                    <label for="common-name">Common Name</label>
+                    <input class="form-control" placeholder="e.g. Abiaterone" id="common-name" required="true" type="text">
+                </div>
+                <div class="form-group">
+                    <label for="trade-name">Trade Name</label>
+                    <input class="form-control" placeholder="e.g. Zytiga" id="trade-name" required="true" type="text">
+                </div>
+                <div class="form-group">
+                    <label for="risk-level">Risk</label>
+                    <select class="form-control" id="risk-level">
+                        <option>Low</option>
+                        <option>Moderate</option>
+                        <option>High</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <div class="form-group">
+                    <div class="classification">
+                        <label>Classification</label>
+                        <input class="form-control" placeholder="e.g. Xeloda" id="classification" type="text">
+                        <button type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    
+                </div>
+                <div class="form-group">
+                    <div class="contraindications">
+                        <label>Contraindications</label>
+                        <input class="form-control" placeholder="e.g. Hypersensitivity" id="contraindications" type="text">
+                        <button type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="onocologyuses">
+                        <label>Onocology Uses</label>
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <input class="form-control" placeholder="e.g. Prostate Cancer" id="onocology" type="text">
+                            </div>
+                            <div class="col-sm-4 checkbox">
+                                <label><input type="checkbox" id="approved" value="approved"> Approved</label>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="precautions">
+                        <label>Precautions</label>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <input class="form-control" placeholder="Label" id="precaution-label" type="text">
+                            </div>
+                            <div class="col-xs-9">
+                                <input class="form-control" placeholder="Precaution" id="precaution-precaution" type="text">
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="breastfeeding">
+                        <label for="breastfeeding">Breastfeeding</label>
+                        <input class="form-control" placeholder="e.g. Not Recommended" id="breastfeeding" type="text">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="fertility">
+                        <label for="fertility">Fertility</label>
+                        <input class="form-control" placeholder="e.g. Not Recommended" id="fertility" type="text">
+                    </div>
+                </div>
+                <div class="form-group">
+                    {# Look into this one #}
+                    <div class="metabolism">
+                        <label for="metabolism">Metabolism</label>
+                        <input class="form-control" placeholder="e.g. Hepatic" id="metabolism" type="text">
+                    </div>
+                </div>
+                <div class="form-group">
+                    {# Look into this one #}
+                    <div class="oraldose">
+                        <label for="oraldose">Usual Oral Dose</label>
+                        <input class="form-control" placeholder="e.g. 200-400 mg/day" id="oraldose" type="text">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="excretion">
+                        <label for="excretion">Excretion</label>
+                        <input class="form-control" placeholder="e.g. Renal/Fecal" id="excretion" type="text">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="available">
+                        <label for="available">Available</label>
+                        <input class="form-control" placeholder="e.g. Tablets: 2.5, 5, 10" id="available" type="text">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="administration">
+                        <label for="administration">Administration</label>
+                        <input class="form-control" placeholder="e.g. Oral with food" id="administration" type="text">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="monitoring">
+                        <label for="monitoring">Monitoring</label>
+                        <input class="form-control" placeholder="e.g. Disease progression and toxicities " id="monitoring" type="text">
+                    </div>
+                </div>
+                <hr>
+                <h2>Side Effects</h2>
+                <div class="form-group">
+                    <div class="frequency">
+                        <label for="frequency">Frequency</label>
+                        <input class="form-control" placeholder="e.g. Clinically significant" id="frequency" type="text">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="effects">
+                        <label>Side Effects</label>
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <input class="form-control" placeholder="e.g. Hypertension" type="text">
+                            </div>
+                            <div class="col-sm-4 checkbox">
+                                <label><input type="checkbox" id="important" value="important"> Important</label>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                    </div>
+                </div>
+                <hr>
+                <h2>Drug Interactions</h2>
+                <div class="form-group">
+                    {# is that word correct? #}
+                    <label>Avoid Concomitant Use</label>
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <input class="form-control" placeholder="e.g. Avoid estrogen" type="text">
+                        </div>
+                        <div class="col-sm-1 or-text">
+                            <strong>OR</strong>
+                        </div>
+                        <div class="col-sm-3">
+                            <select class="form-control">
+                                <option></option>
+                                <option>CYP 450 1A2</option>
+                                <option>CYP 450 2A6</option>
+                                <option>CYP 450 2B6</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <select class="form-control">
+                                <option></option>
+                                <option>Inhibitor</option>
+                                <option>Inducer</option>
+                                <option>Substrate</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                </div>
+                <div class="form-group">
+                    <label><span class="glyphicon glyphicon-arrow-up"></span> Effect (this drug)</label>
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <input class="form-control" placeholder="e.g. Pheonobarb" type="text">
+                        </div>
+                        <div class="col-sm-1 or-text">
+                            <strong>OR</strong>
+                        </div>
+                        <div class="col-sm-3">
+                            <select class="form-control">
+                                <option></option>
+                                <option>CYP 450 1A2</option>
+                                <option>CYP 450 2A6</option>
+                                <option>CYP 450 2B6</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <select class="form-control">
+                                <option></option>
+                                <option>Inhibitor</option>
+                                <option>Inducer</option>
+                                <option>Substrate</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                </div>
+                <div class="form-group">
+                    <label><span class="glyphicon glyphicon-arrow-down"></span> Effect (this drug)</label>
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <input class="form-control" placeholder="e.g. Azanavir" type="text">
+                        </div>
+                        <div class="col-sm-1 or-text">
+                            <strong>OR</strong>
+                        </div>
+                        <div class="col-sm-3">
+                            <select class="form-control">
+                                <option></option>
+                                <option>CYP 450 1A2</option>
+                                <option>CYP 450 2A6</option>
+                                <option>CYP 450 2B6</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <select class="form-control">
+                                <option></option>
+                                <option>Inhibitor</option>
+                                <option>Inducer</option>
+                                <option>Substrate</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                </div>
+                <div class="form-group">
+                    <label><span class="glyphicon glyphicon-sort"></span> Effect (this drug)</label>
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <input class="form-control" placeholder="e.g. Echinacea" type="text">
+                        </div>
+                        <div class="col-sm-1 or-text">
+                            <strong>OR</strong>
+                        </div>
+                        <div class="col-sm-3">
+                            <select class="form-control">
+                                <option></option>
+                                <option>CYP 450 1A2</option>
+                                <option>CYP 450 2A6</option>
+                                <option>CYP 450 2B6</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <select class="form-control">
+                                <option></option>
+                                <option>Inhibitor</option>
+                                <option>Inducer</option>
+                                <option>Substrate</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                </div>
+                <div class="form-group">
+                    <label><span class="glyphicon glyphicon-arrow-up"></span> Effect</label>
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <input class="form-control" placeholder="e.g. Pheonobarb" type="text">
+                        </div>
+                        <div class="col-sm-1 or-text">
+                            <strong>OR</strong>
+                        </div>
+                        <div class="col-sm-3">
+                            <select class="form-control">
+                                <option></option>
+                                <option>CYP 450 1A2</option>
+                                <option>CYP 450 2A6</option>
+                                <option>CYP 450 2B6</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <select class="form-control">
+                                <option></option>
+                                <option>Inhibitor</option>
+                                <option>Inducer</option>
+                                <option>Substrate</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                </div>
+                <div class="form-group">
+                    <label><span class="glyphicon glyphicon-arrow-down"></span> Effect</label>
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <input class="form-control" placeholder="e.g. Azanavir" type="text">
+                        </div>
+                        <div class="col-sm-1 or-text">
+                            <strong>OR</strong>
+                        </div>
+                        <div class="col-sm-3">
+                            <select class="form-control">
+                                <option></option>
+                                <option>CYP 450 1A2</option>
+                                <option>CYP 450 2A6</option>
+                                <option>CYP 450 2B6</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <select class="form-control">
+                                <option></option>
+                                <option>Inhibitor</option>
+                                <option>Inducer</option>
+                                <option>Substrate</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                </div>
+                <div class="form-group">
+                    <label><span class="glyphicon glyphicon-sort"></span> Effect</label>
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <input class="form-control" placeholder="e.g. Echinacea" type="text">
+                        </div>
+                        <div class="col-sm-1 or-text">
+                            <strong>OR</strong>
+                        </div>
+                        <div class="col-sm-3">
+                            <select class="form-control">
+                                <option></option>
+                                <option>CYP 450 1A2</option>
+                                <option>CYP 450 2A6</option>
+                                <option>CYP 450 2B6</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <select class="form-control">
+                                <option></option>
+                                <option>Inhibitor</option>
+                                <option>Inducer</option>
+                                <option>Substrate</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                </div>
+                <div class="form-group">
+                    <label><input type="checkbox" id="cautionwith" value="cautionwith"> Caution with other anti-neoplastic agents (unless per protocol)</label>
+                </div>
+                <div class="form-group">
+                    <label>Other Effects</label>
+                    <input class="form-control" placeholder="e.g. Caution with agents" id="othereffects" type="text">
+                    <button type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                </div>
+                <hr>
+                <h2>Dose Adjustments</h2>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label for="adjustmentname">Name</label>
+                            <input type="text" class="form-control" id="adjustmentname" placeholder="Name">
+                        </div>
+                        <div class="col-sm-5">
+                            <label for="adjustmentdesc">Adjustment</label>
+                            <textarea class="form-control" rows="3" id="adjustmentdesc"></textarea>
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="chartimage">Adjustment Chart</label>
+                            <input type="file" id="chartimage">
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock content %}
