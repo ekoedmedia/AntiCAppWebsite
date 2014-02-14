@@ -1,0 +1,26 @@
+{% extends "base/html.twig" %}
+
+{# Head Tag Elements Start #}
+{% block pageTitle %}
+AntiC | {% block title %}{% endblock title %}
+{% endblock pageTitle %}
+
+
+{# Body Tag Elements Start #}
+{% block pageHeader %}
+<div class="header">
+	{% block header %}{% endblock header %}
+</div>
+{% endblock pageHeader %}
+
+{% block pageContent %}
+<div class="content">
+	{% block content %}{% endblock content %}
+</div>
+{% endblock pageContent %}
+
+{% block pageFooter %}
+<div class="footer">
+	{% block footer %}{% endblock footer %}
+</div>
+{% endblock pageFooter %}
