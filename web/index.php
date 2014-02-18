@@ -79,6 +79,11 @@ $app->get('/console/interactions', "AntiC\Console\Controller\InteractionsControl
 $app->match('/console/interactions/add', "AntiC\Console\Controller\InteractionsController::addAction")->method('GET|POST');
 $app->match('/console/interactions/{ID}', "AntiC\Console\Controller\InteractionsController::editAction")->method('GET|POST');
 
+// User Management Routes
+$app->get('/console/users', "AntiC\Console\Controller\UsersController::indexAction");
+$app->match('/console/users/add', "AntiC\Console\Controller\UsersController::addAction")->method('GET|POST');
+$app->match('/console/users/{ID}', "AntiC\Console\Controller\UsersController::editAction")->method('GET|POST');
+
 // About Routes
 $app->get('/console/about', "AntiC\Console\Controller\AboutController::indexAction");
 
