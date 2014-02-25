@@ -52,6 +52,9 @@ $app->error(function (\Exception $e, $code) use ($app) {
         case 404:
             $errorFile = 'error/404.html.twig';
             break;
+        case 403:
+            $errorFile = 'error/403.html.twig';
+            break;
         default:
             $errorFile = 'error/error.html.twig';
             break;
