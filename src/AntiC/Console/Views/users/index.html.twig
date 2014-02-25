@@ -1,0 +1,54 @@
+{% extends "base/authenticated.base.html.twig" %}
+
+{# Beginning of Page Header #}
+{% block title %}
+Manage Users
+{% endblock title %}
+
+{% block pageStylesheets %}
+    <link href="/css/global.css" rel="stylesheet">
+    <link href="/css/users.css" rel="stylesheet">
+{% endblock pageStylesheets %}
+
+{# Beginning of Page Content #}
+{% block protocolsActive %}
+class="active"
+{% endblock protocolsActive %}
+
+
+{% block content %}
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h1 class="page-header">Users</h1>
+
+        <div class="row controls">
+            <div class="col-xs-4">
+                <input type="text" class="form-control" placeholder="Search">
+            </div>
+            <div class="pull-right add-users-button">
+                <a href="/console/users/add" class="btn btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> Add User</a>
+            </div>
+        </div>
+
+        {# Note: This needs to be switched out for Fuel UX Table that sorts and filters out of the box #}
+        <div class="table-responsive">
+            <table class="table table-hover table-striped">
+                <tr>
+                    <th class="col-md-6">User Name</th>
+                    <th class="col-md-6 text-right">Controls</th>
+                </tr>
+                <tr>
+                    <td class="col-md-6">bobsmith@gmail.com</td>
+                    <td class="col-md-6 text-right"><a href="/console/users/1" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a href="" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-remove"></span> Disable</a></td>
+                </tr>
+                <tr>
+                    <td class="col-md-6">janesmith@gmail.com</td>
+                    <td class="col-md-6 text-right"><a href="/console/users/2" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a href="" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-remove"></span> Disable</a></td>
+                </tr>
+                <tr>
+                    <td class="col-md-6">johndoe@gmail.com</td>
+                    <td class="col-md-6 text-right"><a href="/console/users/2" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a href="" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-ok"></span> Enable</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+{% endblock content %}
