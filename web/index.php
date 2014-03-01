@@ -17,6 +17,25 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
         'charset'   => 'utf8',
     ),
 ));
+ 
+$app->register(new Silex\Provider\SecurityServiceProvider(), array(
+    'security.firewalls' => array(
+    	'default' => array(
+        	'pattern'      => '^/console',
+            'anonymous'    => true,
+        	'form'         => array(
+                'login_path' => '/console/login', 
+                'check_path' => '/console/login_check'
+            ),
+        	'logout'       => array('logout_path' => '/console/logout'),
+        	'users'        => $app->share(function() use ($app){
+                return $app['user.manager'];
+            }),
+    	),
+    ),
+));
+$app->register(new Silex\Provider\RememberMeServiceProvider());
+$app->register(new Silex\Provider\ServiceControllerServiceProvider()); 
 $app->register(new Silex\Provider\SessionServiceProvider());
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 
@@ -26,25 +45,7 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
         ),
 ));
 
-// TEMPORARILY DISABLED JUST TO CREATE PAGES
-// 
-// $app->register(new Silex\Provider\SecurityServiceProvider(), array(
-//     'security.firewalls' => array(
-//     	'admin' => array(
-//         	'pattern'      => '^/console',
-//             'anonymous'    => true,
-//         	'form'         => array('login_path' => '/', 'check_path' => '/login_check'),
-//         	'logout'       => array('logout_path' => '/logout'),
-//         	'users'        => $app->share(function() use ($app){
-//                 return new AntiC\User\Provider\UserProvider($app['db']);
-//             }),
-//     	),
-//     ),
-//     'security.access_rules' => array(
-//         array('^/console', 'ROLE_ADMIN'), 
-//         array('^/', ''),
-//     )
-// ));
+$app->register($u = new AntiC\User\Provider\UserServiceProvider());
 
 // Application Error Handler
 $app->error(function (\Exception $e, $code) use ($app) {
@@ -64,8 +65,7 @@ $app->error(function (\Exception $e, $code) use ($app) {
 
 /*******************************/
 /* Application Logic Goes Here */
-$app->get('/', "AntiC\Console\Controller\ConsoleController::indexAction");
-$app->match('/console/account', "AntiC\Console\Controller\ConsoleController::accountAction")->method('GET|POST');
+$app->mount('/console', $u);
 
 // Drugs Routes
 $app->get('/console', "AntiC\Console\Controller\DrugsController::indexAction");
