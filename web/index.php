@@ -25,7 +25,8 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
             'anonymous'    => true,
         	'form'         => array(
                 'login_path' => '/console/login', 
-                'check_path' => '/console/login_check'
+                'check_path' => '/console/login_check',
+                'default_target_path' => '/console'
             ),
         	'logout'       => array('logout_path' => '/console/logout'),
         	'users'        => $app->share(function() use ($app){
@@ -34,6 +35,10 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
     	),
     ),
 ));
+$app['security.encoder.digest'] = $app->share(function ($app) {
+    return new Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder(12);
+});
+
 $app->register(new Silex\Provider\RememberMeServiceProvider());
 $app->register(new Silex\Provider\ServiceControllerServiceProvider()); 
 $app->register(new Silex\Provider\SessionServiceProvider());
@@ -42,7 +47,7 @@ $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => array(
         __DIR__.'/../src/AntiC/Console/Views',
-        ),
+    ),
 ));
 
 $app->register($u = new AntiC\User\Provider\UserServiceProvider());
@@ -89,5 +94,14 @@ $app->match('/console/users/{ID}', "AntiC\Console\Controller\UsersController::ed
 
 // About Routes
 $app->get('/console/about', "AntiC\Console\Controller\AboutController::indexAction");
+
+// Install Path
+$app->get('/install', function () use ($app){
+    if (AntiC\User\Models\User::installModel($app)) {
+        return "Database and Default User Created.";
+    } else {
+        return "Database exists already.";
+    }
+});
 
 $app->run();

@@ -4,8 +4,8 @@
         "twig/twig": ">=1.8,<2.0-dev",
         "symfony/twig-bridge": "~2.3",
         "symfony/security": "~2.3",
-        "doctrine/dbal": "2.2.*"
-        //"jasongrimes/silex-simpleuser": "~0.6.3"
+        "doctrine/dbal": "2.2.*",
+        "ircmaxell/password-compat": "dev-master"
     },
     "autoload":{
     	"psr-0": {

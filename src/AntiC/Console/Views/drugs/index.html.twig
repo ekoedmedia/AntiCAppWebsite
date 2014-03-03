@@ -17,6 +17,7 @@ class="active"
 
 
 {% block content %}
+    {{ username }}
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h1 class="page-header">Drugs</h1>
 
@@ -29,7 +30,7 @@ class="active"
             </div>
         </div>
 
-        {# Note: This needs to be switched out for Fuel UX Table that sorts and filters out of the box #}
+        {# Note: This table will be managed by AngularJS for sorting, as it makes things SUPER fast #}
         <div class="table-responsive">
             <table class="table table-hover table-striped">
                 <tr>
