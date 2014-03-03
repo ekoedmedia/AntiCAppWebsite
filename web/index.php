@@ -76,7 +76,7 @@ $app->error(function (\Exception $e, $code) use ($app) {
 /* Application Logic Goes Here */
 
 // User Authentication and Manager by UserServiceProvider
-// This is a heavily modified library called: SimpleUser
+// This is a heavily modified version of the library: SimpleUser
 $app->mount('/console', $u);
 
 // Drugs Routes
@@ -96,8 +96,7 @@ $app->match('/console/interactions/{ID}', "AntiC\Console\Controller\Interactions
 
 // User Management Routes
 /**
- * @todo Check into seeing if this fits more in the User Bundle, 
- *       rather than the controller provided in the console.
+ * @todo Remove these and move into UserServiceProvider
  */
 $app->get('/console/users', "AntiC\Console\Controller\UsersController::indexAction");
 $app->match('/console/users/add', "AntiC\Console\Controller\UsersController::addAction")->method('GET|POST');
@@ -106,10 +105,8 @@ $app->match('/console/users/{ID}', "AntiC\Console\Controller\UsersController::ed
 // About Routes
 $app->get('/console/about', "AntiC\Console\Controller\AboutController::indexAction");
 
-
 // LiveView Routes
 $app->get('/', "AntiC\LiveView\Controller\LiveViewController::indexAction");
-
 
 // Install Path
 $app->get('/install', function () use ($app){
