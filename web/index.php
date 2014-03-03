@@ -28,7 +28,10 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
                 'check_path' => '/console/login_check',
                 'default_target_path' => '/console'
             ),
-        	'logout'       => array('logout_path' => '/console/logout'),
+        	'logout'       => array(
+                'logout_path' => '/console/logout',
+                'target' => '/console/login'
+            ),
         	'users'        => $app->share(function() use ($app){
                 return $app['user.manager'];
             }),
@@ -47,6 +50,7 @@ $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => array(
         __DIR__.'/../src/AntiC/Console/Views',
+        __DIR__.'/../src/AntiC/LiveView/Views',
     ),
 ));
 
@@ -72,6 +76,7 @@ $app->error(function (\Exception $e, $code) use ($app) {
 /* Application Logic Goes Here */
 
 // User Authentication and Manager by UserServiceProvider
+// This is a heavily modified library called: SimpleUser
 $app->mount('/console', $u);
 
 // Drugs Routes
@@ -100,6 +105,11 @@ $app->match('/console/users/{ID}', "AntiC\Console\Controller\UsersController::ed
 
 // About Routes
 $app->get('/console/about', "AntiC\Console\Controller\AboutController::indexAction");
+
+
+// LiveView Routes
+$app->get('/', "AntiC\LiveView\Controller\LiveViewController::indexAction");
+
 
 // Install Path
 $app->get('/install', function () use ($app){

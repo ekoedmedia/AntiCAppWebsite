@@ -23,7 +23,7 @@ AntiC | {% block title %}{% endblock title %}
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                 <li {% block accountActive %}{% endblock accountActive %}><a href="/console/account">Account</a></li>
-                <li><a href="/logout">Log out</a></li>
+                <li><a href="{{ path('user.logout') }}">Log out</a></li>
                 </ul>
             </div>
         </div>
