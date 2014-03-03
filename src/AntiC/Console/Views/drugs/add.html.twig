@@ -20,34 +20,34 @@ class="active"
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h1 class="page-header">Add Drug</h1>
 
-        <form role="form">
+        <form role="form" method="post">
             {# Todo: Figure out Sidebar Floating #}
             <div class="col-sm-3 well">
                 <div class="form-group">
                     <label for="common-name">Common Name</label>
-                    <input class="form-control" placeholder="e.g. Abiaterone" id="common-name" required="true" type="text">
+                    <input name="g_name" class="form-control" placeholder="e.g. Abiaterone" id="common-name" required="true" type="text">
                 </div>
                 <div class="form-group">
                     <label for="trade-name">Trade Name</label>
-                    <input class="form-control" placeholder="e.g. Zytiga" id="trade-name" required="true" type="text">
+                    <input name="t_name" class="form-control" placeholder="e.g. Zytiga" id="trade-name" required="true" type="text">
                 </div>
                 <div class="form-group">
                     <label for="risk-level">Risk</label>
-                    <select class="form-control" id="risk-level">
+                    <select name="risk" class="form-control" id="risk-level">
                         <option>Low</option>
                         <option>Moderate</option>
                         <option>High</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn btn-primary" method="post">Save</button>
                 </div>
             </div>
             <div class="col-sm-9">
                 <div class="form-group">
                     <div class="classification">
                         <label>Classification</label>
-                        <input class="form-control" placeholder="e.g. Xeloda" id="classification" type="text">
+                        <input name="classification[]" class="form-control" placeholder="e.g. Xeloda" id="classification" type="text">
                         <button type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                     </div>
                 </div>
@@ -57,7 +57,7 @@ class="active"
                 <div class="form-group">
                     <div class="contraindications">
                         <label>Contraindications</label>
-                        <input class="form-control" placeholder="e.g. Hypersensitivity" id="contraindications" type="text">
+                        <input name="contraindications[]" class="form-control" placeholder="e.g. Hypersensitivity" id="contraindications" type="text">
                         <button type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                     </div>
                 </div>
@@ -66,10 +66,10 @@ class="active"
                         <label>Onocology Uses</label>
                         <div class="row">
                             <div class="col-sm-8">
-                                <input class="form-control" placeholder="e.g. Prostate Cancer" id="onocology" type="text">
+                                <input name="oncology[]" class="form-control" placeholder="e.g. Prostate Cancer" id="onocology" type="text">
                             </div>
                             <div class="col-sm-4 checkbox">
-                                <label><input type="checkbox" id="approved" value="approved"> Approved</label>
+                                <label><input name="approved[]" type="checkbox" id="approved" value="approved"> Approved</label>
                             </div>
                         </div>
                         <button type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
@@ -80,10 +80,10 @@ class="active"
                         <label>Precautions</label>
                         <div class="row">
                             <div class="col-xs-3">
-                                <input class="form-control" placeholder="Label" id="precaution-label" type="text">
+                                <input name="precaution_name[]"class="form-control" placeholder="Label" id="precaution-label" type="text">
                             </div>
                             <div class="col-xs-9">
-                                <input class="form-control" placeholder="Precaution" id="precaution-precaution" type="text">
+                                <input name="precaution_note[]" class="form-control" placeholder="Precaution" id="precaution-precaution" type="text">
                             </div>
                         </div>
                         <button type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
@@ -92,51 +92,51 @@ class="active"
                 <div class="form-group">
                     <div class="breastfeeding">
                         <label for="breastfeeding">Breastfeeding</label>
-                        <input class="form-control" placeholder="e.g. Not Recommended" id="breastfeeding" type="text">
+                        <input name="breastfeeding" class="form-control" placeholder="e.g. Not Recommended" id="breastfeeding" type="text">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="fertility">
                         <label for="fertility">Fertility</label>
-                        <input class="form-control" placeholder="e.g. Not Recommended" id="fertility" type="text">
+                        <input name="fertility" class="form-control" placeholder="e.g. Not Recommended" id="fertility" type="text">
                     </div>
                 </div>
                 <div class="form-group">
                     {# Look into this one #}
                     <div class="metabolism">
                         <label for="metabolism">Metabolism</label>
-                        <input class="form-control" placeholder="e.g. Hepatic" id="metabolism" type="text">
+                        <input name="metabolism" class="form-control" placeholder="e.g. Hepatic" id="metabolism" type="text">
                     </div>
                 </div>
                 <div class="form-group">
                     {# Look into this one #}
                     <div class="oraldose">
                         <label for="oraldose">Usual Oral Dose</label>
-                        <input class="form-control" placeholder="e.g. 200-400 mg/day" id="oraldose" type="text">
+                        <input name="uo_dose" class="form-control" placeholder="e.g. 200-400 mg/day" id="oraldose" type="text">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="excretion">
                         <label for="excretion">Excretion</label>
-                        <input class="form-control" placeholder="e.g. Renal/Fecal" id="excretion" type="text">
+                        <input name="excretion" class="form-control" placeholder="e.g. Renal/Fecal" id="excretion" type="text">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="available">
                         <label for="available">Available</label>
-                        <input class="form-control" placeholder="e.g. Tablets: 2.5, 5, 10" id="available" type="text">
+                        <input name="available" class="form-control" placeholder="e.g. Tablets: 2.5, 5, 10" id="available" type="text">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="administration">
                         <label for="administration">Administration</label>
-                        <input class="form-control" placeholder="e.g. Oral with food" id="administration" type="text">
+                        <input name="administration" class="form-control" placeholder="e.g. Oral with food" id="administration" type="text">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="monitoring">
                         <label for="monitoring">Monitoring</label>
-                        <input class="form-control" placeholder="e.g. Disease progression and toxicities " id="monitoring" type="text">
+                        <input name="monitoring" class="form-control" placeholder="e.g. Disease progression and toxicities " id="monitoring" type="text">
                     </div>
                 </div>
                 <hr>
@@ -144,7 +144,7 @@ class="active"
                 <div class="form-group">
                     <div class="frequency">
                         <label for="frequency">Frequency</label>
-                        <input class="form-control" placeholder="e.g. Clinically significant" id="frequency" type="text">
+                        <input name="sideeffect_frequency[]"class="form-control" placeholder="e.g. Clinically significant" id="frequency" type="text">
                     </div>
                 </div>
                 <div class="form-group">
@@ -152,10 +152,10 @@ class="active"
                         <label>Side Effects</label>
                         <div class="row">
                             <div class="col-sm-8">
-                                <input class="form-control" placeholder="e.g. Hypertension" type="text">
+                                <input name="sideeffect_effect[]"class="form-control" placeholder="e.g. Hypertension" type="text">
                             </div>
                             <div class="col-sm-4 checkbox">
-                                <label><input type="checkbox" id="important" value="important"> Important</label>
+                                <label><input name="sideeffect_severe[]" type="checkbox" id="important" value="important"> Important</label>
                             </div>
                         </div>
                         <button type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
@@ -168,13 +168,13 @@ class="active"
                     <label>Avoid Concomitant Use</label>
                     <div class="row">
                         <div class="col-sm-5">
-                            <input class="form-control" placeholder="e.g. Avoid estrogen" type="text">
+                            <input name="interact_concomit[]" class="form-control" placeholder="e.g. Avoid estrogen" type="text">
                         </div>
                         <div class="col-sm-1 or-text">
                             <strong>OR</strong>
                         </div>
                         <div class="col-sm-3">
-                            <select class="form-control">
+                            <select name="interact_concomit_cyp[]" class="form-control">
                                 <option></option>
                                 <option>CYP 450 1A2</option>
                                 <option>CYP 450 2A6</option>
@@ -182,7 +182,7 @@ class="active"
                             </select>
                         </div>
                         <div class="col-sm-3">
-                            <select class="form-control">
+                            <select name="interact_concomit[]_cyp_type[]" class="form-control">
                                 <option></option>
                                 <option>Inhibitor</option>
                                 <option>Inducer</option>
@@ -196,13 +196,13 @@ class="active"
                     <label><span class="glyphicon glyphicon-arrow-up"></span> Effect (this drug)</label>
                     <div class="row">
                         <div class="col-sm-5">
-                            <input class="form-control" placeholder="e.g. Pheonobarb" type="text">
+                            <input name="interact_inc_this[]" class="form-control" placeholder="e.g. Pheonobarb" type="text">
                         </div>
                         <div class="col-sm-1 or-text">
                             <strong>OR</strong>
                         </div>
                         <div class="col-sm-3">
-                            <select class="form-control">
+                            <select name="interact_inc_this_cyp[]" class="form-control">
                                 <option></option>
                                 <option>CYP 450 1A2</option>
                                 <option>CYP 450 2A6</option>
@@ -210,7 +210,7 @@ class="active"
                             </select>
                         </div>
                         <div class="col-sm-3">
-                            <select class="form-control">
+                            <select name="interact_inc_this_cyp_type[]" class="form-control">
                                 <option></option>
                                 <option>Inhibitor</option>
                                 <option>Inducer</option>
@@ -224,13 +224,13 @@ class="active"
                     <label><span class="glyphicon glyphicon-arrow-down"></span> Effect (this drug)</label>
                     <div class="row">
                         <div class="col-sm-5">
-                            <input class="form-control" placeholder="e.g. Azanavir" type="text">
+                            <input name="interact_decr_this[]" class="form-control" placeholder="e.g. Azanavir" type="text">
                         </div>
                         <div class="col-sm-1 or-text">
                             <strong>OR</strong>
                         </div>
                         <div class="col-sm-3">
-                            <select class="form-control">
+                            <select name="interact_decr_this_cyp" class="form-control">
                                 <option></option>
                                 <option>CYP 450 1A2</option>
                                 <option>CYP 450 2A6</option>
@@ -238,7 +238,7 @@ class="active"
                             </select>
                         </div>
                         <div class="col-sm-3">
-                            <select class="form-control">
+                            <select name="interact_decr_this_cyp_type[]" class="form-control">
                                 <option></option>
                                 <option>Inhibitor</option>
                                 <option>Inducer</option>
@@ -252,13 +252,13 @@ class="active"
                     <label><span class="glyphicon glyphicon-sort"></span> Effect (this drug)</label>
                     <div class="row">
                         <div class="col-sm-5">
-                            <input class="form-control" placeholder="e.g. Echinacea" type="text">
+                            <input name="interact_both_this" class="form-control" placeholder="e.g. Echinacea" type="text">
                         </div>
                         <div class="col-sm-1 or-text">
                             <strong>OR</strong>
                         </div>
                         <div class="col-sm-3">
-                            <select class="form-control">
+                            <select name="interact_both_this_cyp" class="form-control">
                                 <option></option>
                                 <option>CYP 450 1A2</option>
                                 <option>CYP 450 2A6</option>
@@ -266,7 +266,7 @@ class="active"
                             </select>
                         </div>
                         <div class="col-sm-3">
-                            <select class="form-control">
+                            <select name="interact_both_this_cyp_type[]" class="form-control">
                                 <option></option>
                                 <option>Inhibitor</option>
                                 <option>Inducer</option>
@@ -280,13 +280,13 @@ class="active"
                     <label><span class="glyphicon glyphicon-arrow-up"></span> Effect</label>
                     <div class="row">
                         <div class="col-sm-5">
-                            <input class="form-control" placeholder="e.g. Pheonobarb" type="text">
+                            <input name="interact_incr[]" class="form-control" placeholder="e.g. Pheonobarb" type="text">
                         </div>
                         <div class="col-sm-1 or-text">
                             <strong>OR</strong>
                         </div>
                         <div class="col-sm-3">
-                            <select class="form-control">
+                            <select name="interact_incr_cyp[]" class="form-control">
                                 <option></option>
                                 <option>CYP 450 1A2</option>
                                 <option>CYP 450 2A6</option>
@@ -294,7 +294,7 @@ class="active"
                             </select>
                         </div>
                         <div class="col-sm-3">
-                            <select class="form-control">
+                            <select name="interact_incr_cyp_type[]" class="form-control">
                                 <option></option>
                                 <option>Inhibitor</option>
                                 <option>Inducer</option>
@@ -308,13 +308,13 @@ class="active"
                     <label><span class="glyphicon glyphicon-arrow-down"></span> Effect</label>
                     <div class="row">
                         <div class="col-sm-5">
-                            <input class="form-control" placeholder="e.g. Azanavir" type="text">
+                            <input name="interact_decr[]" class="form-control" placeholder="e.g. Azanavir" type="text">
                         </div>
                         <div class="col-sm-1 or-text">
                             <strong>OR</strong>
                         </div>
                         <div class="col-sm-3">
-                            <select class="form-control">
+                            <select name="interact_decr_cyp[]" class="form-control">
                                 <option></option>
                                 <option>CYP 450 1A2</option>
                                 <option>CYP 450 2A6</option>
@@ -322,7 +322,7 @@ class="active"
                             </select>
                         </div>
                         <div class="col-sm-3">
-                            <select class="form-control">
+                            <select name="interact_decr_cyp_type[]" class="form-control">
                                 <option></option>
                                 <option>Inhibitor</option>
                                 <option>Inducer</option>
@@ -336,13 +336,13 @@ class="active"
                     <label><span class="glyphicon glyphicon-sort"></span> Effect</label>
                     <div class="row">
                         <div class="col-sm-5">
-                            <input class="form-control" placeholder="e.g. Echinacea" type="text">
+                            <input name="interact_both[]" class="form-control" placeholder="e.g. Echinacea" type="text">
                         </div>
                         <div class="col-sm-1 or-text">
                             <strong>OR</strong>
                         </div>
                         <div class="col-sm-3">
-                            <select class="form-control">
+                            <select name="interact_both_cyp[]" class="form-control">
                                 <option></option>
                                 <option>CYP 450 1A2</option>
                                 <option>CYP 450 2A6</option>
@@ -350,7 +350,7 @@ class="active"
                             </select>
                         </div>
                         <div class="col-sm-3">
-                            <select class="form-control">
+                            <select name="interact_both_cyp_type[]" class="form-control">
                                 <option></option>
                                 <option>Inhibitor</option>
                                 <option>Inducer</option>
@@ -361,11 +361,11 @@ class="active"
                     <button type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                 </div>
                 <div class="form-group">
-                    <label><input type="checkbox" id="cautionwith" value="cautionwith"> Caution with other anti-neoplastic agents (unless per protocol)</label>
+                    <label><input name="anti-neoplastic" type="checkbox" id="cautionwith" value="cautionwith"> Caution with other anti-neoplastic agents (unless per protocol)</label>
                 </div>
                 <div class="form-group">
                     <label>Other Effects</label>
-                    <input class="form-control" placeholder="e.g. Caution with agents" id="othereffects" type="text">
+                    <input name="interact_other[]" class="form-control" placeholder="e.g. Caution with agents" id="othereffects" type="text">
                     <button type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                 </div>
                 <hr>
@@ -374,15 +374,15 @@ class="active"
                     <div class="row">
                         <div class="col-sm-3">
                             <label for="adjustmentname">Name</label>
-                            <input type="text" class="form-control" id="adjustmentname" placeholder="Name">
+                            <input name="adjust_problem[]" type="text" class="form-control" id="adjustmentname" placeholder="Name">
                         </div>
                         <div class="col-sm-5">
                             <label for="adjustmentdesc">Adjustment</label>
-                            <textarea class="form-control" rows="3" id="adjustmentdesc"></textarea>
+                            <textarea name="adjust_note[]" class="form-control" rows="3" id="adjustmentdesc"></textarea>
                         </div>
                         <div class="col-sm-4">
                             <label for="chartimage">Adjustment Chart</label>
-                            <input type="file" id="chartimage">
+                            <input name="adjust_chart[]" type="file" id="chartimage">
                         </div>
                     </div>
                     <button type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>

@@ -23,6 +23,7 @@ class DrugsController
         return $app['twig']->render('drugs/index.html.twig', array(
             'username' => $app['user']->getName()
         ));
+        return $app['twig']->render('drugs/index.html.twig');
     }
 
     /**
@@ -38,14 +39,29 @@ class DrugsController
         if (!$app['user']) {
             return $app->redirect($app['url_generator']->generate('user.login'));
         }
-
-        if ($request->isMethod('POST')) {
-            /** 
-             * @todo Processing of form and using API Functions from JB/Tanvir
-             */
+    
+        if ($request->getMethod() == 'POST')
+        {
+          /*  $array = array(
+                'g_name' => $request->get('common-name'),
+                't_name' => $request->get('trade-name'),
+                'risk' => $request->get('risk-level'),
+            );
+           */
+            error_log($request->get('g_name'));
+            error_log($request->get('t_name'));
+            error_log($request->get('risk'));
+            foreach($request->get('classification') as $classification){
+                error_log($classification);
+            }
+            
+            return $app['twig']->render('drugs/add.html.twig');
+           # return $array;
         }
-
-        return $app['twig']->render('drugs/add.html.twig');
+        else
+        {
+            return $app['twig']->render('drugs/add.html.twig');
+        }
     }
 
     /**
