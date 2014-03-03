@@ -70,6 +70,8 @@ $app->error(function (\Exception $e, $code) use ($app) {
 
 /*******************************/
 /* Application Logic Goes Here */
+
+// User Authentication and Manager by UserServiceProvider
 $app->mount('/console', $u);
 
 // Drugs Routes
@@ -88,6 +90,10 @@ $app->match('/console/interactions/add', "AntiC\Console\Controller\InteractionsC
 $app->match('/console/interactions/{ID}', "AntiC\Console\Controller\InteractionsController::editAction")->method('GET|POST');
 
 // User Management Routes
+/**
+ * @todo Check into seeing if this fits more in the User Bundle, 
+ *       rather than the controller provided in the console.
+ */
 $app->get('/console/users', "AntiC\Console\Controller\UsersController::indexAction");
 $app->match('/console/users/add', "AntiC\Console\Controller\UsersController::addAction")->method('GET|POST');
 $app->match('/console/users/{ID}', "AntiC\Console\Controller\UsersController::editAction")->method('GET|POST');

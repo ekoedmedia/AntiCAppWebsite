@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @todo To be Removed
+ */
+
 namespace AntiC\Console\Controller;
 
 use Silex\Application;
@@ -21,8 +25,8 @@ class UsersController
     {
         // Query Database with ID and Return User Name and Information to Twig
         return $app['twig']->render('users/edit.html.twig', array(
-                'user_name' => $request->get('ID')
-            ));
+            'user_name' => $request->get('ID')
+        ));
     }
 
 }

@@ -7,22 +7,69 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ProtocolsController
 {
+    /**
+     * Shows the list of protocols
+     *
+     * @route /console/protocols
+     * @param Application
+     * @return twig render IF authenticated, redirect to login otherwise.
+     */
     public function indexAction(Application $app)
     {
+        if (!$app['user']) {
+            return $app->redirect($app['url_generator']->generate('user.login'));
+        }
+
         return $app['twig']->render('protocols/index.html.twig');
     }
 
-    public function addAction(Application $app)
+    /**
+     * Shows and processes the add protocols page
+     *
+     * @route /console/protocols/add
+     * @param Application
+     * @param Request
+     * @return twig render IF authenticated, redirect to login otherwise.
+     */
+    public function addAction(Application $app, Request $request)
     {
+        if (!$app['user']) {
+            return $app->redirect($app['url_generator']->generate('user.login'));
+        }
+
+        if ($request->isMethod('POST')) {
+            /** 
+             * @todo Processing of form and using API Functions from JB/Tanvir
+             */
+        }
+
         return $app['twig']->render('protocols/add.html.twig');
     }
 
-    public function editAction(Request $request, Application $app)
+    /**
+     * Shows and processes the edit protocols page
+     *
+     * @route /console/protocols/{ID}
+     * @param Application
+     * @param Request
+     * @return twig render IF authenticated, redirect to login otherwise.
+     */
+    public function editAction(Application $app, Request $request)
     {
+        if (!$app['user']) {
+            return $app->redirect($app['url_generator']->generate('user.login'));
+        }
+
+        if ($request->isMethod('POST')) {
+            /** 
+             * @todo Processing of form and using API Functions from JB/Tanvir
+             */
+        }
+
         // Query Database with ID and Return Protocol Name and Information to Twig
         return $app['twig']->render('protocols/edit.html.twig', array(
-                'protocol_name' => $request->get('ID')
-            ));
+            'protocol_name' => $request->get('ID')
+        ));
     }
 
 }

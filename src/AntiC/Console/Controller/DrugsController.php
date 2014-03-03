@@ -41,7 +41,7 @@ class DrugsController
 
         if ($request->isMethod('POST')) {
             /** 
-             * @todo Processing of form and using API Functions from JB/Tibor
+             * @todo Processing of form and using API Functions from JB/Tanvir
              */
         }
 
@@ -64,7 +64,7 @@ class DrugsController
 
         if ($request->isMethod('POST')) {
             /** 
-             * @todo Processing of form and using API Functions from JB/Tibor
+             * @todo Processing of form and using API Functions from JB/Tanvir
              */
         }
 
