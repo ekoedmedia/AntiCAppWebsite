@@ -1,0 +1,39 @@
+{% extends "base/base.html.twig" %}
+
+{# Beginning of Page Header #}
+{% block title %}
+Management Login
+{% endblock title %}
+
+{% block pageStylesheets %}
+    <link href="/css/signin.css" rel="stylesheet">
+{% endblock pageStylesheets %}
+
+{# Beginning of Page Content #}
+{% block header %}
+    <div class="page-header">
+        <img src="/img/logo.png" alt="AntiC Cancer App" class="center-block" style="width:200px;">
+    </div>
+{% endblock header %}
+
+{% block content %}
+    <form action="{{ path('user.login_check') }}" method="POST" role="form" class="form-signin">    
+        {% if error %}
+            <div class="alert alert-danger form-error">
+                {{ error }}
+            </div>
+        {% endif %}
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <input class="form-control" placeholder="Email address" required="" autofocus="" type="email" name="_username" value="{{ last_username }}">
+        <input class="form-control" placeholder="Password" required="" name="_password" type="password">
+        {% if allowRememberMe %}
+            <label class="checkbox">
+                <input type="checkbox" name="_remember_me" value="true" checked> Remember me
+            </label>
+        {% endif %}
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <div class="well well-sm">
+            <a onclick="alert('This will be a modal that pops up to sent an email');">I forgot my password</a>
+        </div>
+    </form>
+{% endblock content %}
