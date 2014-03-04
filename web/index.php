@@ -69,7 +69,7 @@ $app->error(function (\Exception $e, $code) use ($app) {
             $errorFile = 'error/error.html.twig';
             break;
     }
-    return $app['twig']->render($errorFile);
+    //return $app['twig']->render($errorFile); // Temporarily commented out to display stack dump
 });
 
 /*******************************/
