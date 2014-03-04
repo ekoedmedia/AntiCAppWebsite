@@ -21,8 +21,6 @@ class UserController
     /** @var UserManager */
     protected $userManager;
 
-    protected $layoutTemplate = '@user/layout.twig';
-
     /**
      * Constructor.
      *
@@ -36,24 +34,6 @@ class UserController
         if (!empty($options)) {
             $this->setOptions($options);
         }
-    }
-
-    /**
-     * @param array $options
-     */
-    public function setOptions(array $options)
-    {
-        if (array_key_exists('layout_template', $options)) {
-            $this->layoutTemplate = $options['layout_template'];
-        }
-    }
-
-    /**
-     * @param string $layoutTemplate
-     */
-    public function setLayoutTemplate($layoutTemplate)
-    {
-        $this->layoutTemplate = $layoutTemplate;
     }
 
     /**
@@ -71,6 +51,123 @@ class UserController
             'allowRememberMe' => isset($app['security.remember_me.response_listener']),
         ));
     }
+
+    /**
+     * View Self Action
+     * 
+     * @route /console/account
+     * @param Application $app
+     * @param Request $request
+     * @return twig rendered template
+     * @throws InvalidArgumentException if CMD on POST is invalid
+     */
+    public function viewAction(Application $app, Request $request) {
+        $nameError;
+        $passwordError;
+        $emailError;
+        if ($request->isMethod('POST')) {
+            switch ($request->get("cmd")) {
+                // Change Name Function
+                case "changeName":
+                    $user = $app['user'];
+                    $user->setName($request->request->get('name'));
+                    $nameError = $this->userManager->validate($user);
+                    if (empty($nameError)) {
+                        $this->userManager->update($user);
+                        $app['session']->getFlashBag()->set('success', "Successfully updated name.");
+                    }
+                    break;
+                // Change Email Function
+                case "changeEmail":
+                    $user = $app['user'];
+                    if (password_verify($request->request->get('password'), $user->getPassword())) {
+                        $user->setEmail($request->request->get('email'));
+                        $emailError = $this->userManager->validate($user);
+                        if (empty($emailError)) {
+                            $this->userManager->update($user);
+                            $app['session']->getFlashBag()->set('success', "Successfully updated email.");
+                        }
+                    } else {
+                        $emailError = array("Provided password was invalid.");
+                    }
+                    break;
+                // Change Password Function
+                case "changePassword":
+                    $user = $app['user'];
+                    $currentPassword = $request->request->get('currentPassword');
+                    $newPassword = $request->request->get('newPassword');
+                    $confirmPassword = $request->request->get('confirmPassword');
+                    if ($newPassword == $confirmPassword && !empty($confirmPassword)) {
+                        if (password_verify($currentPassword, $user->getPassword())) {
+                            $this->userManager->setUserPassword($user, $confirmPassword);
+                            $passwordError = $this->userManager->validate($user);
+                            if (empty($passwordError)) {
+                                $this->userManager->update($user);
+                                $app['session']->getFlashBag()->set('success', "Successfully updated password.");
+                            }
+                        } else {
+                            $passwordError = array("Provided password was invalid.");
+                        }
+                    } else {
+                        $passwordError = array("New Password and Confirm Password do not match.");
+                    }
+                    break;
+                default:
+                    throw new InvalidArgumentException("Command not correct.");
+                    break;
+            }
+        }
+
+        return $app['twig']->render('@user/account/settings.html.twig', array(
+            'user' => $app['user'],
+            'nameError' => $nameError,
+            'emailError' => $emailError,
+            'passwordError' => $passwordError
+        ));
+    }
+
+    /**
+     * Add User Action.
+     *
+     * @route /console/user/add
+     * @param Application $app
+     * @param Request $request
+     * @return twig rendered template
+     */
+    public function addAction(Application $app, Request $request)
+    {
+        if ($request->isMethod('POST')) {
+            /**
+             * @todo Write Add Method
+             */
+        }
+
+        return $app['twig']->render('@user/management/add.html.twig', array(
+            'error' => isset($error) ? $error : null
+        ));
+    }
+
+    /**
+     * List Users Action.
+     *
+     * @route /console/user
+     * @param Application $app
+     * @param Request $request
+     * @return twig rendered template
+     */
+    public function listAction(Application $app, Request $request)
+    {
+        $users = $this->userManager->findBy(array());
+
+        return $app['twig']->render('@user/management/index.html.twig', array(
+            'users' => $users,
+        ));
+    }
+
+
+    /**
+     * @todo Any methods after this are old and need to be changed.
+     */
 
     /**
      * Register action.
@@ -134,86 +231,6 @@ class UserController
     }
 
     /**
-     * View user action.
-     *
-     * @param Application $app
-     * @param Request $request
-     * @param int $id
-     * @return Response
-     * @throws NotFoundHttpException if no user is found with that ID.
-     */
-    public function viewAction(Application $app, Request $request, $id)
-    {
-        $user = $this->userManager->getUser($id);
-
-        if (!$user) {
-            throw new NotFoundHttpException('No user was found with that ID.');
-        }
-
-        return $app['twig']->render('@user/view.twig', array(
-            'layout_template' => $this->layoutTemplate,
-            'user' => $user,
-        ));
-
-    }
-
-    /**
-     * View Self Action
-     * 
-     * @route /console/account
-     * @param Application $app
-     * @param Request $request
-     * @return twig rendered template
-     * @throws InvalidArgumentException if CMD on POST is invalid
-     */
-    public function viewSelfAction(Application $app, Request $request) {
-        if (!$app['user']) {
-            return $app->redirect($app['url_generator']->generate('user.login'));
-        }
-        $nameError;
-        $passwordError;
-        $emailError;
-        if ($request->isMethod('POST')) {
-            switch ($request->get("cmd")) {
-                case "changeName":
-                    $user = $app['user'];
-                    $user->setName($request->request->get('name'));
-                    $nameError = $this->userManager->validate($user);
-                    if (empty($errors)) {
-                        $this->userManager->update($user);
-                        $app['session']->getFlashBag()->set('success', "Successfully updated name.");
-                    }
-                    break;
-                case "changeEmail":
-                    $user = $app['user'];
-                    if ($this->userManager->checkUserPassword($user, $request->request->get('password'))) {
-                        $user->setEmail($request->request->get('email'));
-                        $emailError = $this->userManager->validate($user);
-                        if (empty($errors)) {
-                            $this->userManager->update($user);
-                            $app['session']->getFlashBag()->set('success', "Successfully updated email.");
-                        }
-                    } else {
-                        $emailError = array("Provided password was invalid.");
-                    }
-                    break;
-                case "changePassword":
-                    break;
-                default:
-                    throw new InvalidArgumentException("Command not correct.");
-                    break;
-            }
-        }
-
-        return $app['twig']->render('@user/account/settings.html.twig', array(
-            'user' => $app['user'],
-            'nameError' => $nameError,
-            'emailError' => $emailError,
-            'passwordError' => $passwordError
-        ));
-    }
-
-    /**
      * Edit user action.
      *
      * @param Application $app
@@ -255,57 +272,10 @@ class UserController
             }
         }
 
-        return $app['twig']->render('@user/edit.twig', array(
-            'layout_template' => $this->layoutTemplate,
+        return $app['twig']->render('@user/management/edit.html.twig', array(
             'error' => implode("\n", $errors),
             'user' => $user,
             'available_roles' => array('ROLE_USER', 'ROLE_ADMIN'),
         ));
-    }
-
-    public function listAction(Application $app, Request $request)
-    {
-        $limit = $request->get('limit') ?: 50;
-        $offset = $request->get('offset') ?: 0;
-        $order_by = $request->get('order_by') ?: 'id';
-        $order_dir = $request->get('order_dir') == 'DESC' ? 'DESC' : 'ASC';
-
-        $numResults = $this->userManager->findCount();
-
-        $users = $this->userManager->findBy(array(), array(
-            'limit' => array($offset, $limit),
-            'order_by' => array($order_by, $order_dir),
-        ));
-
-        foreach ($users as $user) {
-            $user->imageUrl = $this->getGravatarUrl($user->getEmail(), 40);
-        }
-
-        $nextUrl = $prevUrl = null;
-        if ($numResults > $limit) {
-            $nextOffset = ($offset + $limit) < $numResults  ? $offset + $limit : null;
-            $prevOffset = $offset > 0 ? (($offset - $limit) > 0 ? $offset - $limit : 0) : null;
-
-            $baseUrl = $app['url_generator']->generate('user.list') . '?limit=' . $limit . '&order_by=' . $order_by . '&order_dir=' . $order_dir;
-            if ($nextOffset !== null) {
-                $nextUrl = $baseUrl . '&offset=' . $nextOffset;
-            }
-            if ($prevOffset !== null) {
-                $prevUrl = $baseUrl . '&offset=' . $prevOffset;
-            }
-        }
-        $firstResult = $offset + 1;
-        $lastResult = ($offset + $limit) > $numResults ? $numResults : $offset + $limit;
-
-        return $app['twig']->render('@user/list.twig', array(
-            'layout_template' => $this->layoutTemplate,
-            'users' => $users,
-            'numResults' => $numResults,
-            'nextUrl' => $nextUrl,
-            'prevUrl' => $prevUrl,
-            'firstResult' => $firstResult,
-            'lastResult' => $lastResult,
-        ));
-
     }
 }

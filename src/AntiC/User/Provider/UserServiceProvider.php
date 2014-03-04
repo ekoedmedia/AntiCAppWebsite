@@ -80,10 +80,12 @@ class UserServiceProvider implements ServiceProviderInterface, ControllerProvide
             throw new \LogicException('You must enable the ServiceController service provider to be able to use these routes.');
         }
 
-        /** @var ControllerCollection $controllers */
+        /** 
+         * @var ControllerCollection $controllers 
+         */
         $controllers = $app['controllers_factory'];
 
-        $controllers->get('/account', 'user.controller:viewSelfAction')
+        $controllers->get('/account', 'user.controller:viewAction')
             ->bind('user.account')
             ->before(function(Request $request) use ($app) {
                 // Require login. This should never actually cause access to be denied,
@@ -93,19 +95,18 @@ class UserServiceProvider implements ServiceProviderInterface, ControllerProvide
                 }
             });
 
-        $controllers->get('/user/{id}', 'user.controller:viewAction')
-            ->bind('user.view')
-            ->assert('id', '\d+')
+        $controllers->get('/user/add', 'user.controller:addAction')
+            ->bind('user.add')
             ->before(function(Request $request) use ($app) {
-                if (!$app['user']) {
+                if (!$app['user'] || !$app['user']->hasRole('ROLE_ADMIN')) {
                     throw new AccessDeniedException();
                 }
             });
 
-        $controllers->method('GET|POST')->match('/{id}/edit', 'user.controller:editAction')
+        $controllers->method('GET|POST')->match('/user/{id}', 'user.controller:editAction')
             ->bind('user.edit')
             ->before(function(Request $request) use ($app) {
-                if (!$app['security']->isGranted('EDIT_USER_ID', $request->get('id'))) {
+                if (!$app['user'] || !$app['user']->hasRole('ROLE_ADMIN')) {
                     throw new AccessDeniedException();
                 }
             });
@@ -113,7 +114,7 @@ class UserServiceProvider implements ServiceProviderInterface, ControllerProvide
         $controllers->get('/user', 'user.controller:listAction')
             ->bind('user.list')
             ->before(function(Request $request) use ($app) {
-                if (!$app['user']) {
+                if (!$app['user'] || !$app['user']->hasRole('ROLE_ADMIN')) {
                     throw new AccessDeniedException();
                 }
             });

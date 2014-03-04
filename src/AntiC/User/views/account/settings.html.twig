@@ -55,7 +55,7 @@ class="active"
                 <input type="text" class="form-control" name="name" id="changeName" value="{{ user.name }}" style="max-width:300px;">
             </div>
             <input type="hidden" name="cmd" value="changeName">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Save</button>
         </form>
 
         <hr>
@@ -78,13 +78,20 @@ class="active"
                 <input type="password" class="form-control" name="password" id="changePassword" placeholder="Password" style="max-width:300px;">
             </div>
             <input type="hidden" name="cmd" value="changeEmail">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Save</button>
         </form>
 
         <hr>
 
         <h3>Change Password</h3>
         <form role="form" method="post">
+            {% if passwordError %}
+                <div class="alert alert-danger form-error">
+                    {% for error in passwordError %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
             <div class="form-group">
                 <label for="currentPassword">Current Password</label>
                 <input type="password" class="form-control" name="currentPassword" id="currentPassword" placeholder="Current Password" style="max-width:300px;">
@@ -98,7 +105,7 @@ class="active"
                 <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" style="max-width:300px;">
             </div>
             <input type="hidden" name="cmd" value="changePassword">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Save</button>
         </form>
 
     </div>

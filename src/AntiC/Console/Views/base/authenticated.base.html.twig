@@ -40,7 +40,7 @@ AntiC | {% block title %}{% endblock title %}
                     <li {% block drugsActive %}{% endblock drugsActive %}><a href="/console">Drugs</a></li>
                     <li {% block protocolsActive %}{% endblock protocolsActive %}><a href="/console/protocols">Protocols</a></li>
                     <li {% block interactionsActive %}{% endblock interactionsActive %}><a href="/console/interactions">Interactions</a></li>
-                    <li {% block usersActive %}{% endblock usersActive %}><a href="/console/users">User Management</a></li>
+                    <li {% block usersActive %}{% endblock usersActive %}><a href="{{ path('user.list') }}">User Management</a></li>
                     <li {% block aboutActive %}{% endblock aboutActive %}><a href="/console/about">About</a></li>
                 </ul>
             </div>
