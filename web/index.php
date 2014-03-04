@@ -11,7 +11,7 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
     'db.options' => array(
         'driver'    => 'pdo_mysql',
         'host'      => 'localhost',
-        'dbname'    => 'antic',
+        'dbname'    => 'cancerdrugdb',
         'user'      => 'root',
         'password'  => 'root',
         'charset'   => 'utf8',
@@ -69,7 +69,7 @@ $app->error(function (\Exception $e, $code) use ($app) {
             $errorFile = 'error/error.html.twig';
             break;
     }
-    return $app['twig']->render($errorFile);
+    //return $app['twig']->render($errorFile); // Temporarily commented out to display stack dump
 });
 
 /*******************************/
