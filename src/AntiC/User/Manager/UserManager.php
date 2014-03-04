@@ -334,13 +334,15 @@ class UserManager implements UserProviderInterface
     {
         $sql = 'INSERT INTO users (email, password, salt, name, roles, enabled, time_created) VALUES (:email, :password, :salt, :name, :roles, :enabled, :timeCreated) ';
 
+        $salt = $user->getSalt();
+        $enabled = $user->getEnabled();
         $params = array(
             'email' => $user->getEmail(),
             'password' => $user->getPassword(),
-            'salt' => $user->getSalt(),
+            'salt' => empty($salt) ? '' : $salt,
             'name' => $user->getName(),
             'roles' => implode(',', $user->getRoles()),
-            'enabled' => $user->getEnabled(),
+            'enabled' => empty($enabled) ? 1 : $enabled,
             'timeCreated' => $user->getTimeCreated(),
         );
 

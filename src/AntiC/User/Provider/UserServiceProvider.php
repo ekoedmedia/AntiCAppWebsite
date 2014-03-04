@@ -95,7 +95,7 @@ class UserServiceProvider implements ServiceProviderInterface, ControllerProvide
                 }
             });
 
-        $controllers->get('/user/add', 'user.controller:addAction')
+        $controllers->method('GET|POST')->match('/user/add', 'user.controller:addAction')
             ->bind('user.add')
             ->before(function(Request $request) use ($app) {
                 if (!$app['user'] || !$app['user']->hasRole('ROLE_ADMIN')) {

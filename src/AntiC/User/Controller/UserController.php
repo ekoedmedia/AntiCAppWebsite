@@ -136,14 +136,42 @@ class UserController
      */
     public function addAction(Application $app, Request $request)
     {
+        $user = $this->userManager->createUser('', '', '');
+
         if ($request->isMethod('POST')) {
-            /**
-             * @todo Write Add Method
-             */
+            $password = $request->request->get('password');
+            $confirmPassword = $request->request->get('confirmPassword');
+            if (is_array($request->request->get('role'))) {
+                $role = $request->request->get('role');
+            } else {
+                $role = array($request->request->get('role'));
+            }
+
+            $user->setName($request->request->get('userName'));
+            $user->setEmail($request->request->get('email'));
+            $user->setRoles($role);
+            if ($password == $confirmPassword && !empty($confirmPassword)) {
+                $user = $this->userManager->createUser(
+                    $request->request->get('email'), 
+                    $confirmPassword, 
+                    $request->request->get('userName'), 
+                    $role
+                );
+
+                $errors = $this->userManager->validate($user);
+                if (empty($errors)) {
+                    $this->userManager->insert($user);
+                    $app['session']->getFlashBag()->set('success', "Successfully added user.");
+                    return $app->redirect($app['url_generator']->generate('user.list'));
+                }
+            } else {
+                $errors = array("Passwords do not match, or left blank.");
+            }
         }
 
         return $app['twig']->render('@user/management/add.html.twig', array(
-            'error' => isset($error) ? $error : null
+            'errors' => isset($errors) ? $errors : null,
+            'user' => isset($user) ? $user : null,
         ));
     }
 

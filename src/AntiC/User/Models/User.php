@@ -19,6 +19,7 @@ class User implements UserInterface, \Serializable
     protected $id;
     protected $email;
     protected $password;
+    protected $salt;
     protected $roles = array();
     protected $name = '';
     protected $enabled;
