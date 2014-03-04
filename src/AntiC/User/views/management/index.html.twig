@@ -44,7 +44,11 @@ class="active"
                 <tr ng-repeat="user in users | filter:userSearch | orderBy:'email'">
                     <td class="col-md-4">{% verbatim %}{{ user.name }}{% endverbatim %}</td>
                     <td class="col-md-4">{% verbatim %}{{ user.email }}{% endverbatim %}</td>
-                    <td class="col-md-4 text-right"><a href="/console/user/{% verbatim %}{{ user.id }}{% endverbatim %}" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-edit"></span> Edit</a> <button class="btn btn-warning btn-xs btnDisableUser"><span class="glyphicon glyphicon-remove"></span> Disable</button></td>
+                    <td class="col-md-4 text-right">
+                        <a href="/console/user/{% verbatim %}{{ user.id }}{% endverbatim %}" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-edit"></span> Edit</a> 
+                        <button class="btn btn-info btn-xs btnDisableUser" ng-click="user.enabled=0" ng-show="user.enabled" id="userid-{% verbatim %}{{ user.id }}{% endverbatim %}"><span class="glyphicon glyphicon-ok"></span> Enabled</button>
+                        <button class="btn btn-danger btn-xs btnDisableUser" ng-click="user.enabled=1" ng-show="!user.enabled" id="userid-{% verbatim %}{{ user.id }}{% endverbatim %}"><span class="glyphicon glyphicon-remove"></span> Disabled</button>
+                    </td>
                 </tr>
                 <tr ng-show="users.length == 0">
                     <td>No Users to Manage.</td>
@@ -67,7 +71,7 @@ class="active"
     anticApp.controller('UserController', ['$scope', function ($scope) {
         $scope.users = [
         {% for user in users %}
-            { 'name':"{{ user.name }}", 'email':"{{ user.email }}", 'id':{{ user.id }} },
+            { 'name':"{{ user.name }}", 'email':"{{ user.email }}", 'id':{{ user.id }}, 'enabled':{{ user.enabled }} },
         {% endfor %}
         ];
     }]);

@@ -254,6 +254,7 @@ class UserController
     /**
      * Enable/Disable User Action
      *
+     * @route /console/user/{id}/enable
      * @param Application $app
      * @param Request $reqeust
      * @param int $id
@@ -262,9 +263,20 @@ class UserController
     public function enableAction(Application $app, Request $request, $id)
     {
         if ($request->isMethod('POST')) {
-            /** 
-             * @todo Set User Enabled to 0 or 1 depending on their state
-             */
+            $user = $this->userManager->getUser($id);
+
+            if (!$user) {
+                throw new NotFoundHttpException('No user was found with that ID.');
+            }
+            
+            if ($user->getEnabled()) {
+                $user->setEnabled(0);
+            } else {
+                $user->setEnabled(1);
+            }
+
+            $this->userManager->update($user);
+            return $app->json($user->getEnabled());
         } else {
             return new AccessDeniedException("HTTP method not supported");
         }
