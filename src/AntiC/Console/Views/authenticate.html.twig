@@ -27,13 +27,13 @@ Management Login
         <input class="form-control" placeholder="Email address" required="" autofocus="" type="email" name="_username" value="{{ last_username }}">
         <input class="form-control" placeholder="Password" required="" name="_password" type="password">
         {% if allowRememberMe %}
-            <label class="checkbox">
-                <input type="checkbox" name="_remember_me" value="true" checked> Remember me
-            </label>
+            <div class="well well-sm">
+                <label class="checkbox">
+                    <input type="checkbox" name="_remember_me" value="true" checked> Remember me
+                </label>
+            </div>
         {% endif %}
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        <div class="well well-sm">
-            <a onclick="alert('This will be a modal that pops up to sent an email');">I forgot my password</a>
-        </div>
+        <a class="btn btn-sm btn-info btn-block" href="">I forgot my password</a>
     </form>
 {% endblock content %}

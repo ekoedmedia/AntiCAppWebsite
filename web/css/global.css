@@ -2,8 +2,8 @@
  * Authenticated Global Stylesheet
  **/
 
- body {
-  padding-top: 50px;
+body {
+    padding-top: 50px;
 }
 
 
@@ -12,8 +12,8 @@
  */
 
 .sub-header {
-  padding-bottom: 10px;
-  border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
 }
 
 

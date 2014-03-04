@@ -53,7 +53,6 @@ body {
   border-top-right-radius: 0;
 }
 
-.form-signin .well {
-    margin-top: 40px;
+.form-signin .well label {
+    margin:0;
 }
-

@@ -153,28 +153,64 @@ class UserController
         return $app['twig']->render('@user/view.twig', array(
             'layout_template' => $this->layoutTemplate,
             'user' => $user,
-            'imageUrl' => $this->getGravatarUrl($user->getEmail()),
         ));
 
     }
 
-    public function viewSelfAction(Application $app) {
+    /**
+     * View Self Action
+     * 
+     * @route /console/account
+     * @param Application $app
+     * @param Request $request
+     * @return twig rendered template
+     * @throws InvalidArgumentException if CMD on POST is invalid
+     */
+    public function viewSelfAction(Application $app, Request $request) {
         if (!$app['user']) {
             return $app->redirect($app['url_generator']->generate('user.login'));
         }
+        $nameError;
+        $passwordError;
+        $emailError;
+        if ($request->isMethod('POST')) {
+            switch ($request->get("cmd")) {
+                case "changeName":
+                    $user = $app['user'];
+                    $user->setName($request->request->get('name'));
+                    $nameError = $this->userManager->validate($user);
+                    if (empty($errors)) {
+                        $this->userManager->update($user);
+                        $app['session']->getFlashBag()->set('success', "Successfully updated name.");
+                    }
+                    break;
+                case "changeEmail":
+                    $user = $app['user'];
+                    if ($this->userManager->checkUserPassword($user, $request->request->get('password'))) {
+                        $user->setEmail($request->request->get('email'));
+                        $emailError = $this->userManager->validate($user);
+                        if (empty($errors)) {
+                            $this->userManager->update($user);
+                            $app['session']->getFlashBag()->set('success', "Successfully updated email.");
+                        }
+                    } else {
+                        $emailError = array("Provided password was invalid.");
+                    }
+                    break;
+                case "changePassword":
+                    break;
+                default:
+                    throw new InvalidArgumentException("Command not correct.");
+                    break;
+            }
+        }
 
-        return $app->redirect($app['url_generator']->generate('user.view', array('id' => $app['user']->getId())));
-    }
-
-    /**
-     * @param string $email
-     * @param int $size
-     * @return string
-     */
-    protected function getGravatarUrl($email, $size = 80)
-    {
-        // See https://en.gravatar.com/site/implement/images/ for available options.
-        return '//www.gravatar.com/avatar/' . md5(strtolower(trim($email))) . '?s=' . $size . '&d=identicon';
+        return $app['twig']->render('@user/account/settings.html.twig', array(
+            'user' => $app['user'],
+            'nameError' => $nameError,
+            'emailError' => $emailError,
+            'passwordError' => $passwordError
+        ));
     }
 
     /**
@@ -224,7 +260,6 @@ class UserController
             'error' => implode("\n", $errors),
             'user' => $user,
             'available_roles' => array('ROLE_USER', 'ROLE_ADMIN'),
-            'image_url' => $this->getGravatarUrl($user->getEmail()),
         ));
     }
 

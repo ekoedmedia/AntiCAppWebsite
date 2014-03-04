@@ -84,7 +84,7 @@ class UserServiceProvider implements ServiceProviderInterface, ControllerProvide
         $controllers = $app['controllers_factory'];
 
         $controllers->get('/account', 'user.controller:viewSelfAction')
-            ->bind('user')
+            ->bind('user.account')
             ->before(function(Request $request) use ($app) {
                 // Require login. This should never actually cause access to be denied,
                 // but it causes a login form to be rendered if the viewer is not logged in.
