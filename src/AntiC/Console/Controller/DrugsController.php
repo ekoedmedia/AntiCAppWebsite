@@ -19,6 +19,11 @@ class DrugsController
         if (!$app['user']) {
             return $app->redirect($app['url_generator']->generate('user.login'));
         }
+        if (!$app['user']->getEnabled()) {
+            $app['security']->setToken(null);
+            $app['session']->getFlashBag()->set('notice', "Your account has been disabled. Please contact site support.");
+            return $app->redirect($app['url_generator']->generate('user.login'));
+        }
 
         return $app['twig']->render('drugs/index.html.twig', array(
             'username' => $app['user']->getName()

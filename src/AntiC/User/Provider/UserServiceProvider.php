@@ -128,7 +128,10 @@ class UserServiceProvider implements ServiceProviderInterface, ControllerProvide
             });
 
         $controllers->get('/login', 'user.controller:loginAction')
-            ->bind('user.login');
+            ->bind('user.login')
+            ->after(function(Request $request) use ($app) {
+                $app['session']->invalidate();
+            });
 
         // login_check and logout are dummy routes so we can use the names.
         // The security provider should intercept these, so no controller is needed.

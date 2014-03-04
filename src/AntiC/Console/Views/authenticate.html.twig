@@ -18,6 +18,11 @@ Management Login
 
 {% block content %}
     <form action="{{ path('user.login_check') }}" method="POST" role="form" class="form-signin">    
+        {% if app.session.flashbag.has('notice') %}
+            {% for flashMessage in app.session.flashbag.get('notice') %}
+                <div class="alert alert-info">{{ flashMessage }}</div>
+            {% endfor %}
+        {% endif %}
         {% if error %}
             <div class="alert alert-danger form-error">
                 {{ error }}
