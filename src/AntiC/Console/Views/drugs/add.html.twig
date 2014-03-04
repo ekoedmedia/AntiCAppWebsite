@@ -47,8 +47,11 @@ class="active"
                 <div class="form-group">
                     <div class="classification">
                         <label>Classification</label>
-                        <input name="classification[]" class="form-control" placeholder="e.g. Xeloda" id="classification" type="text">
-      
+                        <div class="row">
+                            <div class="col-sm-10">
+                                <input name="classification[]" class="form-control" placeholder="e.g. Xeloda" id="classification" type="text">
+                            </div>
+                        </div>
                         <button name="classification_button" type="button" onclick="addRow(this);" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                     </div>
                 </div>
@@ -58,8 +61,12 @@ class="active"
                 <div class="form-group">
                     <div class="contraindications">
                         <label>Contraindications</label>
-                        <input name="contraindications[]" class="form-control" placeholder="e.g. Hypersensitivity" id="contraindications" type="text">
-                        <button type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                        <div class="row">
+                            <div class="col-sm-10">
+                                <input name="contraindications[]" class="form-control" placeholder="e.g. Hypersensitivity" id="contraindications" type="text">
+                            </div>
+                        </div>
+                        <button type="button" onclick="addRow(this);" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                     </div>
                 </div>
                 <div class="form-group">
@@ -69,11 +76,11 @@ class="active"
                             <div class="col-sm-8">
                                 <input name="oncology[]" class="form-control" placeholder="e.g. Prostate Cancer" id="onocology" type="text">
                             </div>
-                            <div class="col-sm-4 checkbox">
+                            <div class="col-sm-1 checkbox">
                                 <label><input name="approved[]" type="checkbox" id="approved" value="approved"> Approved</label>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                        <button type="button" onclick="addRow(this);" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                     </div>
                 </div>
                 <div class="form-group">
@@ -83,11 +90,11 @@ class="active"
                             <div class="col-xs-3">
                                 <input name="precaution_name[]"class="form-control" placeholder="Label" id="precaution-label" type="text">
                             </div>
-                            <div class="col-xs-9">
+                            <div class="col-xs-8">
                                 <input name="precaution_note[]" class="form-control" placeholder="Precaution" id="precaution-precaution" type="text">
                             </div>
                         </div>
-                        <button type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                        <button type="button" onclick="addRow(this);" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                     </div>
                 </div>
                 <div class="form-group">
@@ -155,11 +162,11 @@ class="active"
                             <div class="col-sm-8">
                                 <input name="sideeffect_effect[]"class="form-control" placeholder="e.g. Hypertension" type="text">
                             </div>
-                            <div class="col-sm-4 checkbox">
+                            <div class="col-sm-1 checkbox">
                                 <label><input name="sideeffect_severe[]" type="checkbox" id="important" value="important"> Important</label>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                        <button onclick="addRow(this);" type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                     </div>
                 </div>
                 <hr>
@@ -168,7 +175,7 @@ class="active"
                     {# is that word correct? #}
                     <label>Avoid Concomitant Use</label>
                     <div class="row">
-                        <div class="col-sm-5">
+                        <div class="col-sm-4">
                             <input name="interact_concomit[]" class="form-control" placeholder="e.g. Avoid estrogen" type="text">
                         </div>
                         <div class="col-sm-1 or-text">
@@ -191,12 +198,12 @@ class="active"
                             </select>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                    <button type="button" onclick="addRow(this);" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                 </div>
                 <div class="form-group">
                     <label><span class="glyphicon glyphicon-arrow-up"></span> Effect (this drug)</label>
                     <div class="row">
-                        <div class="col-sm-5">
+                        <div class="col-sm-4">
                             <input name="interact_inc_this[]" class="form-control" placeholder="e.g. Pheonobarb" type="text">
                         </div>
                         <div class="col-sm-1 or-text">
@@ -219,12 +226,12 @@ class="active"
                             </select>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                    <button type="button" onclick="addRow(this);" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                 </div>
                 <div class="form-group">
                     <label><span class="glyphicon glyphicon-arrow-down"></span> Effect (this drug)</label>
                     <div class="row">
-                        <div class="col-sm-5">
+                        <div class="col-sm-4">
                             <input name="interact_decr_this[]" class="form-control" placeholder="e.g. Azanavir" type="text">
                         </div>
                         <div class="col-sm-1 or-text">
@@ -247,12 +254,12 @@ class="active"
                             </select>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                    <button type="button" onclick="addRow(this);" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                 </div>
                 <div class="form-group">
                     <label><span class="glyphicon glyphicon-sort"></span> Effect (this drug)</label>
                     <div class="row">
-                        <div class="col-sm-5">
+                        <div class="col-sm-4">
                             <input name="interact_both_this" class="form-control" placeholder="e.g. Echinacea" type="text">
                         </div>
                         <div class="col-sm-1 or-text">
@@ -275,12 +282,12 @@ class="active"
                             </select>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                    <button type="button" onclick="addRow(this);" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                 </div>
                 <div class="form-group">
                     <label><span class="glyphicon glyphicon-arrow-up"></span> Effect</label>
                     <div class="row">
-                        <div class="col-sm-5">
+                        <div class="col-sm-4">
                             <input name="interact_incr[]" class="form-control" placeholder="e.g. Pheonobarb" type="text">
                         </div>
                         <div class="col-sm-1 or-text">
@@ -303,12 +310,12 @@ class="active"
                             </select>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                    <button type="button" onclick="addRow(this);" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                 </div>
                 <div class="form-group">
                     <label><span class="glyphicon glyphicon-arrow-down"></span> Effect</label>
                     <div class="row">
-                        <div class="col-sm-5">
+                        <div class="col-sm-4">
                             <input name="interact_decr[]" class="form-control" placeholder="e.g. Azanavir" type="text">
                         </div>
                         <div class="col-sm-1 or-text">
@@ -331,12 +338,12 @@ class="active"
                             </select>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                    <button type="button" onclick="addRow(this);" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                 </div>
                 <div class="form-group">
                     <label><span class="glyphicon glyphicon-sort"></span> Effect</label>
                     <div class="row">
-                        <div class="col-sm-5">
+                        <div class="col-sm-4">
                             <input name="interact_both[]" class="form-control" placeholder="e.g. Echinacea" type="text">
                         </div>
                         <div class="col-sm-1 or-text">
@@ -359,15 +366,19 @@ class="active"
                             </select>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                    <button type="button" onclick="addRow(this);" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                 </div>
                 <div class="form-group">
                     <label><input name="anti-neoplastic" type="checkbox" id="cautionwith" value="cautionwith"> Caution with other anti-neoplastic agents (unless per protocol)</label>
                 </div>
                 <div class="form-group">
                     <label>Other Effects</label>
-                    <input name="interact_other[]" class="form-control" placeholder="e.g. Caution with agents" id="othereffects" type="text">
-                    <button type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <input name="interact_other[]" class="form-control" placeholder="e.g. Caution with agents" id="othereffects" type="text">
+                        </div>
+                    </div>
+                    <button type="button" onclick="addRow(this);" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                 </div>
                 <hr>
                 <h2>Dose Adjustments</h2>
@@ -386,7 +397,7 @@ class="active"
                             <input name="adjust_chart[]" type="file" id="chartimage">
                         </div>
                     </div>
-                    <button type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                    <button onclick="addRow(this);" type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                 </div>
             </div>
         </form>
