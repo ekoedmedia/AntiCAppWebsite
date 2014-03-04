@@ -159,6 +159,10 @@ class UserController
     {
         $users = $this->userManager->findBy(array());
 
+        // Unable to modify self from User Management (prevents no admins on system)
+        $position = array_search($app['user'], $users);
+        unset($users[$position]);
+
         return $app['twig']->render('@user/management/index.html.twig', array(
             'users' => $users,
         ));

@@ -18,6 +18,11 @@
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js"></script>
         <script src="/scripts/AddInput.js"></script>
-        {% block pageScripts %}{% endblock pageScripts %}
+        {% block pageScripts %}
+        <script>
+            // Setup of Antic App
+            var anticApp = angular.module('anticApp',[]);
+        </script>
+        {% endblock pageScripts %}
     </body>
 </html>
