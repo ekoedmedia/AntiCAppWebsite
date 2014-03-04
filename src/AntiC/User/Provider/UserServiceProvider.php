@@ -119,6 +119,14 @@ class UserServiceProvider implements ServiceProviderInterface, ControllerProvide
                 }
             });
 
+        $controllers->post('/user/{id}/enable', 'user.controller:enableAction')
+            ->bind('user.enable')
+            ->before(function(Request $request) use ($app) {
+                if (!$app['user'] || !$app['user']->hasRole('ROLE_ADMIN')) {
+                    throw new AccessDeniedException();
+                } 
+            });
+
         $controllers->get('/login', 'user.controller:loginAction')
             ->bind('user.login');
 

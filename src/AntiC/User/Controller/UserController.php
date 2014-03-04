@@ -141,22 +141,23 @@ class UserController
         if ($request->isMethod('POST')) {
             $password = $request->request->get('password');
             $confirmPassword = $request->request->get('confirmPassword');
-            if (is_array($request->request->get('role'))) {
-                $role = $request->request->get('role');
-            } else {
+            if ($request->request->get('role')) {
                 $role = array($request->request->get('role'));
             }
 
             $user->setName($request->request->get('userName'));
             $user->setEmail($request->request->get('email'));
-            $user->setRoles($role);
+            if (isset($role))
+                $user->setRoles($role);
             if ($password == $confirmPassword && !empty($confirmPassword)) {
                 $user = $this->userManager->createUser(
                     $request->request->get('email'), 
                     $confirmPassword, 
-                    $request->request->get('userName'), 
-                    $role
+                    $request->request->get('userName')
                 );
+
+                if (isset($role))
+                    $user->setRoles($role);
 
                 $errors = $this->userManager->validate($user);
                 if (empty($errors)) {
@@ -172,6 +173,60 @@ class UserController
         return $app['twig']->render('@user/management/add.html.twig', array(
             'errors' => isset($errors) ? $errors : null,
             'user' => isset($user) ? $user : null,
+        ));
+    }
+
+    /**
+     * Edit user action.
+     *
+     * @param Application $app
+     * @param Request $request
+     * @param int $id
+     * @return Response
+     * @throws NotFoundHttpException if no user is found with that ID.
+     */
+    public function editAction(Application $app, Request $request, $id)
+    {
+        $errors = array();
+
+        $user = $this->userManager->getUser($id);
+
+        if (!$user) {
+            throw new NotFoundHttpException('No user was found with that ID.');
+        }
+
+        if ($request->isMethod('POST')) {
+            $user->setName($request->request->get('userName'));
+            $user->setEmail($request->request->get('email'));
+
+            $password = $request->request->get('password');
+            $confirmPassword = $request->request->get('confirmPassword');
+            if (!empty($password)) {
+                if ($password == $confirmPassword && !empty($confirmPassword)) {
+                    $this->userManager->setUserPassword($user, $request->request->get('password'));
+                } else {
+                    $errors[] = "Passwords do not match.";
+                }
+            }
+            if ($request->request->get('role')) {
+                $user->addRole($request->request->get('role'));
+            } else {
+                $user->removeRole($request->request->get('role'));
+            }
+
+            $errors += $this->userManager->validate($user);
+
+            if (empty($errors)) {
+                $this->userManager->update($user);
+                $msg = 'Saved account information.' . ($request->request->get('password') ? ' Changed password.' : '');
+                $app['session']->getFlashBag()->set('success', $msg);
+                return $app->redirect($app['url_generator']->generate('user.list'));
+            }
+        }
+
+        return $app['twig']->render('@user/management/edit.html.twig', array(
+            'errors' => $errors,
+            'user' => $user,
         ));
     }
 
@@ -196,118 +251,22 @@ class UserController
         ));
     }
 
-
     /**
-     * @todo Any methods after this are old and need to be changed.
-     */
-
-    /**
-     * Register action.
+     * Enable/Disable User Action
      *
      * @param Application $app
-     * @param Request $request
-     * @return Response
-     */
-    public function registerAction(Application $app, Request $request)
-    {
-        if ($request->isMethod('POST')) {
-            try {
-                $user = $this->createUserFromRequest($request);
-                $this->userManager->insert($user);
-                $app['session']->getFlashBag()->set('alert', 'Account created.');
-
-                // Log the user in to the new account.
-                if (null !== ($current_token = $app['security']->getToken())) {
-                    $providerKey = method_exists($current_token, 'getProviderKey') ? $current_token->getProviderKey() : $current_token->getKey();
-                    $token = new UsernamePasswordToken($user, null, $providerKey);
-                    $app['security']->setToken($token);
-                }
-
-                return $app->redirect($app['url_generator']->generate('user.view', array('id' => $user->getId())));
-
-            } catch (InvalidArgumentException $e) {
-                $error = $e->getMessage();
-            }
-        }
-
-        return $app['twig']->render('@user/register.twig', array(
-            'layout_template' => $this->layoutTemplate,
-            'error' => isset($error) ? $error : null,
-            'name' => $request->request->get('name'),
-            'email' => $request->request->get('email'),
-        ));
-    }
-
-    /**
-     * @param Request $request
-     * @return User
-     * @throws InvalidArgumentException
-     */
-    protected function createUserFromRequest(Request $request)
-    {
-        if ($request->request->get('password') != $request->request->get('confirm_password')) {
-            throw new InvalidArgumentException('Passwords don\'t match.');
-        }
-
-        $user = $this->userManager->createUser(
-            $request->request->get('email'),
-            $request->request->get('password'),
-            $request->request->get('name') ?: null);
-
-        $errors = $this->userManager->validate($user);
-        if (!empty($errors)) {
-            throw new InvalidArgumentException(implode("\n", $errors));
-        }
-
-        return $user;
-    }
-
-    /**
-     * Edit user action.
-     *
-     * @param Application $app
-     * @param Request $request
+     * @param Request $reqeust
      * @param int $id
-     * @return Response
-     * @throws NotFoundHttpException if no user is found with that ID.
+     * @return JSON 0 for disabled or 1 for enabled
      */
-    public function editAction(Application $app, Request $request, $id)
+    public function enableAction(Application $app, Request $request, $id)
     {
-        $errors = array();
-
-        $user = $this->userManager->getUser($id);
-
-        if (!$user) {
-            throw new NotFoundHttpException('No user was found with that ID.');
-        }
-
         if ($request->isMethod('POST')) {
-            $user->setName($request->request->get('name'));
-            $user->setEmail($request->request->get('email'));
-            if ($request->request->get('password')) {
-                if ($request->request->get('password') != $request->request->get('confirm_password')) {
-                    $errors['password'] = 'Passwords don\'t match.';
-                } else {
-                    $this->userManager->setUserPassword($user, $request->request->get('password'));
-                }
-            }
-            if ($app['security']->isGranted('ROLE_ADMIN') && $request->request->has('roles')) {
-                $user->setRoles($request->request->get('roles'));
-            }
-
-            $errors += $this->userManager->validate($user);
-
-            if (empty($errors)) {
-                $this->userManager->update($user);
-                $msg = 'Saved account information.' . ($request->request->get('password') ? ' Changed password.' : '');
-                $app['session']->getFlashBag()->set('alert', $msg);
-            }
+            /** 
+             * @todo Set User Enabled to 0 or 1 depending on their state
+             */
+        } else {
+            return new AccessDeniedException("HTTP method not supported");
         }
-
-        return $app['twig']->render('@user/management/edit.html.twig', array(
-            'error' => implode("\n", $errors),
-            'user' => $user,
-            'available_roles' => array('ROLE_USER', 'ROLE_ADMIN'),
-        ));
     }
 }
