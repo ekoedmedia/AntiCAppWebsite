@@ -41,25 +41,118 @@ class DrugsController
      */
     public function addAction(Application $app, Request $request)
     {
+        error_log($request->getMethod());
         if (!$app['user']) {
             return $app->redirect($app['url_generator']->generate('user.login'));
         }
     
-        if ($request->getMethod() == 'POST')
+        if ($request->isMethod('POST'))
         {
-          /*  $array = array(
-                'g_name' => $request->get('common-name'),
-                't_name' => $request->get('trade-name'),
-                'risk' => $request->get('risk-level'),
-            );
-           */
+            //Parse out the data and print it to the error log for now.
             error_log($request->get('g_name'));
             error_log($request->get('t_name'));
             error_log($request->get('risk'));
             foreach($request->get('classification') as $classification){
                 error_log($classification);
             }
-            
+            foreach($request->get('contraindications') as $row){
+                error_log($row);
+            }
+            $oncology = $request->get('oncology');
+            $approved = $request->get('approved');
+            for($i = 0; $i < count($oncology); $i++)
+            {
+                error_log($oncology[$i] + ' ' + $approved[$i]);
+            }
+            $precaution_name = $request->get('precaution_name');
+            $precaution_note = $request->get('precaution_note');
+            for($i = 0; $i < count($precaution_name); $i++)
+            {
+                error_log($precaution_name[$i] + ' ' + $precaution_note[$i]);
+            }
+            error_log($request->get('breastfeeding'));
+            error_log($request->get('fertility'));
+            error_log($request->get('metabolism'));
+            error_log($request->get('uo_dose'));
+            error_log($request->get('excretion'));
+            error_log($request->get('available'));
+            error_log($request->get('administration'));
+            error_log($request->get('monitoring'));
+            error_log($request->get('sideeffect_frequency'));
+            $sideeffect_effect = $request->get('sideeffect_effect');
+            $sideeffect_severe = $request->get('sideeffect_severe');
+            for($i = 0; $i < count($sideeffect_effect); $i++)
+            {
+                error_log($sideeffect_effect[$i] + ' ' + $sideeffect_severe[$i]);
+            }
+            $interact_concomit = $request->get('interact_concomit');
+            $interact_concomit_cyp = $request->get('interact_concomit_cyp');
+            $interact_concomit_cyp_type = $request->get('interact_concomit_cyp_type');
+            for($i = 0; $i < count($interact_concomit); $i++)
+            {
+                error_log($interact_concomit[$i] + ' ' + $interact_concomit_cyp[$i] + ' ' + $interact_concomit_cyp_type[$i]);
+            }
+            $interact_incr_this = $request->get('interact_incr_this');
+            $interact_incr_this_cyp = $request->get('interact_incr_this_cyp');
+            $interact_incr_this_cyp_type = $request->get('interact_incr_this_cyp_type');
+            for($i = 0; $i < count($interact_incr_this); $i++)
+            {
+                error_log($interact_incr_this[$i] + ' ' + $interact_incr_this_cyp[$i] +
+                        ' ' + $interact_incr_this_cyp_type[$i]);
+            }
+            $interact_decr_this = $request->get('interact_decr_this');
+            $interact_decr_this_cyp = $request->get('interact_decr_this_cyp');
+            $interact_decr_this_cyp_type = $request->get('interact_decr_this_cyp_type');
+            for($i = 0; $i < count($interact_decr_this); $i++)
+            {
+                error_log($interact_decr_this[$i] + ' ' + $interact_decr_this_cyp[$i] +
+                        ' ' + $interact_decr_this_cyp_type[$i]);
+            }
+            $interact_both_this = $request->get('interact_both_this');
+            $interact_both_this_cyp = $request->get('interact_both_this_cyp');
+            $interact_both_this_cyp_type = $request->get('interact_both_this_cyp_type');
+            for($i = 0; $i < count($interact_both_this); $i++)
+            {
+                error_log($interact_both_this[$i] + ' ' + $interact_both_this_cyp[$i] +
+                        ' ' + $interact_both_this_cyp_type[$i]);
+            }
+            $interact_incr = $request->get('interact_incr');
+            $interact_incr_cyp = $request->get('interact_incr_cyp');
+            $interact_incr_cyp_type = $request->get('interact_incr_cyp_type');
+            for($i = 0; $i < count($interact_incr); $i++)
+            {
+                error_log($interact_incr[$i] + ' ' + $interact_incr_cyp[$i] +
+                        ' ' + $interact_incr_cyp_type[$i]);
+            }
+            $interact_decr = $request->get('interact_decr');
+            $interact_decr_cyp = $request->get('interact_decr_cyp');
+            $interact_decr_cyp_type = $request->get('interact_decr_cyp_type');
+            for($i = 0; $i < count($interact_decr); $i++)
+            {
+                error_log($interact_decr[$i] + ' ' + $interact_decr_cyp[$i] +
+                        ' ' + $interact_decr_cyp_type[$i]);
+            }
+            $interact_both = $request->get('interact_both');
+            $interact_both_cyp = $request->get('interact_both_cyp');
+            $interact_both_cyp_type = $request->get('interact_both_cyp_type');
+            for($i = 0; $i < count($interact_both); $i++)
+            {
+                error_log($interact_both[$i] + ' ' + $interact_both_cyp[$i] +
+                        ' ' + $interact_both_cyp_type[$i]);
+            }
+            error_log($request->get('anti-neoplastic'));
+            foreach($request->get('interact_other') as $row){
+                error_log($row);
+            }
+            $adjust_problem = $request->get('adjust_problem');
+            $adjust_note = $request->get('adjust_note');
+            $adjust_chart = $request->get('adjust_chart');
+            for($i = 0; $i < count($adjust_problem); $i++)
+            {
+                error_log($adjust_problem[$i] + ' ' + $adjust_note[$i] +
+                        ' ' + $adjust_chart[$i]);
+            }
+
             return $app['twig']->render('drugs/add.html.twig');
            # return $array;
         }
@@ -67,6 +160,7 @@ class DrugsController
         {
             return $app['twig']->render('drugs/add.html.twig');
         }
+        
     }
 
     /**

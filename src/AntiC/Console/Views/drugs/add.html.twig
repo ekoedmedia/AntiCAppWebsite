@@ -20,7 +20,7 @@ class="active"
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h1 class="page-header">Add Drug</h1>
 
-        <form role="form" method="post">
+        <form role="form" method="post" action="/console/drugs/add">
             {# Todo: Figure out Sidebar Floating #}
             <div class="col-sm-3 well">
                 <div class="form-group">
@@ -152,7 +152,7 @@ class="active"
                 <div class="form-group">
                     <div class="frequency">
                         <label for="frequency">Frequency</label>
-                        <input name="sideeffect_frequency[]"class="form-control" placeholder="e.g. Clinically significant" id="frequency" type="text">
+                        <input name="sideeffect_frequency"class="form-control" placeholder="e.g. Clinically significant" id="frequency" type="text">
                     </div>
                 </div>
                 <div class="form-group">
@@ -190,7 +190,7 @@ class="active"
                             </select>
                         </div>
                         <div class="col-sm-3">
-                            <select name="interact_concomit[]_cyp_type[]" class="form-control">
+                            <select name="interact_concomit_cyp_type[]" class="form-control">
                                 <option></option>
                                 <option>Inhibitor</option>
                                 <option>Inducer</option>
@@ -204,13 +204,13 @@ class="active"
                     <label><span class="glyphicon glyphicon-arrow-up"></span> Effect (this drug)</label>
                     <div class="row">
                         <div class="col-sm-4">
-                            <input name="interact_inc_this[]" class="form-control" placeholder="e.g. Pheonobarb" type="text">
+                            <input name="interact_incr_this[]" class="form-control" placeholder="e.g. Pheonobarb" type="text">
                         </div>
                         <div class="col-sm-1 or-text">
                             <strong>OR</strong>
                         </div>
                         <div class="col-sm-3">
-                            <select name="interact_inc_this_cyp[]" class="form-control">
+                            <select name="interact_incr_this_cyp[]" class="form-control">
                                 <option></option>
                                 <option>CYP 450 1A2</option>
                                 <option>CYP 450 2A6</option>
@@ -218,7 +218,7 @@ class="active"
                             </select>
                         </div>
                         <div class="col-sm-3">
-                            <select name="interact_inc_this_cyp_type[]" class="form-control">
+                            <select name="interact_incr_this_cyp_type[]" class="form-control">
                                 <option></option>
                                 <option>Inhibitor</option>
                                 <option>Inducer</option>
@@ -238,7 +238,7 @@ class="active"
                             <strong>OR</strong>
                         </div>
                         <div class="col-sm-3">
-                            <select name="interact_decr_this_cyp" class="form-control">
+                            <select name="interact_decr_this_cyp[]" class="form-control">
                                 <option></option>
                                 <option>CYP 450 1A2</option>
                                 <option>CYP 450 2A6</option>
@@ -260,13 +260,13 @@ class="active"
                     <label><span class="glyphicon glyphicon-sort"></span> Effect (this drug)</label>
                     <div class="row">
                         <div class="col-sm-4">
-                            <input name="interact_both_this" class="form-control" placeholder="e.g. Echinacea" type="text">
+                            <input name="interact_both_this[]" class="form-control" placeholder="e.g. Echinacea" type="text">
                         </div>
                         <div class="col-sm-1 or-text">
                             <strong>OR</strong>
                         </div>
                         <div class="col-sm-3">
-                            <select name="interact_both_this_cyp" class="form-control">
+                            <select name="interact_both_this_cyp[]" class="form-control">
                                 <option></option>
                                 <option>CYP 450 1A2</option>
                                 <option>CYP 450 2A6</option>
