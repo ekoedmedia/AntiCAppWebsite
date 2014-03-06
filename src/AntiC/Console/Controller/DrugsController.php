@@ -49,6 +49,7 @@ class DrugsController
         if ($request->isMethod('POST'))
         {
             //Parse out the data and print it to the error log for now.
+            /* @todo Integration with API */
             error_log($request->get('g_name'));
             error_log($request->get('t_name'));
             error_log($request->get('risk'));
@@ -62,13 +63,13 @@ class DrugsController
             $approved = $request->get('approved');
             for($i = 0; $i < count($oncology); $i++)
             {
-                error_log($oncology[$i] + ' ' + $approved[$i]);
+                error_log($oncology[$i] . ' ' . $approved[$i]);
             }
             $precaution_name = $request->get('precaution_name');
             $precaution_note = $request->get('precaution_note');
             for($i = 0; $i < count($precaution_name); $i++)
             {
-                error_log($precaution_name[$i] + ' ' + $precaution_note[$i]);
+                error_log($precaution_name[$i] . ' ' . $precaution_note[$i]);
             }
             error_log($request->get('breastfeeding'));
             error_log($request->get('fertility'));
@@ -83,62 +84,63 @@ class DrugsController
             $sideeffect_severe = $request->get('sideeffect_severe');
             for($i = 0; $i < count($sideeffect_effect); $i++)
             {
-                error_log($sideeffect_effect[$i] + ' ' + $sideeffect_severe[$i]);
+                error_log($sideeffect_effect[$i] . ' ' . $sideeffect_severe[$i]);
             }
             $interact_concomit = $request->get('interact_concomit');
             $interact_concomit_cyp = $request->get('interact_concomit_cyp');
             $interact_concomit_cyp_type = $request->get('interact_concomit_cyp_type');
             for($i = 0; $i < count($interact_concomit); $i++)
             {
-                error_log($interact_concomit[$i] + ' ' + $interact_concomit_cyp[$i] + ' ' + $interact_concomit_cyp_type[$i]);
+                error_log($interact_concomit[$i] . ' ' . $interact_concomit_cyp[$i] 
+                        . ' ' . $interact_concomit_cyp_type[$i]);
             }
             $interact_incr_this = $request->get('interact_incr_this');
             $interact_incr_this_cyp = $request->get('interact_incr_this_cyp');
             $interact_incr_this_cyp_type = $request->get('interact_incr_this_cyp_type');
             for($i = 0; $i < count($interact_incr_this); $i++)
             {
-                error_log($interact_incr_this[$i] + ' ' + $interact_incr_this_cyp[$i] +
-                        ' ' + $interact_incr_this_cyp_type[$i]);
+                error_log($interact_incr_this[$i] . ' ' . $interact_incr_this_cyp[$i] 
+                        . ' ' . $interact_incr_this_cyp_type[$i]);
             }
             $interact_decr_this = $request->get('interact_decr_this');
             $interact_decr_this_cyp = $request->get('interact_decr_this_cyp');
             $interact_decr_this_cyp_type = $request->get('interact_decr_this_cyp_type');
             for($i = 0; $i < count($interact_decr_this); $i++)
             {
-                error_log($interact_decr_this[$i] + ' ' + $interact_decr_this_cyp[$i] +
-                        ' ' + $interact_decr_this_cyp_type[$i]);
+                error_log($interact_decr_this[$i] . ' ' . $interact_decr_this_cyp[$i]
+                        . ' ' . $interact_decr_this_cyp_type[$i]);
             }
             $interact_both_this = $request->get('interact_both_this');
             $interact_both_this_cyp = $request->get('interact_both_this_cyp');
             $interact_both_this_cyp_type = $request->get('interact_both_this_cyp_type');
             for($i = 0; $i < count($interact_both_this); $i++)
             {
-                error_log($interact_both_this[$i] + ' ' + $interact_both_this_cyp[$i] +
-                        ' ' + $interact_both_this_cyp_type[$i]);
+                error_log($interact_both_this[$i] . ' ' . $interact_both_this_cyp[$i] 
+                        . ' ' . $interact_both_this_cyp_type[$i]);
             }
             $interact_incr = $request->get('interact_incr');
             $interact_incr_cyp = $request->get('interact_incr_cyp');
             $interact_incr_cyp_type = $request->get('interact_incr_cyp_type');
             for($i = 0; $i < count($interact_incr); $i++)
             {
-                error_log($interact_incr[$i] + ' ' + $interact_incr_cyp[$i] +
-                        ' ' + $interact_incr_cyp_type[$i]);
+                error_log($interact_incr[$i] . ' ' . $interact_incr_cyp[$i] 
+                        . ' ' . $interact_incr_cyp_type[$i]);
             }
             $interact_decr = $request->get('interact_decr');
             $interact_decr_cyp = $request->get('interact_decr_cyp');
             $interact_decr_cyp_type = $request->get('interact_decr_cyp_type');
             for($i = 0; $i < count($interact_decr); $i++)
             {
-                error_log($interact_decr[$i] + ' ' + $interact_decr_cyp[$i] +
-                        ' ' + $interact_decr_cyp_type[$i]);
+                error_log($interact_decr[$i] . ' ' . $interact_decr_cyp[$i] 
+                        . ' ' . $interact_decr_cyp_type[$i]);
             }
             $interact_both = $request->get('interact_both');
             $interact_both_cyp = $request->get('interact_both_cyp');
             $interact_both_cyp_type = $request->get('interact_both_cyp_type');
             for($i = 0; $i < count($interact_both); $i++)
             {
-                error_log($interact_both[$i] + ' ' + $interact_both_cyp[$i] +
-                        ' ' + $interact_both_cyp_type[$i]);
+                error_log($interact_both[$i] . ' ' . $interact_both_cyp[$i] 
+                        . ' ' . $interact_both_cyp_type[$i]);
             }
             error_log($request->get('anti-neoplastic'));
             foreach($request->get('interact_other') as $row){
@@ -149,8 +151,8 @@ class DrugsController
             $adjust_chart = $request->get('adjust_chart');
             for($i = 0; $i < count($adjust_problem); $i++)
             {
-                error_log($adjust_problem[$i] + ' ' + $adjust_note[$i] +
-                        ' ' + $adjust_chart[$i]);
+                error_log($adjust_problem[$i] . ' ' . $adjust_note[$i] 
+                        . ' ' . $adjust_chart[$i]);
             }
 
             return $app['twig']->render('drugs/add.html.twig');
