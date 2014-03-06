@@ -20,13 +20,13 @@ class="active"
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h1 class="page-header">Add Interaction</h1>
 
-        <form role="form">
+        <form role="form" method="post" action="/console/interactions/add">
             <div class="row">
                 <div class="col-sm-4">
                     <h3>Substrate</h3>
                     <div class="row" style="margin-bottom:5px;">
                         <div class="col-sm-6">
-                            <input class="form-control" placeholder="e.g. Acetaminophen" id="substrate" type="text">
+                            <input name="substrate[]" class="form-control" placeholder="e.g. Acetaminophen" id="substrate" type="text">
                         </div>
                         <div class="col-sm-3">
                             <select class="form-control" id="risk-level">
@@ -36,13 +36,13 @@ class="active"
                             </select>
                         </div>
                     </div>
-                    <button type="button" onclick="addRow(this);" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                    <button type="button" method="post" onclick="addRow(this);" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                 </div>
                 <div class="col-sm-4">
                     <h3>Inhibitor</h3>
                     <div class="row" style="margin-bottom:5px;">
                         <div class="col-sm-6">
-                            <input class="form-control" placeholder="e.g. Amiodarone" id="inhibitor" type="text">
+                            <input name="inhibitor[]" class="form-control" placeholder="e.g. Amiodarone" id="inhibitor" type="text">
                         </div>
                         <div class="col-sm-3">
                             <select class="form-control" id="risk-level">
@@ -58,7 +58,7 @@ class="active"
                     <h3>Inducer</h3>
                     <div class="row" style="margin-bottom:5px;">
                         <div class="col-sm-6">
-                            <input class="form-control" placeholder="e.g. Aminogluthethimide" id="inducer" type="text">
+                            <input name="inducer[]" class="form-control" placeholder="e.g. Aminogluthethimide" id="inducer" type="text">
                         </div>
                         <div class="col-sm-3">
                             <select class="form-control" id="risk-level">

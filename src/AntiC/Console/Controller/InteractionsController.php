@@ -39,8 +39,23 @@ class InteractionsController
 
         if ($request->isMethod('POST')) {
             /** 
-             * @todo Processing of form and using API Functions from JB/Tanvir
+             * @todo using API Functions from JB/Tanvir
              */
+            error_log("Substrates:");
+            foreach($request->get('substrate') as $substrate)
+            {
+                error_log($substrate);
+            }
+            error_log("Inhibitors:");
+            foreach($request->get('inhibitor') as $inhibitor)
+            {
+                error_log($inhibitor);
+            }
+            error_log("Inducers:");
+            foreach($request->get('inducer') as $inducer)
+            {
+                error_log($inducer);
+            }
         }
 
         return $app['twig']->render('interactions/add.html.twig');
