@@ -20,8 +20,74 @@ class="active"
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h1 class="page-header">Add Protocol</h1>
 
-        <div class="well">
-            Awaiting confirmation before starting this page.
-        </div>
+        <form method="POST" role="form" action="{{ path('console.protocols.add') }}">
+            <div class="row">
+                <div class="name">
+                    <label>Name</label>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <input name="name" class="form-control" placeholder="" id="name" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="use">
+                    <label>Use</label>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <input name="use" class="form-control" placeholder="" id="use" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="variation">
+                    <label>Variation</label>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <input name="variation" class="form-control" placeholder="" id="variation" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="dose">
+                    <label>Dose</label>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <input name="does" class="form-control" placeholder="" id="dose" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="daysofcycle">
+                    <label>Days of Cycle</label>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <input name="daysofcycle" class="form-control" placeholder="" id="daysofcycle" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="dayspercycle">
+                    <label>Days per cycle</label>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <input name="dayspercycle" class="form-control" placeholder="" id="dayspercycle" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="numofcycles">
+                    <label>Number of Cycles</label>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <input name="numofcycles" class="form-control" placeholder="" id="numofcycles" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="oraldrugs">
+                    <label>Oral Drugs</label>
+                    <select class="form-control" id="oral-drug">
+                        <option>DRUG 1</option>
+                        <option>DRUG 2</option>
+                        <option>DRUG 3</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-success">Add Protocol</button>
+            </div>
+        </form>
     </div>
 {% endblock content %}
