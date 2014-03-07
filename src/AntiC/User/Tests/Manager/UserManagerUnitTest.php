@@ -2,7 +2,6 @@
 
 namespace AntiC\User\Tests\Manager;
 
-use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use AntiC\User\Manager\UserManager;
 
 /**

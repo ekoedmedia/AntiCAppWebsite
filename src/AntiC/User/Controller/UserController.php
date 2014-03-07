@@ -281,4 +281,23 @@ class UserController
             return new AccessDeniedException("HTTP method not supported");
         }
     }
+
+    /**
+     * I forgot my Password User Action
+     *
+     * @route /iforgot
+     * @param Application $app
+     * @param Request $request
+     * @return twig rendered template
+     */
+    public function iforgotAction(Application $app, Request $request)
+    {
+        if ($request->isMethod('POST')) {
+            /**
+             * @todo Placeholder for iforgot
+             */
+        }
+
+        return $app['twig']->render('@user/iforgot/iforgot.html.twig');
+    }
 }
