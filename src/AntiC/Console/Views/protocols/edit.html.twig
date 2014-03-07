@@ -20,8 +20,76 @@ class="active"
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h1 class="page-header">Edit - {{ protocol_name }}</h1>
 
-        <div class="well">
-            Awaiting confirmation before starting this page.
-        </div>
+        <form method="POST" role="form" action="{{ path('console.protocols.edit', {'ID':protocol_name}) }}">
+            <div class="row">
+                <div class="form-group">
+                    <div class="name">
+                        <label for="name">Name</label>
+                        <div class="row">
+                            <div class="col-sm-10">
+                                <input name="name" class="form-control" placeholder="e.g. Capecitabine" id="name" type="text">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="use-wrapper">
+                    <div class="form-group">
+                        <div class="use">
+                            <label>Use</label>
+                            <input name="use" class="form-control" placeholder="e.g. Breast" id="use" type="text">
+                        </div>
+                    </div>
+                    <div class="variation-wrapper">
+                        <div class="form-group">
+                            <div class="variation">
+                                <label>Variation</label>
+                                <input name="variation" class="form-control" placeholder="e.g. 5" id="variation" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="dose">
+                                <label>Dose</label>
+                                <input name="does" class="form-control" placeholder="e.g. 1000mg/m2bid" id="does" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="daysOfCycle">
+                                <label>Days of Cycle</label>
+                                <input name="daysOfCycle" class="form-control" placeholder="e.g. 1-14" id="daysOfCycle" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="daysPerCycle">
+                                <label>Days per Cycle</label>
+                                <input name="daysPerCycle" class="form-control" placeholder="e.g. 21" id="daysPerCycle" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="numOfCycles">
+                                <label>Number of Cycles</label>
+                                <input name="numOfCyles" class="form-control" placeholder="e.g. Up to 35" id="numOfCycles" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="variation">
+                                <label>Oral Drugs</label>
+                                <div>
+                                    <select name="oralDrugs">
+                                        <option>Docetaxel</option>
+                                        <option>Bevicizumab</option>
+                                        <option>Lapatinib</option>
+                                        <option>CAPOX</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button name="classification_button" type="button" onclick="addRow(this);" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add Drugs</button>
+                        </div>
+                        <button name="classification_button" type="button" onclick="addRow(this);" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add Variation</button>
+                    </div>
+                    <button name="classification_button" type="button" onclick="addRow(this);" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add Use</button>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
     </div>
 {% endblock content %}
