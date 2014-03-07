@@ -99,6 +99,14 @@ $app->get('/console/about', "AntiC\Console\Controller\AboutController::indexActi
 
 // LiveView Routes
 $app->get('/', "AntiC\LiveView\Controller\LiveViewController::indexAction");
+## Commented out until LiveView is ready for Sprint 4/5
+// $app->get('/protocols', "AntiC\LiveView\Controller\LiveViewController::protocolsListAction");
+// $app->get('/protocols/{ID}', "AntiC\LiveView\Controller\LiveViewController::viewProtocolAction");
+// $app->get('/interactions', "AntiC\LiveView\Controller\LiveViewController::interactionsListAction");
+// $app->get('/interactions/{ID}', "AntiC\LiveView\Controller\LiveViewController::viewInteractionAction");
+// $app->get('/drugs', "AntiC\LiveView\Controller\LiveViewController::drugsListAction");
+// $app->get('/drugs/{ID}', "AntiC\LiveView\Controller\LiveViewController::viewDrugAction");
+// $app->get('/about', "AntiC\LiveView\Controller\LiveViewController::aboutAction");
 
 // Install Path
 $app->get('/install', function () use ($app){
