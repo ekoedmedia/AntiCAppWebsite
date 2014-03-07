@@ -127,6 +127,9 @@ class UserServiceProvider implements ServiceProviderInterface, ControllerProvide
                 } 
             });
 
+        $controllers->method('GET|POST')->match('/iforgot', 'user.controller:iforgotAction')
+            ->bind('user.iforgot');
+
         $controllers->get('/login', 'user.controller:loginAction')
             ->bind('user.login')
             ->after(function(Request $request) use ($app) {

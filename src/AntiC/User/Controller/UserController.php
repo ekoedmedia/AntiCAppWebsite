@@ -45,7 +45,7 @@ class UserController
      */
     public function loginAction(Application $app, Request $request)
     {
-        return $app['twig']->render('authenticate.html.twig', array(
+        return $app['twig']->render('@user/authenticate.html.twig', array(
             'error' => $app['security.last_error']($request),
             'last_username' => $app['session']->get('_security.last_username'),
             'allowRememberMe' => isset($app['security.remember_me.response_listener']),
@@ -285,7 +285,7 @@ class UserController
     /**
      * I forgot my Password User Action
      *
-     * @route /iforgot
+     * @route /console/iforgot
      * @param Application $app
      * @param Request $request
      * @return twig rendered template
