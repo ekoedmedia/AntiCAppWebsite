@@ -12,11 +12,8 @@
          bootstrap="./app/bootstrap.php"
 >
     <testsuites>
-        <testsuite name="Silex Test Suite">
-            <directory>./vendor/Silex/tests/Silex/</directory>
-        </testsuite>
-        <testsuite name="AntiC Test Suite">
-            <directory>./src/AntiC/</directory>
+        <testsuite name="AntiC User Test Suite">
+            <directory>./src/AntiC/User/Tests</directory>
         </testsuite>
     </testsuites>
 </phpunit>
