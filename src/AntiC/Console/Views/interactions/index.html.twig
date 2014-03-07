@@ -17,12 +17,12 @@ class="active"
 
 
 {% block content %}
-    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="InteractionsController">
         <h1 class="page-header">Interactions</h1>
 
         <div class="row controls">
             <div class="col-xs-4">
-                <input type="text" class="form-control" placeholder="Search">
+                <input type="text" class="form-control" placeholder="Search..." ng-model="interactionsSearch">
             </div>
             <div class="pull-right add-interaction-button">
                 <a href="/console/interactions/add" class="btn btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> Add Interaction</a>
@@ -36,19 +36,33 @@ class="active"
                     <th class="col-md-6">Interaction Name</th>
                     <th class="col-md-6 text-right">Controls</th>
                 </tr>
-                <tr>
-                    <td class="col-md-6">CYP 450 1A2</td>
-                    <td class="col-md-6 text-right"><a href="/console/interactions/1" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a href="" class="btn btn-warning btn-xs btnSetWidth"><span class="glyphicon glyphicon-eye-close"></span> Hide</a></td>
-                </tr>
-                <tr>
-                    <td class="col-md-6">CYP 450 2A6</td>
-                    <td class="col-md-6 text-right"><a href="/console/interactions/2" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a href="" class="btn btn-warning btn-xs btnSetWidth"><span class="glyphicon glyphicon-eye-close"></span> Hide</a></td>
-                </tr>
-                <tr>
-                    <td class="col-md-6">CYP 450 2B6</td>
-                    <td class="col-md-6 text-right"><a href="/console/interactions/3" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a href="" class="btn btn-danger btn-xs btnSetWidth"><span class="glyphicon glyphicon-eye-open"></span> Unhide</a></td>
+                <tr ng-repeat="interaction in interactions | filter:interactionsSearch | orderBy:'name'">
+                    <td class="col-md-6">{% verbatim %}{{ interaction.name }}{% endverbatim %}</td>
+                    <td class="col-md-6 text-right">
+                        <a href="/console/interactions/{% verbatim %}{{ interaction.id }}{% endverbatim %}" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-edit"></span> Edit</a> 
+                        <button ng-show="!interaction.enabled" ng-click="interaction.enabled=1" class="btn btn-info btn-xs btnSetWidth"><span class="glyphicon glyphicon-eye-open"></span> Show</button>
+                        <button ng-show="interaction.enabled" ng-click="interaction.enabled=0" class="btn btn-warning btn-xs btnSetWidth"><span class="glyphicon glyphicon-eye-close"></span> Hide</button>
+                    </td>
                 </tr>
             </table>
         </div>
     </div>
 {% endblock content %}
+
+
+{# Simple AngularJS for Searching Users #}
+{% block pageScripts %}
+    <script>
+    // Setup of Antic App
+    var anticApp = angular.module('anticApp',[]);
+
+    // User Controller for User Filtering
+    anticApp.controller('InteractionsController', ['$scope', function ($scope) {
+        $scope.interactions = [
+        {% for interaction in interactions %}
+            { 'name':"{{ interaction.name }}", 'id':"{{ interaction.id }}", 'enabled':{{ interaction.enabled }} },
+        {% endfor %}
+        ];
+    }]);
+    </script>
+{% endblock pageScripts %}

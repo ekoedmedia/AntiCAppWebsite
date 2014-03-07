@@ -25,10 +25,16 @@ class DrugsController
             return $app->redirect($app['url_generator']->generate('user.login'));
         }
 
+        // Test Data
+        $drugs = array(
+            array("commonName" => 'Abiaterone', "tradeName" => 'Zytiga', "id" => '0', "enabled" => 0),
+            array("commonName" => 'Acitretin', "tradeName" => 'Soriatane', "id" => '1', "enabled" => 1),
+            array("commonName" => 'Anagralide', "tradeName" => 'Agrylin', "id" => '2', "enabled" => 1)
+        );
+
         return $app['twig']->render('drugs/index.html.twig', array(
-            'username' => $app['user']->getName()
+            'drugs' => $drugs
         ));
-        return $app['twig']->render('drugs/index.html.twig');
     }
 
     /**

@@ -20,7 +20,16 @@ class ProtocolsController
             return $app->redirect($app['url_generator']->generate('user.login'));
         }
 
-        return $app['twig']->render('protocols/index.html.twig');
+        // Test Data
+        $protocols = array(
+            array("name" => 'Capcetiabine', "id" => '1', "enabled" => 0),
+            array("name" => 'Test', "id" => '2', "enabled" => 1),
+            array("name" => 'Welcome', "id" => '3', "enabled" => 1)
+        );
+
+        return $app['twig']->render('protocols/index.html.twig', array(
+            'protocols' => $protocols,
+        ));
     }
 
     /**

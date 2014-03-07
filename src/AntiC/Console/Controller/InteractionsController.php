@@ -20,7 +20,16 @@ class InteractionsController
             return $app->redirect($app['url_generator']->generate('user.login'));
         }
 
-        return $app['twig']->render('interactions/index.html.twig');
+        // Test Data
+        $interactions = array(
+            array("name" => 'CYP 450 1A2', "id" => '1', "enabled" => 0),
+            array("name" => 'Test', "id" => '2', "enabled" => 1),
+            array("name" => 'Welcome', "id" => '3', "enabled" => 1)
+        );
+
+        return $app['twig']->render('interactions/index.html.twig', array(
+            'interactions' => $interactions,
+        ));
     }
 
     /**

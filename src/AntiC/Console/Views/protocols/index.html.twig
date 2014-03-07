@@ -17,38 +17,51 @@ class="active"
 
 
 {% block content %}
-    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="ProtocolsController">
         <h1 class="page-header">Protocols</h1>
 
         <div class="row controls">
             <div class="col-xs-4">
-                <input type="text" class="form-control" placeholder="Search">
+                <input type="text" class="form-control" placeholder="Search..." ng-model="protocolSearch">
             </div>
             <div class="pull-right add-protocol-button">
                 <a href="/console/protocols/add" class="btn btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> Add Protocol</a>
             </div>
         </div>
 
-        {# Note: This needs to be switched out for Fuel UX Table that sorts and filters out of the box #}
         <div class="table-responsive">
             <table class="table table-hover table-striped">
                 <tr>
                     <th class="col-md-6">Protocol Name</th>
                     <th class="col-md-6 text-right">Controls</th>
                 </tr>
-                <tr>
-                    <td class="col-md-6">Capecitabine</td>
-                    <td class="col-md-6 text-right"><a href="/console/protocols/1" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a href="" class="btn btn-warning btn-xs btnSetWidth"><span class="glyphicon glyphicon-eye-close"></span> Hide</a></td>
-                </tr>
-                <tr>
-                    <td class="col-md-6">Chlorambucil</td>
-                    <td class="col-md-6 text-right"><a href="/console/protocols/2" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a href="" class="btn btn-warning btn-xs btnSetWidth"><span class="glyphicon glyphicon-eye-close"></span> Hide</a></td>
-                </tr>
-                <tr>
-                    <td class="col-md-6">Cyclophosphamide</td>
-                    <td class="col-md-6 text-right"><a href="/console/protocols/3" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a href="" class="btn btn-danger btn-xs btnSetWidth"><span class="glyphicon glyphicon-eye-open"></span> Unhide</a></td>
+                <tr ng-repeat="protocol in protocols | filter:protocolSearch | orderBy:'name'">
+                    <td class="col-md-6">{% verbatim %}{{ protocol.name }}{% endverbatim %}</td>
+                    <td class="col-md-6 text-right">
+                        <a href="/console/protocols/{% verbatim %}{{ protocol.id }}{% endverbatim %}" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-edit"></span> Edit</a> 
+                        <button ng-show="protocol.enabled" ng-click="protocol.enabled=0" class="btn btn-warning btn-xs btnSetWidth"><span class="glyphicon glyphicon-eye-close"></span> Hide</button>
+                        <button ng-show="!protocol.enabled" ng-click="protocol.enabled=1" class="btn btn-info btn-xs btnSetWidth"><span class="glyphicon glyphicon-eye-open"></span> Show</button>
+                    </td>
                 </tr>
             </table>
         </div>
     </div>
 {% endblock content %}
+
+
+{# Simple AngularJS for Searching Users #}
+{% block pageScripts %}
+    <script>
+    // Setup of Antic App
+    var anticApp = angular.module('anticApp',[]);
+
+    // User Controller for User Filtering
+    anticApp.controller('ProtocolsController', ['$scope', function ($scope) {
+        $scope.protocols = [
+        {% for protocol in protocols %}
+            { 'name':"{{ protocol.name }}", 'id':"{{ protocol.id }}", 'enabled':{{ protocol.enabled }} },
+        {% endfor %}
+        ];
+    }]);
+    </script>
+{% endblock pageScripts %}
