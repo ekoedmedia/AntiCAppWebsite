@@ -301,6 +301,7 @@ class UserController
             $this->userManager->update($user);
             $msg = "Your temporary password has been sent to your email.";
             $app['session']->getFlashBag()->set('success', $msg);
+            error_log(mail($username,'[Antic] Password Reset', "Your temporary password is: $new_pw"));
             error_log($new_pw);
         }
 
