@@ -292,12 +292,35 @@ class UserController
      */
     public function iforgotAction(Application $app, Request $request)
     {
+        error_log($request->getMethod());
         if ($request->isMethod('POST')) {
-            /**
-             * @todo Placeholder for iforgot
-             */
+            $new_pw = $this->generatePassword();
+            $username = $request->get("email");
+            $user = $this->userManager->loadUserByUsername($username);
+            $this->userManager->setUserPassword($user, $new_pw);
+            $this->userManager->update($user);
+            $msg = "Your temporary password has been sent to your email.";
+            $app['session']->getFlashBag()->set('success', $msg);
+            error_log($new_pw);
         }
 
         return $app['twig']->render('@user/iforgot/iforgot.html.twig');
+    }
+    /**
+     * Simple psuedo-random password generator.
+     *
+     * @param Length of pw to generate $length
+     * @return Generated password
+     */
+    private function generatePassword($length = 8) {
+        $chars = 'bcdfghjkmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ23456789';
+        $count = mb_strlen($chars);
+
+        for ($i = 0, $result = ''; $i < $length; $i++) {
+            $index = rand(0, $count - 1);
+            $result .= mb_substr($chars, $index, 1);
+        }
+
+        return $result;
     }
 }
