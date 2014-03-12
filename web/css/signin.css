@@ -56,3 +56,7 @@ body {
 .form-signin .well label {
     margin:0;
 }
+
+.form-signin .iforgot-reset {
+    margin-top: 10px;
+}
