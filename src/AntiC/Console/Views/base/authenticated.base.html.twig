@@ -38,7 +38,6 @@ AntiC | {% block title %}{% endblock title %}
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar">
                     <li {% block drugsActive %}{% endblock drugsActive %}><a href="/console">Drugs</a></li>
-                    <li {% block protocolsActive %}{% endblock protocolsActive %}><a href="/console/protocols">Protocols</a></li>
                     <li {% block interactionsActive %}{% endblock interactionsActive %}><a href="/console/interactions">Interactions</a></li>
                     {% if is_granted('ROLE_ADMIN') %}<li {% block usersActive %}{% endblock usersActive %}><a href="{{ path('user.list') }}">User Management</a></li>{% endif %}
                     <li {% block aboutActive %}{% endblock aboutActive %}><a href="/console/about">About</a></li>

@@ -37,11 +37,6 @@ $app->get('/console', "AntiC\Console\Controller\DrugsController::indexAction")->
 $app->match('/console/drugs/add', "AntiC\Console\Controller\DrugsController::addAction")->method('GET|POST')->bind('console.drug.add');
 $app->match('/console/drugs/{ID}', "AntiC\Console\Controller\DrugsController::editAction")->method('GET|POST')->bind('console.drug.edit');
 
-// Protocols Routes
-$app->get('/console/protocols', "AntiC\Console\Controller\ProtocolsController::indexAction")->bind('console.protocols');
-$app->match('/console/protocols/add', "AntiC\Console\Controller\ProtocolsController::addAction")->method('GET|POST')->bind('console.protocols.add');
-$app->match('/console/protocols/{ID}', "AntiC\Console\Controller\ProtocolsController::editAction")->method('GET|POST')->bind('console.protocols.edit');
-
 // Interactions Routes
 $app->get('/console/interactions', "AntiC\Console\Controller\InteractionsController::indexAction")->bind('console.interactions');
 $app->match('/console/interactions/add', "AntiC\Console\Controller\InteractionsController::addAction")->method('GET|POST')->bind('console.interactions.add');
@@ -53,8 +48,6 @@ $app->get('/console/about', "AntiC\Console\Controller\AboutController::indexActi
 // LiveView Routes
 $app->get('/', "AntiC\LiveView\Controller\LiveViewController::indexAction");
 ## Commented out until LiveView is ready for Sprint 4/5
-// $app->get('/protocols', "AntiC\LiveView\Controller\LiveViewController::protocolsListAction");
-// $app->get('/protocols/{ID}', "AntiC\LiveView\Controller\LiveViewController::viewProtocolAction");
 // $app->get('/interactions', "AntiC\LiveView\Controller\LiveViewController::interactionsListAction");
 // $app->get('/interactions/{ID}', "AntiC\LiveView\Controller\LiveViewController::viewInteractionAction");
 // $app->get('/drugs', "AntiC\LiveView\Controller\LiveViewController::drugsListAction");

@@ -19,4 +19,20 @@ class LiveViewController
         return $app['twig']->render('index.html.twig');
     }
 
+    /**
+     * @route /drugs
+     */
+
+    /**
+     * @route /drugs/{ID}
+     */
+
+    /**
+     * @route /interactions
+     */
+
+    /**
+     * @route /interactions/{ID}
+     */
+
 }
