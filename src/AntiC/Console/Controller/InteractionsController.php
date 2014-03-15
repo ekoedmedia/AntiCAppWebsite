@@ -26,8 +26,8 @@ class InteractionsController
         $enzymes = array();
         foreach ($enzymeList as $enzyme) {
             $enzymes[] = array(
-                "name" => $enzyme['g_name'],
-                "id" => $enzyme['g_name'],
+                "name" => $enzyme['name'],
+                "id" => $enzyme['name'],
                 "enabled" => $enzyme['deleted'],
             );
         }
