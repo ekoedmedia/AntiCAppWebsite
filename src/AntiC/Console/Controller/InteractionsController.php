@@ -20,15 +20,20 @@ class InteractionsController
             return $app->redirect($app['url_generator']->generate('user.login'));
         }
 
-        // Test Data
-        $interactions = array(
-            array("name" => 'CYP 450 1A2', "id" => '1', "enabled" => 0),
-            array("name" => 'Test', "id" => '2', "enabled" => 1),
-            array("name" => 'Welcome', "id" => '3', "enabled" => 1)
-        );
+        require_once 'api/get/listEnzymes.php';
+        $enzymeList = getEnzymeList();
+
+        $enzymes = array();
+        foreach ($enzymeList as $enzyme) {
+            $enzymes[] = array(
+                "name" => $enzyme['g_name'],
+                "id" => $enzyme['g_name'],
+                "enabled" => $enzyme['deleted'],
+            );
+        }
 
         return $app['twig']->render('interactions/index.html.twig', array(
-            'interactions' => $interactions,
+            'interactions' => $enzymes,
         ));
     }
 
@@ -90,9 +95,12 @@ class InteractionsController
              */
         }
 
+        require_once 'api/get/getEnzyme.php';
+        $enzyme = getEnzyme($request->get('ID'));
+
         // Query Database with ID and Return Interactions Name and Information to Twig
         return $app['twig']->render('interactions/edit.html.twig', array(
-            'interaction_name' => $request->get('ID')
+            'interaction' => $enzyme
         ));
     }
 

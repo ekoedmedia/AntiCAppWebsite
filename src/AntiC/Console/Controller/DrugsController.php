@@ -25,12 +25,18 @@ class DrugsController
             return $app->redirect($app['url_generator']->generate('user.login'));
         }
 
-        // Test Data
-        $drugs = array(
-            array("commonName" => 'Abiaterone', "tradeName" => 'Zytiga', "id" => '0', "enabled" => 0),
-            array("commonName" => 'Acitretin', "tradeName" => 'Soriatane', "id" => '1', "enabled" => 1),
-            array("commonName" => 'Anagralide', "tradeName" => 'Agrylin', "id" => '2', "enabled" => 1)
-        );
+        require_once 'api/get/listDrugs.php';
+        $drugsList = getDrugList();
+
+        $drugs = array();
+        foreach ($drugsList as $drug) {
+            $drugs[] = array(
+                "commonName" => $drug['g_name'],
+                "tradeName" => $drug['t_name'],
+                "id" => $drug['g_name'],
+                "enabled" => $drug['deleted'],
+            );
+        }
 
         return $app['twig']->render('drugs/index.html.twig', array(
             'drugs' => $drugs
@@ -191,9 +197,12 @@ class DrugsController
              */
         }
 
+        require_once 'api/get/getDrug.php';
+        $drug = getDrug($request->get('ID'));
+
         // Query Database with ID and Return Drug Name and Information to Twig
         return $app['twig']->render('drugs/edit.html.twig', array(
-            'drug_name' => $request->get('ID')
+            'drug' => $drug
         ));
     }
 

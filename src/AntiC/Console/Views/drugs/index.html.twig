@@ -37,7 +37,7 @@ class="active"
                     <th class="col-md-3">Trade Name</th>
                     <th class="col-md-6 text-right">Controls</th>
                 </tr>
-                <tr ng-repeat="drug in drugs | filter:drugsSearch | orderBy:'commonName'">
+                <tr ng-repeat="drug in drugs | filter:drugsSearch | orderBy:'enabled' | orderBy:'commonName'">
                     <td class="col-md-3">{% verbatim %}{{ drug.commonName }}{% endverbatim %}</td>
                     <td class="col-md-3">{% verbatim %}{{ drug.tradeName }}{% endverbatim %}</td>
                     <td class="col-md-6 text-right">
