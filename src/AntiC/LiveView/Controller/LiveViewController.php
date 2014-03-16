@@ -86,7 +86,7 @@ class LiveViewController
         #require_once 'api/get/getInteraction.php';
         #$drug = getDrug($request->get('ID'));
         return $app['twig']->render('liveinteractions/view.html.twig', array(
-                'interaction' => $request->get('ID')));
+                'interaction_name' => $request->get('ID')));
     }
     /**
      * @route /about
