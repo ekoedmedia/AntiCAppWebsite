@@ -295,14 +295,18 @@ class UserController
         error_log($request->getMethod());
         if ($request->isMethod('POST')) {
             $new_pw = $this->generatePassword();
-            $username = $request->get("email");
-            $user = $this->userManager->loadUserByUsername($username);
-            $this->userManager->setUserPassword($user, $new_pw);
-            $this->userManager->update($user);
-            $msg = "Your temporary password has been sent to your email.";
-            $app['session']->getFlashBag()->set('success', $msg);
-            error_log(mail($username,'[Antic] Password Reset', "Your temporary password is: $new_pw"));
-            error_log($new_pw);
+            $user = $this->userManager->findOneBy(array('email' => $request->get('email')));
+            if($user){   
+                $this->userManager->setUserPassword($user, $new_pw);
+                $this->userManager->update($user);
+                $msg = "Your temporary password has been sent to your email.";
+                $app['session']->getFlashBag()->set('success', $msg);
+                error_log(mail($username,'[Antic] Password Reset', "Your temporary password is: $new_pw"));
+                error_log($new_pw);
+            }
+            else{
+                $app['session']->getFlashBag()->set('notice', "Email address not found.");
+            }
         }
 
         return $app['twig']->render('@user/iforgot/iforgot.html.twig');
