@@ -8,15 +8,51 @@ AntiC | {% block title %}{% endblock title %}
 
 {# Body Tag Elements Start #}
 {% block pageHeader %}
-<div class="header">
-	{% block header %}{% endblock header %}
+<div class="masthead">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs"></div> 
+        </div>
+    </div>
+</div>
+<div <div class="navbar" role="navigation">
+    <div class="container">
+        <div class="collapse navbar-collapse navbar-inverse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="index.html">Home</a>
+                </li>
+                <li><a href="{{ path('liveview.drugs') }}">Drugs</a>
+                </li>
+                <li><a href="{{ path('liveview.interactions') }}">Interactions</a>
+                </li>
+                <li><a href="{{ path('liveview.about') }}">About</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="{{ path('user.login') }}">Admin Console</a>
+                </li>
+            </ul>
+        </div>
+        <!--/.nav-collapse -->
+    </div>
 </div>
 {% endblock pageHeader %}
 
 {% block pageContent %}
-<div class="content">
-	{% block content %}{% endblock content %}
-</div>
+{#<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <li {% block drugsActive %}{% endblock drugsActive %}><a href="/console">Drugs</a></li>
+                    <li {% block interactionsActive %}{% endblock interactionsActive %}><a href="/console/interactions">Interactions</a></li>
+                    <li {% block aboutActive %}{% endblock aboutActive %}><a href="/console/about">About</a></li>
+                </ul>
+            </div>
+            {% block content %}{% endblock content %}
+        </div>
+    </div>
+</div>#}
 {% endblock pageContent %}
 
 {% block pageFooter %}
