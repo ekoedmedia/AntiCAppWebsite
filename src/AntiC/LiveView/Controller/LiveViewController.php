@@ -22,17 +22,72 @@ class LiveViewController
     /**
      * @route /drugs
      */
+    public function drugsListAction(Application $app, Request $request)
+    {
+        return $app['twig']->render('drugs/index.html.twig');
+    }
 
     /**
      * @route /drugs/{ID}
      */
+    public function viewDrugAction(Application $app, Request $request)
+    {
+        #TODO DB integration
+        #require_once 'api/get/getDrug.php';
+        #$drug = getDrug($request->get('ID'));
+        return $app['twig']->render('drugs/view.html.twig', array(
+                'drug' => $request->get('ID')));
+    }
 
     /**
      * @route /interactions
      */
+    public function interactionsListAction(Application $app, Request $request)
+    {
+        error_log("test");
+        //TODO DB integration
+//        require_once 'api/get/listEnzymes.php';
+//        $enzymeList = getEnzymeList();
+//
+//        $enzymes = array();
+//        foreach ($enzymeList as $enzyme) {
+//            $enzymes[] = array(
+//                "name" => $enzyme['name'],
+//                "id" => $enzyme['name'],
+//                "enabled" => $enzyme['deleted'],
+//            );
+//        }
+//
+//        return $app['twig']->render('interactions/index.html.twig', array(
+//            'interactions' => $enzymes,
+//        ));
+        
+        $enzymes = array();
+        $enzymes[0] = array(
+            "name" => "TestName",
+            "id" => 4,
+            "enabled" => 1,
+        );
+        return $app['twig']->render('interactions/index.html.twig',$enzymes);
+    }
 
     /**
      * @route /interactions/{ID}
      */
+    public function viewInteractionAction(Application $app, Request $request)
+    {
+        #TODO DB integration
+        #require_once 'api/get/getInteraction.php';
+        #$drug = getDrug($request->get('ID'));
+        return $app['twig']->render('interactions/view.html.twig', array(
+                'interaction' => $request->get('ID')));
+    }
+    /**
+     * @route /about
+     */
+    public function aboutAction(Application $app, Request $request)
+    {
+        return $app['twig']->render('about/index.html.twig');
+    }
 
 }
