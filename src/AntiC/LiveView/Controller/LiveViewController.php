@@ -24,7 +24,7 @@ class LiveViewController
      */
     public function drugsListAction(Application $app, Request $request)
     {
-        return $app['twig']->render('drugs/index.html.twig');
+        return $app['twig']->render('livedrugs/index.html.twig');
     }
 
     /**
@@ -35,7 +35,7 @@ class LiveViewController
         #TODO DB integration
         #require_once 'api/get/getDrug.php';
         #$drug = getDrug($request->get('ID'));
-        return $app['twig']->render('drugs/view.html.twig', array(
+        return $app['twig']->render('livedrugs/view.html.twig', array(
                 'drug' => $request->get('ID')));
     }
 
@@ -44,7 +44,6 @@ class LiveViewController
      */
     public function interactionsListAction(Application $app, Request $request)
     {
-        error_log("test");
         //TODO DB integration
 //        require_once 'api/get/listEnzymes.php';
 //        $enzymeList = getEnzymeList();
@@ -65,10 +64,17 @@ class LiveViewController
         $enzymes = array();
         $enzymes[0] = array(
             "name" => "TestName",
-            "id" => 4,
-            "enabled" => 1,
+            "id" => "TestName",
+            "enabled" => true,
         );
-        return $app['twig']->render('interactions/index.html.twig',$enzymes);
+        $enzymes[1] = array(
+            "name" => "TestName2",
+            "id" => "TestName2",
+            "enabled" => true,
+        );
+        return $app['twig']->render('liveinteractions/index.html.twig', array(
+            'interactions' => $enzymes,
+            ));
     }
 
     /**
@@ -79,7 +85,7 @@ class LiveViewController
         #TODO DB integration
         #require_once 'api/get/getInteraction.php';
         #$drug = getDrug($request->get('ID'));
-        return $app['twig']->render('interactions/view.html.twig', array(
+        return $app['twig']->render('liveinteractions/view.html.twig', array(
                 'interaction' => $request->get('ID')));
     }
     /**
@@ -87,7 +93,7 @@ class LiveViewController
      */
     public function aboutAction(Application $app, Request $request)
     {
-        return $app['twig']->render('about/index.html.twig');
+        return $app['twig']->render('liveabout/index.html.twig');
     }
 
 }
