@@ -39,9 +39,9 @@ class="active"
                 <tr ng-repeat="interaction in interactions | filter:interactionsSearch | orderBy:'enabled' | orderBy:'name'">
                     <td class="col-md-6">{% verbatim %}{{ interaction.name }}{% endverbatim %}</td>
                     <td class="col-md-6 text-right">
-                        <a href="/console/interactions/{% verbatim %}{{ interaction.id }}{% endverbatim %}" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-edit"></span> Edit</a> 
-                        <button ng-show="!interaction.enabled" ng-click="interaction.enabled=1" class="btn btn-info btn-xs btnSetWidth"><span class="glyphicon glyphicon-eye-open"></span> Show</button>
-                        <button ng-show="interaction.enabled" ng-click="interaction.enabled=0" class="btn btn-warning btn-xs btnSetWidth"><span class="glyphicon glyphicon-eye-close"></span> Hide</button>
+                        <a href="/console/interactions/{% verbatim %}{{ interaction.id }}{% endverbatim %}" id="{{ interaction.id }}Edit" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-edit"></span> Edit</a> 
+                        <button ng-show="!interaction.enabled" id="{{ interaction.id }}Show" ng-click="interaction.enabled=0" class="btn btn-info btn-xs btnSetWidth"><span class="glyphicon glyphicon-eye-open"></span> Show</button>
+                        <button ng-show="interaction.enabled" id="{{ interaction.id }}Hide" ng-click="interaction.enabled=1" class="btn btn-warning btn-xs btnSetWidth"><span class="glyphicon glyphicon-eye-close"></span> Hide</button>
                     </td>
                 </tr>
             </table>

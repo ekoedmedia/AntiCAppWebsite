@@ -41,7 +41,11 @@ class="active"
                 </div>
                 <div class="form-group">
                     <label>Last Revision</label>
-                    <em>{{ drug.last_revision }}</em>
+                    <div><em>{{ drug.last_revision }}</em></div>
+                </div>
+                <div class="form-group">
+                    <label>Last Edited By</label>
+                    <div><em>USER TO GO HERE</em></div>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary" method="post">Save</button>
@@ -54,7 +58,7 @@ class="active"
                         {% for classification in drug.classification %}            
                             <div class="row">
                                 <div class="col-sm-10">
-                                    <input name="classification[]" class="form-control" placeholder="e.g. Xeloda" id="classification" value="{{ classification }}" type="text">
+                                    <input name="classification[{{ loop.index0 }}]" class="form-control" placeholder="e.g. Xeloda" id="classification" value="{{ classification }}" type="text">
                                 </div>
                                 {% if not loop.first %}
                                     <div class="col-sm-1">
@@ -74,7 +78,7 @@ class="active"
                         {% for contraindications in drug.contraindications %}
                             <div class="row">
                                 <div class="col-sm-10">
-                                    <input name="contraindications[]" class="form-control" placeholder="e.g. Hypersensitivity" id="contraindications" value="{{ contraindications }}" type="text">
+                                    <input name="contraindications[{{ loop.index0 }}]" class="form-control" placeholder="e.g. Hypersensitivity" id="contraindications" value="{{ contraindications }}" type="text">
                                 </div>
                                 {% if not loop.first %}
                                     <div class="col-sm-1">
@@ -94,10 +98,10 @@ class="active"
                         {% for oncUse in drug.oncUses %}
                             <div class="row">
                                 <div class="col-sm-8">
-                                    <input name="oncology[]" class="form-control" placeholder="e.g. Prostate Cancer" name="{{ oncUse.cancer_type }}" id="onocology" type="text">
+                                    <input name="onocology[{{ loop.index0 }}][type]" class="form-control" placeholder="e.g. Prostate Cancer" name="{{ oncUse.cancer_type }}" id="onocology" type="text">
                                 </div>
                                 <div class="col-sm-1 checkbox">
-                                    <label><input name="approved[]" type="checkbox" id="approved" value="approved" {% if oncUse.approved %}selected="selected"{% endif %}> Approved</label>
+                                    <label><input name="onocology[{{ loop.index0 }}][approved]" type="checkbox" id="approved" value="approved" {% if oncUse.approved %}selected="selected"{% endif %}> Approved</label>
                                 </div>
                                 {% if not loop.first %}
                                     <div class="col-sm-1">
@@ -117,10 +121,10 @@ class="active"
                         {% for precaution in drug.precautions %}
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <input name="precaution_name[]" class="form-control" placeholder="Label" id="precaution-label" value="{{ precaution.name }}" type="text">
+                                    <input name="precaution[{{ loop.index0 }}][label]" class="form-control" placeholder="Label" id="precaution-label" value="{{ precaution.name }}" type="text">
                                 </div>
                                 <div class="col-xs-8">
-                                    <input name="precaution_note[]" class="form-control" placeholder="Precaution" id="precaution-precaution" value="{{ precaution.note }}" type="text">
+                                    <input name="precaution[{{ loop.index0 }}][note]" class="form-control" placeholder="Precaution" id="precaution-precaution" value="{{ precaution.note }}" type="text">
                                 </div>
                                 {% if not loop.first %}
                                     <div class="col-sm-1">
@@ -181,7 +185,17 @@ class="active"
                 <div class="form-group">
                     <div class="monitoring">
                         <label for="monitoring">Monitoring</label>
-                        <input name="monitoring" class="form-control" placeholder="e.g. Disease progression and toxicities " id="monitoring" value="{{ drug.monitoring }}" type="text">
+                        {% for monitor in drug.monitoring %}
+                            <input name="monitoring[{{ loop.index0 }}]" class="form-control" placeholder="e.g. Disease progression and toxicities " id="monitoring" value="{{ monitor }}" type="text">
+                            {% if not loop.first %}
+                                <div class="col-sm-1">
+                                    <button class="btn btn-danger btn-xs remove-input" onclick="removeRow(this);" type="button">
+                                        <span class="glyphicon glyphicon-minus-sign"></span> Remove
+                                    </button>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        <button type="button" onclick="addRow(this);" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                     </div>
                 </div>
                 <hr>
