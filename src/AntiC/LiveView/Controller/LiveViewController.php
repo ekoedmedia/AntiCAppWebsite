@@ -24,7 +24,21 @@ class LiveViewController
      */
     public function drugsListAction(Application $app, Request $request)
     {
-        return $app['twig']->render('livedrugs/index.html.twig');
+        //TODO DB integration
+        $drugs = array();
+        $drugs[0] = array(
+            "name" => "TestName",
+            "id" => "TestName",
+            "enabled" => true,
+        );
+        $drugs[1] = array(
+            "name" => "TestName2",
+            "id" => "TestName2",
+            "enabled" => true,
+        );
+        return $app['twig']->render('livedrugs/index.html.twig', array(
+            'drugs' => $drugs,
+            ));
     }
 
     /**

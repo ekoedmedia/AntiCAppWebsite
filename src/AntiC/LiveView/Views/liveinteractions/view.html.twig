@@ -11,6 +11,10 @@ Oral Chemotherapy - University of Alberta | Improving drug dosing and use
 {% endblock pageStylesheets %}
 
 {# Beginning of Page Content #}
+{% block interactionsActive %}
+class="active"
+{% endblock interactionsActive %}
+
 {% block content %}
 <div class="col-sm-10">
     <h1 class="page-header">View - {{ interaction_name }}</h1>
