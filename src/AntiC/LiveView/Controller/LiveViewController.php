@@ -50,7 +50,7 @@ class LiveViewController
         #require_once 'api/get/getDrug.php';
         #$drug = getDrug($request->get('ID'));
         return $app['twig']->render('livedrugs/view.html.twig', array(
-                'drug' => $request->get('ID')));
+                'drug_name' => $request->get('ID')));
     }
 
     /**

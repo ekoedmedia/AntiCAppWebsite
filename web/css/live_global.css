@@ -4,6 +4,7 @@
 .masthead {
    background-image: url("/img/logo_small.png");
    height: 98px;
+   width: 25%;
    background-repeat:no-repeat;
 }
 
@@ -13,6 +14,13 @@ body {
 
 .navbar {
     padding-top: 10px;
+}
+.hyperspan {
+    position:absolute;
+    width:100%;
+    height:100%;
+    left:0;
+    top:0;
 }
 
 /*

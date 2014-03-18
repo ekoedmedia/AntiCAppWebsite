@@ -18,136 +18,129 @@ class="active"
 {% block content %}
 <div>
     <h1 class="page-header">View - {{ interaction_name }}</h1>
-
-    <form role="form" action="{{ path('console.interactions.edit', {'ID':interaction_name}) }}">
-        <div class="row">
-            <div class="col-sm-4" style="border-right: 1px solid #eee;">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <td>
-                                <div class="col-sm-8">
-                                    <h4>Substrate</h4>
-                                </div>
-                                <div class="col-sm-4">
-                                    <h4>Effect</h4>
-                                </div>
-                            </td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>
-                                <div class="col-sm-8">
-                                    Substrate 1
-                                </div>
-                                <div class="col-sm-4">
-                                    Low
-                                </div>
-                            </td></tr>
-                        <tr><td>
-                                <div class="col-sm-8">
-                                    Substrate 2
-                                </div>
-                                <div class="col-sm-4">
-                                    Moderate
-                                </div>
-                            </td></tr>
-                        <tr><td>
-                                <div class="col-sm-8">
-                                    Substrate 3
-                                </div>
-                                <div class="col-sm-4">
-                                    High
-                                </div>
-                            </td></tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-sm-4" style="border-right: 1px solid #eee;">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <td>
-                                <div class="col-sm-8">
-                                    <h4>Inhibitor</h4>
-                                </div>
-                                <div class="col-sm-4">
-                                    <h4>Effect</h4>
-                                </div>
-                            </td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>
-                                <div class="col-sm-8">
-                                    Inhibitor 1
-                                </div>
-                                <div class="col-sm-4">
-                                    Low
-                                </div>
-                            </td></tr>
-                        <tr><td>
-                                <div class="col-sm-8">
-                                    Inhibitor 2
-                                </div>
-                                <div class="col-sm-4">
-                                    Moderate
-                                </div>
-                            </td></tr>
-                        <tr><td>
-                                <div class="col-sm-8">
-                                    Inhibitor 3
-                                </div>
-                                <div class="col-sm-4">
-                                    High
-                                </div>
-                            </td></tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-sm-4" style="border-right: 1px solid #eee;">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <td>
-                                <div class="col-sm-8">
-                                    <h4>Inducer</h4>
-                                </div>
-                                <div class="col-sm-4">
-                                    <h4>Effect</h4>
-                                </div>
-                            </td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>
-                                <div class="col-sm-8">
-                                    Inducer 1
-                                </div>
-                                <div class="col-sm-4">
-                                    Low
-                                </div>
-                            </td></tr>
-                        <tr><td>
-                                <div class="col-sm-8">
-                                    Inducer 2
-                                </div>
-                                <div class="col-sm-4">
-                                    Moderate
-                                </div>
-                            </td></tr>
-                        <tr><td>
-                                <div class="col-sm-8">
-                                    Inducer 3
-                                </div>
-                                <div class="col-sm-4">
-                                    High
-                                </div>
-                            </td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </form>
+    <div class="col-sm-4" style="border-right: 1px solid #595959;">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <td>
+                            <h4>Substrate</h4>
+                        <div class="col-sm-4">
+                            <h4>Effect</h4>
+                        </div>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>
+                        <div class="col-sm-8">
+                            Substrate 1
+                        </div>
+                        <div class="col-sm-4">
+                            Low
+                        </div>
+                    </td></tr>
+                <tr><td>
+                        <div class="col-sm-8">
+                            Substrate 2
+                        </div>
+                        <div class="col-sm-4">
+                            Moderate
+                        </div>
+                    </td></tr>
+                <tr><td>
+                        <div class="col-sm-8">
+                            Substrate 3
+                        </div>
+                        <div class="col-sm-4">
+                            High
+                        </div>
+                    </td></tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-sm-4" style="border-right: 1px solid #595959;">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <td>
+                        <div class="col-sm-8">
+                            <h4>Inhibitor</h4>
+                        </div>
+                        <div class="col-sm-4">
+                            <h4>Effect</h4>
+                        </div>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>
+                        <div class="col-sm-8">
+                            Inhibitor 1
+                        </div>
+                        <div class="col-sm-4">
+                            Low
+                        </div>
+                    </td></tr>
+                <tr><td>
+                        <div class="col-sm-8">
+                            Inhibitor 2
+                        </div>
+                        <div class="col-sm-4">
+                            Moderate
+                        </div>
+                    </td></tr>
+                <tr><td>
+                        <div class="col-sm-8">
+                            Inhibitor 3
+                        </div>
+                        <div class="col-sm-4">
+                            High
+                        </div>
+                    </td></tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-sm-4">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <td>
+                        <div class="col-sm-8">
+                            <h4>Inducer</h4>
+                        </div>
+                        <div class="col-sm-4">
+                            <h4>Effect</h4>
+                        </div>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>
+                        <div class="col-sm-8">
+                            Inducer 1
+                        </div>
+                        <div class="col-sm-4">
+                            Low
+                        </div>
+                    </td></tr>
+                <tr><td>
+                        <div class="col-sm-8">
+                            Inducer 2
+                        </div>
+                        <div class="col-sm-4">
+                            Moderate
+                        </div>
+                    </td></tr>
+                <tr><td>
+                        <div class="col-sm-8">
+                            Inducer 3
+                        </div>
+                        <div class="col-sm-4">
+                            High
+                        </div>
+                    </td></tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 {% endblock content %}
