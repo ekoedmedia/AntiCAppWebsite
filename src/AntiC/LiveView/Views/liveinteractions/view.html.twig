@@ -16,7 +16,7 @@ class="active"
 {% endblock interactionsActive %}
 
 {% block content %}
-<div class="col-sm-10">
+<div>
     <h1 class="page-header">View - {{ interaction_name }}</h1>
 
     <form role="form" action="{{ path('console.interactions.edit', {'ID':interaction_name}) }}">

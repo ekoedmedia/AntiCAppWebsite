@@ -39,21 +39,9 @@ AntiC | {% block title %}{% endblock title %}
 {% endblock pageHeader %}
 
 {% block pageContent %}
+    <div class="container" style="padding-bottom:40px; background-color:#f2f2f2">
     {% block content %}{% endblock content %}
-{#<div class="content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-3 col-md-2 sidebar">
-                <ul class="nav nav-sidebar">
-                    <li {% block drugsActive %}{% endblock drugsActive %}><a href="/console">Drugs</a></li>
-                    <li {% block interactionsActive %}{% endblock interactionsActive %}><a href="/console/interactions">Interactions</a></li>
-                    <li {% block aboutActive %}{% endblock aboutActive %}><a href="/console/about">About</a></li>
-                </ul>
-            </div>
-            {% block content %}{% endblock content %}
-        </div>
     </div>
-</div>#}
 {% endblock pageContent %}
 
 {% block pageFooter %}
