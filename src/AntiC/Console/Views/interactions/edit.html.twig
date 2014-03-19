@@ -25,6 +25,7 @@ class="active"
                 <div class="form-group">
                     <label for="common-name">Enzyme Name</label>
                     <input name="name" class="form-control" placeholder="e.g. CYP 450 1A2" id="enzyme-name" value="{{ interaction.name }}" required="true" type="text">
+                    <input type="hidden" name="orig_name" value="{{ interaction.name }}">
                 </div>
                 <div class="form-group">
                     <label>Last Revision</label>
@@ -42,7 +43,7 @@ class="active"
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                            <a data-toggle="collapse" name="substrate-header" data-parent="#accordion" href="#collapseOne">
                                 Substrate
                             </a>
                         </h4>
@@ -52,10 +53,10 @@ class="active"
                             {% for substrate in interaction.Substrate %}
                                 <div class="row" style="margin-bottom:5px;">
                                     <div class="col-sm-6">
-                                        <input class="form-control" placeholder="e.g. Acetaminophen" name="substrate[][name]" value="{{ substrate.compound }}" id="substrate" type="text">
+                                        <input class="form-control" placeholder="e.g. Acetaminophen" name="substrate[{{ loop.index0 }}][name]" value="{{ substrate.compound }}" id="substrate" type="text">
                                     </div>
                                     <div class="col-sm-3">
-                                        <select class="form-control" name="substrate[][risk]" id="risk-level">
+                                        <select class="form-control" name="substrate[{{ loop.index0 }}][risk]" id="risk-level">
                                             <option {% if substrate.severity == "Weak" %}selected="selected"{% endif %}>Weak</option>
                                             <option {% if substrate.severity == "Moderate" %}selected="selected"{% endif %}>Moderate</option>
                                             <option {% if substrate.severity == "Strong" %}selected="selected"{% endif %}>Strong</option>
@@ -71,14 +72,14 @@ class="active"
                                     {% endif %}
                                 </div>
                             {% endfor %}
-                            <button type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>        
+                            <button type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>        
                         </div>
                     </div>
                 </div>
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                            <a data-toggle="collapse" name="inhibitor-header" data-parent="#accordion" href="#collapseTwo">
                                 Inhibitor
                             </a>
                         </h4>
@@ -88,10 +89,10 @@ class="active"
                             {% for inhibitor in interaction.Inhibitor %}
                                 <div class="row" style="margin-bottom:5px;">
                                     <div class="col-sm-6">
-                                        <input class="form-control" placeholder="e.g. Amiodarone" name="inhibitor[][name]" value="{{ inhibitor.compound }}" id="inhibitor" type="text">
+                                        <input class="form-control" placeholder="e.g. Amiodarone" name="inhibitor[{{ loop.index0 }}][name]" value="{{ inhibitor.compound }}" id="inhibitor" type="text">
                                     </div>
                                     <div class="col-sm-3">
-                                        <select class="form-control" name="substrate[][risk]" id="risk-level">
+                                        <select class="form-control" name="substrate[{{ loop.index0 }}][risk]" id="risk-level">
                                             <option {% if inhibitor.severity == "Weak" %}selected="selected"{% endif %}>Weak</option>
                                             <option {% if inhibitor.severity == "Moderate" %}selected="selected"{% endif %}>Moderate</option>
                                             <option {% if inhibitor.severity == "Strong" %}selected="selected"{% endif %}>Strong</option>
@@ -107,14 +108,14 @@ class="active"
                                     {% endif %}
                                 </div>
                             {% endfor %}
-                            <button type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                            <button type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                         </div>
                     </div>
                 </div>
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                            <a data-toggle="collapse" name="inducer-header" data-parent="#accordion" href="#collapseThree">
                                 Inducer
                             </a>
                         </h4>
@@ -124,10 +125,10 @@ class="active"
                             {% for inducer in interaction.Inducer %}
                                 <div class="row" style="margin-bottom:5px;">
                                     <div class="col-sm-6">
-                                        <input class="form-control" placeholder="e.g. Aminogluthethimide" name="inducer[][name]" value="{{ inducer.compound }}" id="inducer" type="text">
+                                        <input class="form-control" placeholder="e.g. Aminogluthethimide" name="inducer[{{ loop.index0 }}][name]" value="{{ inducer.compound }}" id="inducer" type="text">
                                     </div>
                                     <div class="col-sm-3">
-                                        <select class="form-control" name="substrate[][risk]" id="risk-level">
+                                        <select class="form-control" name="substrate[{{ loop.index0 }}][risk]" id="risk-level">
                                             <option {% if inducer.severity == "Weak" %}selected="selected"{% endif %}>Weak</option>
                                             <option {% if inducer.severity == "Moderate" %}selected="selected"{% endif %}>Moderate</option>
                                             <option {% if inducer.severity == "Strong" %}selected="selected"{% endif %}>Strong</option>
@@ -143,7 +144,7 @@ class="active"
                                     {% endif %}
                                 </div>
                             {% endfor %}
-                            <button type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                            <button type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                         </div>
                     </div>
                 </div>

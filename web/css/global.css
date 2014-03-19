@@ -24,6 +24,14 @@ hr.dark {
     width:75px;
 }
 
+.rowBottomHalfBreak {
+    margin-bottom:10px;
+}
+
+.rowBottomBreak {
+    margin-bottom:20px;
+}
+
 
 /*
  * Sidebar

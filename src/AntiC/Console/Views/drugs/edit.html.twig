@@ -21,11 +21,11 @@ class="active"
         <h1 class="page-header">Edit Drug - {{ drug.g_name }}</h1>
 
         <form role="form" method="post" action="{{ path('console.drug.edit', { 'ID':drug.g_name }) }}">
-            {# Todo: Figure out Sidebar Floating #}
             <div class="col-sm-2 well" data-spy="affix">
                 <div class="form-group">
                     <label for="common-name">Common Name</label>
                     <input name="g_name" class="form-control" placeholder="e.g. Abiaterone" id="common-name" value="{{ drug.g_name }}" required="true" type="text">
+                    <input type="hidden" name="g_name_original" value="{{ drug.g_name }}">
                 </div>
                 <div class="form-group">
                     <label for="trade-name">Trade Name</label>
@@ -55,7 +55,7 @@ class="active"
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                            <a data-toggle="collapse" name="general-header" data-parent="#accordion" href="#collapseOne">
                                 General
                             </a>
                         </h4>
@@ -66,7 +66,7 @@ class="active"
                                 <div class="classification">
                                     <label>Classification</label>
                                     {% for classification in drug.classification %}            
-                                        <div class="row">
+                                        <div class="row rowBottomHalfBreak">
                                             <div class="col-sm-10">
                                                 <input name="classification[{{ loop.index0 }}]" class="form-control" placeholder="e.g. Xeloda" id="classification" value="{{ classification }}" type="text">
                                             </div>
@@ -79,14 +79,14 @@ class="active"
                                             {% endif %}
                                         </div>
                                     {% endfor %}
-                                    <button name="classification_button" type="button" onclick="addRow(this);" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                                    <button name="classification_button" type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="contraindications">
                                     <label>Contraindications</label>
                                     {% for contraindications in drug.contraindications %}
-                                        <div class="row">
+                                        <div class="row rowBottomHalfBreak">
                                             <div class="col-sm-10">
                                                 <input name="contraindications[{{ loop.index0 }}]" class="form-control" placeholder="e.g. Hypersensitivity" id="contraindications" value="{{ contraindications }}" type="text">
                                             </div>
@@ -99,16 +99,16 @@ class="active"
                                             {% endif %}
                                         </div>
                                     {% endfor %}
-                                    <button type="button" onclick="addRow(this);" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                                    <button type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="onocologyuses">
                                     <label>Onocology Uses</label>
                                     {% for oncUse in drug.oncUses %}
-                                        <div class="row">
+                                        <div class="row rowBottomHalfBreak">
                                             <div class="col-sm-8">
-                                                <input name="onocology[{{ loop.index0 }}][type]" class="form-control" placeholder="e.g. Prostate Cancer" name="{{ oncUse.cancer_type }}" id="onocology" type="text">
+                                                <input name="onocology[{{ loop.index0 }}][type]" class="form-control" placeholder="e.g. Prostate Cancer" value="{{ oncUse.cancer_type }}" id="onocology" type="text">
                                             </div>
                                             <div class="col-sm-1 checkbox">
                                                 <label><input name="onocology[{{ loop.index0 }}][approved]" type="checkbox" id="approved" value="approved" {% if oncUse.approved %}selected="selected"{% endif %}> Approved</label>
@@ -122,14 +122,14 @@ class="active"
                                             {% endif %}
                                         </div>
                                     {% endfor %}
-                                    <button type="button" onclick="addRow(this);" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                                    <button type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="precautions">
                                     <label>Precautions</label>
                                     {% for precaution in drug.precautions %}
-                                        <div class="row">
+                                        <div class="row rowBottomHalfBreak">
                                             <div class="col-xs-3">
                                                 <input name="precaution[{{ loop.index0 }}][label]" class="form-control" placeholder="Label" id="precaution-label" value="{{ precaution.name }}" type="text">
                                             </div>
@@ -145,7 +145,7 @@ class="active"
                                             {% endif %}
                                         </div>
                                     {% endfor %}
-                                    <button type="button" onclick="addRow(this);" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                                    <button type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -196,7 +196,7 @@ class="active"
                                 <div class="monitoring">
                                     <label for="monitoring">Monitoring</label>
                                     {% for monitor in drug.monitoring %}
-                                        <div class="row">
+                                        <div class="row rowBottomHalfBreak">
                                             <div class="col-sm-10">
                                                 <input name="monitoring[{{ loop.index0 }}]" class="form-control" placeholder="e.g. Disease progression and toxicities " id="monitoring" value="{{ monitor }}" type="text">
                                             </div>
@@ -209,7 +209,7 @@ class="active"
                                             {% endif %}
                                         </div>
                                     {% endfor %}
-                                    <button type="button" onclick="addRow(this);" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                                    <button type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                                 </div>
                             </div>
                         </div>
@@ -218,7 +218,7 @@ class="active"
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                            <a data-toggle="collapse" name="sideeffect-header" data-parent="#accordion" href="#collapseTwo">
                                 Side Effects
                             </a>
                         </h4>
@@ -237,10 +237,10 @@ class="active"
                                     {% for sideEffect in drug.sideEffects %}
                                         <div class="row">
                                             <div class="col-sm-8">
-                                                <input name="sideeffect_effect[]"class="form-control" placeholder="e.g. Hypertension" value="{{ sideEffect.name }}" type="text">
+                                                <input name="sideeffect[{{ loop.index0 }}][name]"class="form-control" placeholder="e.g. Hypertension" value="{{ sideEffect.name }}" type="text">
                                             </div>
                                             <div class="col-sm-1 checkbox">
-                                                <label><input name="sideeffect_severe[]" type="checkbox" id="important" value="important" {% if sideEffect.severe %}checked="checked"{% endif %}> Important</label>
+                                                <label><input name="sideeffect[{{ loop.index0 }}][severe]" type="checkbox" id="important" value="important" {% if sideEffect.severe %}checked="checked"{% endif %}> Important</label>
                                             </div>
                                             {% if not loop.first %}
                                                 <div class="col-sm-1">
@@ -251,7 +251,7 @@ class="active"
                                             {% endif %}
                                         </div>
                                     {% endfor %}
-                                    <button onclick="addRow(this);" type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                                    <button type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                                 </div>
                             </div>
                         </div>
@@ -260,7 +260,7 @@ class="active"
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                            <a data-toggle="collapse" name="interaction-header" data-parent="#accordion" href="#collapseThree">
                                 Drug Interactions
                             </a>
                         </h4>
@@ -482,7 +482,7 @@ class="active"
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+                            <a data-toggle="collapse" name="dose-header" data-parent="#accordion" href="#collapseFour">
                                 Dose Adjustments
                             </a>
                         </h4>
@@ -491,18 +491,18 @@ class="active"
                         <div class="panel-body">
                             <div class="form-group">
                                 {% for doseAdjust in drug.doseAdjusts %}
-                                    <div class="row">
+                                    <div class="row rowBottomBreak">
                                         <div class="col-sm-2">
                                             <label for="adjustmentname">Name</label>
-                                            <input name="adjustment[][name]" type="text" class="form-control" id="adjustmentname" value="{{ doseAdjust.problem }}" placeholder="Name">
+                                            <input name="adjustment[{{ loop.index0 }}][name]" type="text" class="form-control" id="adjustmentname" value="{{ doseAdjust.problem }}" placeholder="Name">
                                         </div>
                                         <div class="col-sm-5">
                                             <label for="adjustmentdesc">Adjustment</label>
-                                            <textarea name="adjustment[][adjustment]" class="form-control" rows="3" id="adjustmentdesc">{{ doseAdjust.note }}</textarea>
+                                            <textarea name="adjustment[{{ loop.index0 }}][adjustment]" class="form-control" rows="3" id="adjustmentdesc">{{ doseAdjust.note }}</textarea>
                                         </div>
                                         <div class="col-sm-4">
                                             <label for="chartimage">Adjustment Chart</label>
-                                            <input name="adjust[][chart]" type="file" id="chartimage">
+                                            <input name="adjustment[{{ loop.index0 }}][chart]" type="file" id="chartimage">
                                             <div style="margin-top:10px;">{% if doseAdjust %}<a href="" target="_blank">Click to view chart</a>{% else %}<em>No chart</em>{% endif %}</div>
                                         </div>
                                         {% if not loop.first %}
@@ -513,9 +513,8 @@ class="active"
                                             </div>
                                         {% endif %}
                                     </div>
-                                    <hr>
                                 {% endfor %}
-                                <button onclick="addRow(this);" type="button" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                                <button type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                             </div>
                         </div>
                     </div>
