@@ -54,11 +54,11 @@ class="active"
             <div class="col-sm-9 col-sm-offset-3 panel-group" id="accordion">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" name="general-header" data-parent="#accordion" href="#collapseOne">
+                        <a data-toggle="collapse" name="general-header" data-parent="#accordion" href="#collapseOne">
+                            <h4 class="panel-title">
                                 General
-                            </a>
-                        </h4>
+                            </h4>
+                        </a>
                     </div>
                     <div id="collapseOne" class="panel-collapse collapse in">
                         <div class="panel-body">
@@ -217,11 +217,11 @@ class="active"
                 </div>
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" name="sideeffect-header" data-parent="#accordion" href="#collapseTwo">
+                        <a data-toggle="collapse" name="sideeffect-header" data-parent="#accordion" href="#collapseTwo">
+                            <h4 class="panel-title">
                                 Side Effects
-                            </a>
-                        </h4>
+                            </h4>
+                        </a>
                     </div>
                     <div id="collapseTwo" class="panel-collapse collapse">
                         <div class="panel-body">
@@ -236,10 +236,10 @@ class="active"
                                     <label>Side Effects</label>
                                     {% for sideEffect in drug.sideEffects %}
                                         <div class="row">
-                                            <div class="col-sm-8">
+                                            <div class="col-sm-6">
                                                 <input name="sideeffect[{{ loop.index0 }}][name]"class="form-control" placeholder="e.g. Hypertension" value="{{ sideEffect.name }}" type="text">
                                             </div>
-                                            <div class="col-sm-1 checkbox">
+                                            <div class="col-sm-2 checkbox">
                                                 <label><input name="sideeffect[{{ loop.index0 }}][severe]" type="checkbox" id="important" value="important" {% if sideEffect.severe %}checked="checked"{% endif %}> Important</label>
                                             </div>
                                             {% if not loop.first %}
@@ -259,18 +259,18 @@ class="active"
                 </div>
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" name="interaction-header" data-parent="#accordion" href="#collapseThree">
+                        <a data-toggle="collapse" name="interaction-header" data-parent="#accordion" href="#collapseThree">
+                            <h4 class="panel-title">
                                 Drug Interactions
-                            </a>
-                        </h4>
+                            </h4>
+                        </a>
                     </div>
                     <div id="collapseThree" class="panel-collapse collapse">
                         <div class="panel-body">
                             <div class="form-group">
                                 {# is that word correct? #}
                                 <label>Avoid Concomitant Use</label>
-                                <div class="row">
+                                <div class="row rowBottomHalfBreak">
                                     <div class="col-sm-4">
                                         <input name="interact_concomit[]" class="form-control" placeholder="e.g. Avoid estrogen" type="text">
                                     </div>
@@ -285,7 +285,7 @@ class="active"
                                             <option>CYP 450 2B6</option>
                                         </select>
                                     </div>
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-2">
                                         <select name="interact_concomit_cyp_type[]" class="form-control">
                                             <option></option>
                                             <option>Inhibitor</option>
@@ -298,7 +298,7 @@ class="active"
                             </div>
                             <div class="form-group">
                                 <label><span class="glyphicon glyphicon-arrow-up"></span> Effect (this drug)</label>
-                                <div class="row">
+                                <div class="row rowBottomHalfBreak">
                                     <div class="col-sm-4">
                                         <input name="interact_incr_this[]" class="form-control" placeholder="e.g. Pheonobarb" type="text">
                                     </div>
@@ -313,7 +313,7 @@ class="active"
                                             <option>CYP 450 2B6</option>
                                         </select>
                                     </div>
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-2">
                                         <select name="interact_incr_this_cyp_type[]" class="form-control">
                                             <option></option>
                                             <option>Inhibitor</option>
@@ -326,7 +326,7 @@ class="active"
                             </div>
                             <div class="form-group">
                                 <label><span class="glyphicon glyphicon-arrow-down"></span> Effect (this drug)</label>
-                                <div class="row">
+                                <div class="row rowBottomHalfBreak">
                                     <div class="col-sm-4">
                                         <input name="interact_decr_this[]" class="form-control" placeholder="e.g. Azanavir" type="text">
                                     </div>
@@ -341,7 +341,7 @@ class="active"
                                             <option>CYP 450 2B6</option>
                                         </select>
                                     </div>
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-2">
                                         <select name="interact_decr_this_cyp_type[]" class="form-control">
                                             <option></option>
                                             <option>Inhibitor</option>
@@ -354,7 +354,7 @@ class="active"
                             </div>
                             <div class="form-group">
                                 <label><span class="glyphicon glyphicon-sort"></span> Effect (this drug)</label>
-                                <div class="row">
+                                <div class="row rowBottomHalfBreak">
                                     <div class="col-sm-4">
                                         <input name="interact_both_this[]" class="form-control" placeholder="e.g. Echinacea" type="text">
                                     </div>
@@ -369,7 +369,7 @@ class="active"
                                             <option>CYP 450 2B6</option>
                                         </select>
                                     </div>
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-2">
                                         <select name="interact_both_this_cyp_type[]" class="form-control">
                                             <option></option>
                                             <option>Inhibitor</option>
@@ -382,7 +382,7 @@ class="active"
                             </div>
                             <div class="form-group">
                                 <label><span class="glyphicon glyphicon-arrow-up"></span> Effect</label>
-                                <div class="row">
+                                <div class="row rowBottomHalfBreak">
                                     <div class="col-sm-4">
                                         <input name="interact_incr[]" class="form-control" placeholder="e.g. Pheonobarb" type="text">
                                     </div>
@@ -397,7 +397,7 @@ class="active"
                                             <option>CYP 450 2B6</option>
                                         </select>
                                     </div>
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-2">
                                         <select name="interact_incr_cyp_type[]" class="form-control">
                                             <option></option>
                                             <option>Inhibitor</option>
@@ -410,7 +410,7 @@ class="active"
                             </div>
                             <div class="form-group">
                                 <label><span class="glyphicon glyphicon-arrow-down"></span> Effect</label>
-                                <div class="row">
+                                <div class="row rowBottomHalfBreak">
                                     <div class="col-sm-4">
                                         <input name="interact_decr[]" class="form-control" placeholder="e.g. Azanavir" type="text">
                                     </div>
@@ -425,7 +425,7 @@ class="active"
                                             <option>CYP 450 2B6</option>
                                         </select>
                                     </div>
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-2">
                                         <select name="interact_decr_cyp_type[]" class="form-control">
                                             <option></option>
                                             <option>Inhibitor</option>
@@ -438,7 +438,7 @@ class="active"
                             </div>
                             <div class="form-group">
                                 <label><span class="glyphicon glyphicon-sort"></span> Effect</label>
-                                <div class="row">
+                                <div class="row rowBottomHalfBreak">
                                     <div class="col-sm-4">
                                         <input name="interact_both[]" class="form-control" placeholder="e.g. Echinacea" type="text">
                                     </div>
@@ -448,12 +448,12 @@ class="active"
                                     <div class="col-sm-3">
                                         <select name="interact_both_cyp[]" class="form-control">
                                             <option></option>
-                                            <option>CYP 450 1A2</option>
-                                            <option>CYP 450 2A6</option>
-                                            <option>CYP 450 2B6</option>
+                                            {# {% for enzyme in enzymes %}
+                                                <option>{{ enzyme.name }}</option>
+                                            {% endfor %} #}
                                         </select>
                                     </div>
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-2">
                                         <select name="interact_both_cyp_type[]" class="form-control">
                                             <option></option>
                                             <option>Inhibitor</option>
@@ -469,7 +469,7 @@ class="active"
                             </div>
                             <div class="form-group">
                                 <label>Other Effects</label>
-                                <div class="row">
+                                <div class="row rowBottomHalfBreak">
                                     <div class="col-sm-10">
                                         <input name="interact_other[]" class="form-control" placeholder="e.g. Caution with agents" id="othereffects" type="text">
                                     </div>
@@ -481,11 +481,11 @@ class="active"
                 </div>
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" name="dose-header" data-parent="#accordion" href="#collapseFour">
+                        <a data-toggle="collapse" name="dose-header" data-parent="#accordion" href="#collapseFour">
+                            <h4 class="panel-title">
                                 Dose Adjustments
-                            </a>
-                        </h4>
+                            </h4>
+                        </a>
                     </div>
                     <div id="collapseFour" class="panel-collapse collapse">
                         <div class="panel-body">
@@ -496,11 +496,11 @@ class="active"
                                             <label for="adjustmentname">Name</label>
                                             <input name="adjustment[{{ loop.index0 }}][name]" type="text" class="form-control" id="adjustmentname" value="{{ doseAdjust.problem }}" placeholder="Name">
                                         </div>
-                                        <div class="col-sm-5">
-                                            <label for="adjustmentdesc">Adjustment</label>
-                                            <textarea name="adjustment[{{ loop.index0 }}][adjustment]" class="form-control" rows="3" id="adjustmentdesc">{{ doseAdjust.note }}</textarea>
-                                        </div>
                                         <div class="col-sm-4">
+                                            <label for="adjustmentdesc">Adjustment</label>
+                                            <textarea name="adjustment[{{ loop.index0 }}][adjustment]" class="form-control" style="resize:vertical;" rows="3" id="adjustmentdesc">{{ doseAdjust.note }}</textarea>
+                                        </div>
+                                        <div class="col-sm-3">
                                             <label for="chartimage">Adjustment Chart</label>
                                             <input name="adjustment[{{ loop.index0 }}][chart]" type="file" id="chartimage">
                                             <div style="margin-top:10px;">{% if doseAdjust %}<a href="" target="_blank">Click to view chart</a>{% else %}<em>No chart</em>{% endif %}</div>

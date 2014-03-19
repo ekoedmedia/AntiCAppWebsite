@@ -197,12 +197,15 @@ class DrugsController
              */
         }
 
-        require_once 'api/get/getDrug.php';
+        require 'api/get/getDrug.php';
         $drug = getDrug($request->get('ID'));
+        // require 'api/get/listEnzymes.php';
+        // $enzymeList = getEnzymeList();
 
         // Query Database with ID and Return Drug Name and Information to Twig
         return $app['twig']->render('drugs/edit.html.twig', array(
-            'drug' => $drug
+            'drug' => $drug,
+            // 'enzymes' => $enzymeList
         ));
     }
 
