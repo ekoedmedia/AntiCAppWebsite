@@ -31,7 +31,7 @@ class="active"
             <tr>
                 <th class="col-md-6">Interaction Name</th>
             </tr>
-            <tr class="clickable-row" href="/interactions/{% verbatim %}{{ interaction.id }}{% endverbatim %}" 
+            <tr class="clickable-row" style="cursor: pointer;" data-url="/interactions/{% verbatim %}{{ interaction.id }}{% endverbatim %}" 
                 ng-repeat="interaction in interactions | filter:interactionsSearch | orderBy:'enabled' | orderBy:'name'">
                 <td class="col-md-6">{% verbatim %}{{ interaction.name }}{% endverbatim %}</td>
             </tr>
@@ -59,7 +59,7 @@ class="active"
 <script>
     jQuery(document).ready(function($) {
         $(".clickable-row").click(function() {
-            window.document.location = $(this).attr("href");
+            window.document.location = $(this).data("url");
         });
     });
 </script>

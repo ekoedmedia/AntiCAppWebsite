@@ -31,7 +31,7 @@ class="active"
             <tr>
                 <th class="col-md-6">Drug Name</th>
             </tr>
-            <tr class="clickable-row" href="/drugs/{% verbatim %}{{ drug.id }}{% endverbatim %}" 
+            <tr class="clickable-row" style="cursor: pointer;" href="/drugs/{% verbatim %}{{ drug.id }}{% endverbatim %}" 
                 ng-repeat="drug in drugs | filter:drugsSearch | orderBy:'enabled' | orderBy:'name'">
                 <td class="col-md-6">{% verbatim %}{{ drug.id }}{% endverbatim %}</td>
             </tr>
