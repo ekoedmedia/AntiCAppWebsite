@@ -99,6 +99,14 @@ class InteractionsController
         require_once 'api/get/getEnzyme.php';
         $enzyme = getEnzyme($request->get('ID'));
 
+        if (is_numeric($enzyme["who_updated"])) {
+            $userManager = new UserManager($app['db'], $app);
+            $user = $userManager->getUser($enzyme["who_updated"]);
+            $user = $user->getName();
+        } else {
+            $user = $enzyme["who_updated"];
+        }
+
         // Query Database with ID and Return Interactions Name and Information to Twig
         return $app['twig']->render('interactions/edit.html.twig', array(
             'interaction' => $enzyme

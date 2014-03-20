@@ -45,7 +45,7 @@ class="active"
                 </div>
                 <div class="form-group">
                     <label>Last Edited By</label>
-                    <div><em>USER TO GO HERE</em></div>
+                    <div><em>{{ last_edited_by }}</em></div>
                 </div>
                 <div class="form-group">
                     <button type="submit" id="saveDrug" class="btn btn-primary" method="post">Save Drug</button>
@@ -72,14 +72,14 @@ class="active"
                                             </div>
                                             {% if not loop.first %}
                                                 <div class="col-sm-1">
-                                                    <button class="btn btn-danger btn-xs remove-input" onclick="removeRow(this);" type="button">
+                                                    <button class="btn btn-danger btn-xs remove-input" id="removeClassification[{{ loop.index0 }}]" onclick="removeRow(this);" type="button">
                                                         <span class="glyphicon glyphicon-minus-sign"></span> Remove
                                                     </button>
                                                 </div>
                                             {% endif %}
                                         </div>
                                     {% endfor %}
-                                    <button name="classification_button" type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                                    <button type="button" class="btn btn-success btn-xs addMore" id="addMoreClassification"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -92,37 +92,37 @@ class="active"
                                             </div>
                                             {% if not loop.first %}
                                                 <div class="col-sm-1">
-                                                    <button class="btn btn-danger btn-xs remove-input" onclick="removeRow(this);" type="button">
+                                                    <button class="btn btn-danger btn-xs remove-input" id="removeContraindications[{{ loop.index0 }}]" onclick="removeRow(this);" type="button">
                                                         <span class="glyphicon glyphicon-minus-sign"></span> Remove
                                                     </button>
                                                 </div>
                                             {% endif %}
                                         </div>
                                     {% endfor %}
-                                    <button type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                                    <button type="button" class="btn btn-success btn-xs addMore" id="addMoreContraindications"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="onocologyuses">
-                                    <label>Onocology Uses</label>
+                                    <label>Oncology Uses</label>
                                     {% for oncUse in drug.oncUses %}
                                         <div class="row rowBottomHalfBreak">
                                             <div class="col-sm-8">
-                                                <input name="onocology[{{ loop.index0 }}][type]" class="form-control" placeholder="e.g. Prostate Cancer" value="{{ oncUse.cancer_type }}" id="onocology" type="text">
+                                                <input name="oncology[{{ loop.index0 }}][type]" class="form-control" placeholder="e.g. Prostate Cancer" value="{{ oncUse.cancer_type }}" id="oncology" type="text">
                                             </div>
                                             <div class="col-sm-1 checkbox">
-                                                <label><input name="onocology[{{ loop.index0 }}][approved]" type="checkbox" id="approved" value="approved" {% if oncUse.approved %}selected="selected"{% endif %}> Approved</label>
+                                                <label><input name="oncology[{{ loop.index0 }}][approved]" type="checkbox" id="approved" value="approved" {% if oncUse.approved %}selected="selected"{% endif %}> Approved</label>
                                             </div>
                                             {% if not loop.first %}
                                                 <div class="col-sm-1">
-                                                    <button class="btn btn-danger btn-xs remove-input" onclick="removeRow(this);" type="button">
+                                                    <button class="btn btn-danger btn-xs remove-input" id="removeOncology[{{ loop.index0 }}]" onclick="removeRow(this);" type="button">
                                                         <span class="glyphicon glyphicon-minus-sign"></span> Remove
                                                     </button>
                                                 </div>
                                             {% endif %}
                                         </div>
                                     {% endfor %}
-                                    <button type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                                    <button type="button" class="btn btn-success btn-xs addMore" id="addMoreOncology"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -138,14 +138,14 @@ class="active"
                                             </div>
                                             {% if not loop.first %}
                                                 <div class="col-sm-1">
-                                                    <button class="btn btn-danger btn-xs remove-input" onclick="removeRow(this);" type="button">
+                                                    <button class="btn btn-danger btn-xs remove-input" id="removePrecaution[{{ loop.index0 }}]" onclick="removeRow(this);" type="button">
                                                         <span class="glyphicon glyphicon-minus-sign"></span> Remove
                                                     </button>
                                                 </div>
                                             {% endif %}
                                         </div>
                                     {% endfor %}
-                                    <button type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                                    <button type="button" class="btn btn-success btn-xs addMore" id="addMorePrecautions"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -202,14 +202,14 @@ class="active"
                                             </div>
                                             {% if not loop.first %}
                                                 <div class="col-sm-1">
-                                                    <button class="btn btn-danger btn-xs remove-input" onclick="removeRow(this);" type="button">
+                                                    <button class="btn btn-danger btn-xs remove-input" id="removeMonitoring[{{ loop.index0 }}]" onclick="removeRow(this);" type="button">
                                                         <span class="glyphicon glyphicon-minus-sign"></span> Remove
                                                     </button>
                                                 </div>
                                             {% endif %}
                                         </div>
                                     {% endfor %}
-                                    <button type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                                    <button type="button" class="btn btn-success btn-xs addMore" id="addMoreMonitoring"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                                 </div>
                             </div>
                         </div>
@@ -244,14 +244,14 @@ class="active"
                                             </div>
                                             {% if not loop.first %}
                                                 <div class="col-sm-1">
-                                                    <button class="btn btn-danger btn-xs remove-input" onclick="removeRow(this);" type="button">
+                                                    <button class="btn btn-danger btn-xs remove-input" id="removeSideeffects[{{ loop.index0 }}]" onclick="removeRow(this);" type="button" id="addMoreSideeffects">
                                                         <span class="glyphicon glyphicon-minus-sign"></span> Remove
                                                     </button>
                                                 </div>
                                             {% endif %}
                                         </div>
                                     {% endfor %}
-                                    <button type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                                    <button type="button" class="btn btn-success btn-xs addMore" id="addMoreSideeffects"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                                 </div>
                             </div>
                         </div>
@@ -311,12 +311,12 @@ class="active"
                                                 </div>
                                             </div>
                                             {% if not loop.first %}
-                                                <div class="col-sm-1"><button class="btn btn-danger btn-xs remove-input" onclick="removeRow(this);" type="button"><span class="glyphicon glyphicon-minus-sign"></span> Remove</button></div>
+                                                <div class="col-sm-1"><button class="btn btn-danger btn-xs remove-input" id="removeInteractions[{{ loop.index0 }}]" onclick="removeRow(this);" type="button"><span class="glyphicon glyphicon-minus-sign"></span> Remove</button></div>
                                             {% endif %}
                                         </div>
                                     {% endif %}
                                 {% endfor %}
-                                <button type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                                <button type="button" class="btn btn-success btn-xs addMore" id="addMoreInteractions"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                             </div>
                             <div class="form-group">
                                 <label><input name="anti-neoplastic" type="checkbox" id="cautionwith" value="cautionwith" {% if drug.anti_neoplastic %}selected="selected"{% endif %}> Caution with other anti-neoplastic agents (unless per protocol)</label>
@@ -330,9 +330,12 @@ class="active"
                                                 <input name="interact_other[{{ loop.index0 }}]" class="form-control" placeholder="e.g. Caution with agents" value="{{ inter.compound }}" id="othereffects" type="text">
                                             </div>
                                         </div>
+                                        {% if not loop.first %}
+                                            <div class="col-sm-1"><button class="btn btn-danger btn-xs remove-input" id="removeOtherInteractions[{{ loop.index0 }}]" onclick="removeRow(this);" type="button"><span class="glyphicon glyphicon-minus-sign"></span> Remove</button></div>
+                                        {% endif %}
                                     {% endif %}
                                 {% endfor %}
-                                <button type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                                <button type="button" class="btn btn-success btn-xs addMore" id="addMoreOtherInteractions"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                             </div>
                         </div>
                     </div>
@@ -365,14 +368,14 @@ class="active"
                                         </div>
                                         {% if not loop.first %}
                                             <div class="col-sm-1">
-                                                <button class="btn btn-danger btn-xs remove-input" onclick="removeRow(this);" type="button">
+                                                <button class="btn btn-danger btn-xs remove-input" id="removeDoseAdjustment[{{ loop.index0 }}]" onclick="removeRow(this);" type="button">
                                                     <span class="glyphicon glyphicon-minus-sign"></span> Remove
                                                 </button>
                                             </div>
                                         {% endif %}
                                     </div>
                                 {% endfor %}
-                                <button type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                                <button type="button" class="btn btn-success btn-xs addMore" id="addMoreDoseAdjustments"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                             </div>
                         </div>
                     </div>

@@ -62,7 +62,7 @@ class="active"
                                             <input name="classification[0]" class="form-control" placeholder="e.g. Xeloda" id="classification" type="text">
                                         </div>
                                     </div>
-                                    <button name="classification_button" type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                                    <button id="addMoreClassification" type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -73,21 +73,21 @@ class="active"
                                             <input name="contraindications[0]" class="form-control" placeholder="e.g. Hypersensitivity" id="contraindications" type="text">
                                         </div>
                                     </div>
-                                    <button type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                                    <button id="addMoreContraindications" type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="onocologyuses">
-                                    <label>Onocology Uses</label>
+                                    <label>Oncology Uses</label>
                                     <div class="row rowBottomHalfBreak">
                                         <div class="col-sm-8">
-                                            <input name="onocology[0][type]" class="form-control" placeholder="e.g. Prostate Cancer" id="onocology" type="text">
+                                            <input name="oncology[0][type]" class="form-control" placeholder="e.g. Prostate Cancer" id="oncology" type="text">
                                         </div>
                                         <div class="col-sm-1 checkbox">
-                                            <label><input name="onocology[0][approved]" type="checkbox" id="approved" value="approved"> Approved</label>
+                                            <label><input name="oncology[0][approved]" type="checkbox" id="approved" value="approved"> Approved</label>
                                         </div>
                                     </div>
-                                    <button type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                                    <button id="addMoreOncology" type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -101,7 +101,7 @@ class="active"
                                             <input name="precaution[0][note]" class="form-control" placeholder="Precaution" id="precaution-precaution" type="text">
                                         </div>
                                     </div>
-                                    <button type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                                    <button id="addMorePrecautions" type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -156,7 +156,7 @@ class="active"
                                                 <input name="monitoring[0]" class="form-control" placeholder="e.g. Disease progression and toxicities " id="monitoring" type="text">
                                             </div>
                                         </div>
-                                    <button type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                                    <button id="addMoreMonitoring" type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                                 </div>
                             </div>
                         </div>
@@ -189,7 +189,7 @@ class="active"
                                             <label><input name="sideeffect[0][severe]" type="checkbox" id="important" value="important"> Important</label>
                                         </div>
                                     </div>
-                                    <button type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                                    <button id="addMoreSideeffect" type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                                 </div>
                             </div>
                         </div>
@@ -247,7 +247,7 @@ class="active"
                                         </div>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                                <button id="addMoreInteractions" type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                             </div>
                             <div class="form-group">
                                 <label><input name="anti-neoplastic" type="checkbox" id="cautionwith" value="cautionwith"> Caution with other anti-neoplastic agents (unless per protocol)</label>
@@ -259,7 +259,7 @@ class="active"
                                         <input name="interact_other[0]" class="form-control" placeholder="e.g. Caution with agents" id="othereffects" type="text">
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                                <button id="addMoreOtherInteractions" type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                             </div>
                         </div>
                     </div>
@@ -289,7 +289,7 @@ class="active"
                                         <input name="adjustment[0][chart]" type="file" id="chartimage">
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                                <button id="addMoreAdjustments" type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                             </div>
                         </div>
                     </div>
