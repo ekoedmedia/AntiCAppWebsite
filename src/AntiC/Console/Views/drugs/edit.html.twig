@@ -48,7 +48,7 @@ class="active"
                     <div><em>USER TO GO HERE</em></div>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary" method="post">Save</button>
+                    <button type="submit" id="saveDrug" class="btn btn-primary" method="post">Save Drug</button>
                 </div>
             </div>
             <div class="col-sm-9 col-sm-offset-3 panel-group" id="accordion">
@@ -268,213 +268,71 @@ class="active"
                     <div id="collapseThree" class="panel-collapse collapse">
                         <div class="panel-body">
                             <div class="form-group">
-                                {# is that word correct? #}
-                                <label>Avoid Concomitant Use</label>
-                                <div class="row rowBottomHalfBreak">
-                                    <div class="col-sm-4">
-                                        <input name="interact_concomit[]" class="form-control" placeholder="e.g. Avoid estrogen" type="text">
-                                    </div>
-                                    <div class="col-sm-1 or-text">
-                                        <strong>OR</strong>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <select name="interact_concomit_cyp[]" class="form-control">
-                                            <option></option>
-                                            <option>CYP 450 1A2</option>
-                                            <option>CYP 450 2A6</option>
-                                            <option>CYP 450 2B6</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <select name="interact_concomit_cyp_type[]" class="form-control">
-                                            <option></option>
-                                            <option>Inhibitor</option>
-                                            <option>Inducer</option>
-                                            <option>Substrate</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <button type="button" onclick="addRow(this);" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
-                            </div>
-                            <div class="form-group">
-                                <label><span class="glyphicon glyphicon-arrow-up"></span> Effect (this drug)</label>
-                                <div class="row rowBottomHalfBreak">
-                                    <div class="col-sm-4">
-                                        <input name="interact_incr_this[]" class="form-control" placeholder="e.g. Pheonobarb" type="text">
-                                    </div>
-                                    <div class="col-sm-1 or-text">
-                                        <strong>OR</strong>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <select name="interact_incr_this_cyp[]" class="form-control">
-                                            <option></option>
-                                            <option>CYP 450 1A2</option>
-                                            <option>CYP 450 2A6</option>
-                                            <option>CYP 450 2B6</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <select name="interact_incr_this_cyp_type[]" class="form-control">
-                                            <option></option>
-                                            <option>Inhibitor</option>
-                                            <option>Inducer</option>
-                                            <option>Substrate</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <button type="button" onclick="addRow(this);" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
-                            </div>
-                            <div class="form-group">
-                                <label><span class="glyphicon glyphicon-arrow-down"></span> Effect (this drug)</label>
-                                <div class="row rowBottomHalfBreak">
-                                    <div class="col-sm-4">
-                                        <input name="interact_decr_this[]" class="form-control" placeholder="e.g. Azanavir" type="text">
-                                    </div>
-                                    <div class="col-sm-1 or-text">
-                                        <strong>OR</strong>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <select name="interact_decr_this_cyp[]" class="form-control">
-                                            <option></option>
-                                            <option>CYP 450 1A2</option>
-                                            <option>CYP 450 2A6</option>
-                                            <option>CYP 450 2B6</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <select name="interact_decr_this_cyp_type[]" class="form-control">
-                                            <option></option>
-                                            <option>Inhibitor</option>
-                                            <option>Inducer</option>
-                                            <option>Substrate</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <button type="button" onclick="addRow(this);" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
-                            </div>
-                            <div class="form-group">
-                                <label><span class="glyphicon glyphicon-sort"></span> Effect (this drug)</label>
-                                <div class="row rowBottomHalfBreak">
-                                    <div class="col-sm-4">
-                                        <input name="interact_both_this[]" class="form-control" placeholder="e.g. Echinacea" type="text">
-                                    </div>
-                                    <div class="col-sm-1 or-text">
-                                        <strong>OR</strong>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <select name="interact_both_this_cyp[]" class="form-control">
-                                            <option></option>
-                                            <option>CYP 450 1A2</option>
-                                            <option>CYP 450 2A6</option>
-                                            <option>CYP 450 2B6</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <select name="interact_both_this_cyp_type[]" class="form-control">
-                                            <option></option>
-                                            <option>Inhibitor</option>
-                                            <option>Inducer</option>
-                                            <option>Substrate</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <button type="button" onclick="addRow(this);" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
-                            </div>
-                            <div class="form-group">
-                                <label><span class="glyphicon glyphicon-arrow-up"></span> Effect</label>
-                                <div class="row rowBottomHalfBreak">
-                                    <div class="col-sm-4">
-                                        <input name="interact_incr[]" class="form-control" placeholder="e.g. Pheonobarb" type="text">
-                                    </div>
-                                    <div class="col-sm-1 or-text">
-                                        <strong>OR</strong>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <select name="interact_incr_cyp[]" class="form-control">
-                                            <option></option>
-                                            <option>CYP 450 1A2</option>
-                                            <option>CYP 450 2A6</option>
-                                            <option>CYP 450 2B6</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <select name="interact_incr_cyp_type[]" class="form-control">
-                                            <option></option>
-                                            <option>Inhibitor</option>
-                                            <option>Inducer</option>
-                                            <option>Substrate</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <button type="button" onclick="addRow(this);" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
-                            </div>
-                            <div class="form-group">
-                                <label><span class="glyphicon glyphicon-arrow-down"></span> Effect</label>
-                                <div class="row rowBottomHalfBreak">
-                                    <div class="col-sm-4">
-                                        <input name="interact_decr[]" class="form-control" placeholder="e.g. Azanavir" type="text">
-                                    </div>
-                                    <div class="col-sm-1 or-text">
-                                        <strong>OR</strong>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <select name="interact_decr_cyp[]" class="form-control">
-                                            <option></option>
-                                            <option>CYP 450 1A2</option>
-                                            <option>CYP 450 2A6</option>
-                                            <option>CYP 450 2B6</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <select name="interact_decr_cyp_type[]" class="form-control">
-                                            <option></option>
-                                            <option>Inhibitor</option>
-                                            <option>Inducer</option>
-                                            <option>Substrate</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <button type="button" onclick="addRow(this);" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
-                            </div>
-                            <div class="form-group">
-                                <label><span class="glyphicon glyphicon-sort"></span> Effect</label>
-                                <div class="row rowBottomHalfBreak">
-                                    <div class="col-sm-4">
-                                        <input name="interact_both[]" class="form-control" placeholder="e.g. Echinacea" type="text">
-                                    </div>
-                                    <div class="col-sm-1 or-text">
-                                        <strong>OR</strong>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <select name="interact_both_cyp[]" class="form-control">
-                                            <option></option>
-                                            {# {% for enzyme in enzymes %}
-                                                <option>{{ enzyme.name }}</option>
-                                            {% endfor %} #}
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <select name="interact_both_cyp_type[]" class="form-control">
-                                            <option></option>
-                                            <option>Inhibitor</option>
-                                            <option>Inducer</option>
-                                            <option>Substrate</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <button type="button" onclick="addRow(this);" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                                <label>Interactions</label>
+                                {% for inter in drug.drugInteracts %}
+                                    {% if inter.interaction != "Other Interactions" %}
+                                        <div class="row rowBottomHalfBreak toClone">
+                                            <div class="row rowBottomHalfBreak col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <select name="interact[{{ loop.index0 }}][type]" class="form-control col-sm-3" style="font-weight:bold;">
+                                                        <option></option>
+                                                        <option value="Avoid concomitant use" {% if inter.interaction == "Avoid concomitant use" %}selected="selected"{% endif %}>Avoid concomitant use</option>
+                                                        <option value="Increases effect of {{ drug.g_name|lower }}" {% if inter.interaction == "Increases effect of "~drug.g_name|lower %}selected="selected"{% endif %}>&uarr; Effect (this drug)</option>
+                                                        <option value="Decreases effect of {{ drug.g_name|lower }}" {% if inter.interaction == "Decreases effect of "~drug.g_name|lower %}selected="selected"{% endif %}>&darr; Effect (this drug)</option>
+                                                        <option value="Increases/Decreases effect of {{ drug.g_name|lower }}" {% if inter.interaction == "Increases/Decreases effect of "~drug.g_name|lower %}selected="selected"{% endif %}>&uarr;&darr; Effect (this drug)</option>
+                                                        <option value="Decreases effect of" {% if inter.interaction == "Decreases effect of" %}selected="selected"{% endif %}>&uarr; Effect</option>
+                                                        <option value="Increases effect of" {% if inter.interaction == "Increases effect of" %}selected="selected"{% endif %}>&darr; Effect</option>
+                                                        <option value="Increases/Decreases effect of" {% if inter.interaction == "Increases/Decreases effect of" %}selected="selected"{% endif %}>&uarr;&darr; Effect</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row rowBottomHalfBreak col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <input name="interact[{{ loop.index0 }}][name]" class="form-control" placeholder="e.g. Avoid estrogen" value="{% if inter.enzyme_effect_type is not defined %}{{ inter.compound }}{% endif %}" type="text">
+                                                </div>
+                                                <div class="text-center or-text col-sm-1">
+                                                    <strong>OR</strong>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <select name="interact[{{ loop.index0 }}][enzyme]" class="form-control">
+                                                        <option></option>
+                                                        {% for enzyme in enzymes %}
+                                                            <option {% if inter.compound == enzyme.name %}selected="selected"{% endif %}>{{ enzyme.name }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <select name="interact[{{ loop.index0 }}][enzymetype]" class="form-control">
+                                                        <option></option>
+                                                        <option {% if inter.enzyme_effect_type is defined and inter.enzyme_effect_type == "Inhibitor" %}selected="selected"{% endif %}>Inhibitor</option>
+                                                        <option {% if inter.enzyme_effect_type is defined and inter.enzyme_effect_type == "Inducer" %}selected="selected"{% endif %}>Inducer</option>
+                                                        <option {% if inter.enzyme_effect_type is defined and inter.enzyme_effect_type == "Substrate" %}selected="selected"{% endif %}>Substrate</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            {% if not loop.first %}
+                                                <div class="col-sm-1"><button class="btn btn-danger btn-xs remove-input" onclick="removeRow(this);" type="button"><span class="glyphicon glyphicon-minus-sign"></span> Remove</button></div>
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                                <button type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                             </div>
                             <div class="form-group">
                                 <label><input name="anti-neoplastic" type="checkbox" id="cautionwith" value="cautionwith" {% if drug.anti_neoplastic %}selected="selected"{% endif %}> Caution with other anti-neoplastic agents (unless per protocol)</label>
                             </div>
                             <div class="form-group">
                                 <label>Other Effects</label>
-                                <div class="row rowBottomHalfBreak">
-                                    <div class="col-sm-10">
-                                        <input name="interact_other[]" class="form-control" placeholder="e.g. Caution with agents" id="othereffects" type="text">
-                                    </div>
-                                </div>
-                                <button type="button" onclick="addRow(this);" class="btn btn-success btn-xs add-more"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                                {% for inter in drug.drugInteracts %}
+                                    {% if inter.interaction == "Other Interactions" %}
+                                        <div class="row rowBottomHalfBreak">
+                                            <div class="col-sm-10">
+                                                <input name="interact_other[{{ loop.index0 }}]" class="form-control" placeholder="e.g. Caution with agents" value="{{ inter.compound }}" id="othereffects" type="text">
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                                <button type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                             </div>
                         </div>
                     </div>

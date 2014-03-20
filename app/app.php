@@ -36,11 +36,13 @@ $app->mount('/console', $u);
 $app->get('/console', "AntiC\Console\Controller\DrugsController::indexAction")->bind('console.drug');
 $app->match('/console/drugs/add', "AntiC\Console\Controller\DrugsController::addAction")->method('GET|POST')->bind('console.drug.add');
 $app->match('/console/drugs/{ID}', "AntiC\Console\Controller\DrugsController::editAction")->method('GET|POST')->bind('console.drug.edit');
+$app->post('/console/drugs/{ID}/showhide', "AntiC\Console\Controller\DrugsController::showHideAction")->bind('console.drug.showhide');
 
 // Interactions Routes
 $app->get('/console/interactions', "AntiC\Console\Controller\InteractionsController::indexAction")->bind('console.interactions');
 $app->match('/console/interactions/add', "AntiC\Console\Controller\InteractionsController::addAction")->method('GET|POST')->bind('console.interactions.add');
 $app->match('/console/interactions/{ID}', "AntiC\Console\Controller\InteractionsController::editAction")->method('GET|POST')->bind('console.interactions.edit');
+$app->post('/console/interactions/{ID}/showhide', "AntiC\Console\Controller\InteractionsController::showHideAction")->bind('console.interactions.showhide');
 
 // About Routes
 $app->get('/console/about', "AntiC\Console\Controller\AboutController::indexAction")->bind('console.about');

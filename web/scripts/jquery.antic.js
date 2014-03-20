@@ -10,10 +10,45 @@ $(function(){
         $.post("/console/user/"+userID+"/enable");
     });
 
+    // Shows and Hides a Drug
+    $('.btnShowHideDrug').click(function(){
+        var drugID = $(this).attr('id').split('-')[0];
+        var enabled = $(this).hasClass("btn-info");
+        if (enabled)
+            enabled = 0;
+        else 
+            enabled = 1;
+
+        $.post("/console/drugs/"+drugID+"/showhide", { 'enabled': enabled  }, function (data){
+            if (data != "1")
+                alert(data);
+        });
+    });
+
+    // Shows and Hides a Interaction
+    $('.btnShowHideInteraction').click(function(){
+        var interactionID = $(this).attr('id').split('-')[0];
+        var enabled = $(this).hasClass("btn-info");
+        if (enabled)
+            enabled = 0;
+        else 
+            enabled = 1;
+
+
+        $.post("/console/interactions/"+interactionID+"/showhide", { 'enabled': enabled }, function (data){
+            if (data != "1")
+                alert(data);
+        });
+    });    
+
     // Smart Add button, used for Edit and Add pages, based off Zach's original code.
     $('.addMore').click(function(){
         var parent = $(this).parent();
-        var clonedRow = parent.find(".row").last().clone();
+        var clonedRow = parent.find(".toClone").last().clone();
+        // Overrides Parent by Cloning class with toClone
+        if (!clonedRow.length) {
+             clonedRow = parent.find(".row").last().clone();
+        }
 
         // Update the Name
         clonedRow.find('input:text, input:password, input:file, select, textarea, input:radio, input:checkbox').each(function(){
@@ -34,6 +69,8 @@ $(function(){
             clonedRow.append("<div class='col-sm-1'><button type='button' onClick='removeRow(this);' class='btn btn-danger btn-xs remove-input'>\n\
 <span class='glyphicon glyphicon-minus-sign'></span> Remove</button></div>");
         clonedRow.insertBefore($(this));
+
+        
     });
 
 });

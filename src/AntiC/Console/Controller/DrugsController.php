@@ -4,6 +4,7 @@ namespace AntiC\Console\Controller;
 
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class DrugsController
 {
@@ -167,12 +168,20 @@ class DrugsController
                         . ' ' . $adjust_chart[$i]);
             }
 
-            return $app['twig']->render('drugs/add.html.twig');
+            require 'api/get/listEnzymes.php';
+            $enzymeList = getEnzymeList($dbhandle);
+
+            return $app['twig']->render('drugs/add.html.twig', array(
+                'enzymes' => $enzymeList
+            ));
            # return $array;
-        }
-        else
-        {
-            return $app['twig']->render('drugs/add.html.twig');
+        } else {
+            require 'api/get/listEnzymes.php';
+            $enzymeList = getEnzymeList($dbhandle);
+
+            return $app['twig']->render('drugs/add.html.twig', array(
+                'enzymes' => $enzymeList
+            ));
         }
         
     }
@@ -197,16 +206,49 @@ class DrugsController
              */
         }
 
+        require 'api/dbConnect/connectStart.php';
         require 'api/get/getDrug.php';
-        $drug = getDrug($request->get('ID'));
-        // require 'api/get/listEnzymes.php';
-        // $enzymeList = getEnzymeList();
+        $drug = getDrug($request->get('ID'), $dbhandle);
+        require 'api/get/listEnzymes.php';
+        $enzymeList = getEnzymeList($dbhandle);
 
         // Query Database with ID and Return Drug Name and Information to Twig
         return $app['twig']->render('drugs/edit.html.twig', array(
             'drug' => $drug,
-            // 'enzymes' => $enzymeList
+            'enzymes' => $enzymeList
         ));
+    }
+
+    /**
+     * Calls API to Show and Hide Drug
+     *
+     * @route /console/drugs/{ID}/showhide
+     * @param Application
+     * @param Request
+     * @return 1 or 0 depending on results of DB call, redirect to login otherwise
+     */
+    public function showHideAction(Application $app, Request $request)
+    {
+        if (!$app['user']) {
+            return $app->redirect($app['url_generator']->generate('user.login'));
+        }
+
+        if ($request->isMethod('POST')) {
+            require 'api/delete/deleteDrug.php';
+            $id = $app['user']->getId();
+            $drugId = $request->get('ID');
+            $showHide = $request->get('enabled');
+            $response = showHideDrug($drugId, $id, $showHide);
+            if ($response) {
+                $response = "1";
+            } else {
+                $response = "Error: Something went wrong";
+            }
+        } else {
+            $response = "Error: Not a valid Request";
+        }
+
+        return new Response($response);
     }
 
 }

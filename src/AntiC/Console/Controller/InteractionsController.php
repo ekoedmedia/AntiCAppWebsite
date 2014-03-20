@@ -4,6 +4,7 @@ namespace AntiC\Console\Controller;
 
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class InteractionsController
 {
@@ -78,7 +79,7 @@ class InteractionsController
     /**
      * Shows and processes edit interactions form.
      *
-     * @route /console/drugs/{ID}
+     * @route /console/interactions/{ID}
      * @param Application
      * @param Request
      * @return twig render IF authenticated, redirect to login otherwise.
@@ -102,6 +103,38 @@ class InteractionsController
         return $app['twig']->render('interactions/edit.html.twig', array(
             'interaction' => $enzyme
         ));
+    }
+
+    /**
+     * Calls API to Show and Hide Drug
+     *
+     * @route /console/interactions/{ID}/showhide
+     * @param Application
+     * @param Request
+     * @return 1 or 0 depending on results of DB call, redirect to login otherwise
+     */
+    public function showHideAction(Application $app, Request $request)
+    {
+        if (!$app['user']) {
+            return $app->redirect($app['url_generator']->generate('user.login'));
+        }
+
+        if ($request->isMethod('POST')) {
+            require 'api/delete/deleteEnzyme.php';
+            $id = $app['user']->getId();
+            $enzymeId = $request->get('ID');
+            $showHide = $request->get('enabled');
+            $response = deleteEnzyme($enzymeId, $id, $showHide);
+            if ($response) {
+                $response = "1";
+            } else {
+                $response = "Error: Something went wrong";
+            }
+        } else {
+            $response = "Error: Not a valid Request";
+        }
+
+        return new Response($response);
     }
 
 }
