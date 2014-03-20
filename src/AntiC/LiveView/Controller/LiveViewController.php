@@ -58,37 +58,21 @@ class LiveViewController
      */
     public function interactionsListAction(Application $app, Request $request)
     {
-        //TODO DB integration
-//        require_once 'api/get/listEnzymes.php';
-//        $enzymeList = getEnzymeList();
-//
-//        $enzymes = array();
-//        foreach ($enzymeList as $enzyme) {
-//            $enzymes[] = array(
-//                "name" => $enzyme['name'],
-//                "id" => $enzyme['name'],
-//                "enabled" => $enzyme['deleted'],
-//            );
-//        }
-//
-//        return $app['twig']->render('interactions/index.html.twig', array(
-//            'interactions' => $enzymes,
-//        ));
-        
+        require_once 'api/get/listEnzymes.php';
+        $enzymeList = getEnzymeList();
+
         $enzymes = array();
-        $enzymes[0] = array(
-            "name" => "TestName",
-            "id" => "TestName",
-            "enabled" => true,
-        );
-        $enzymes[1] = array(
-            "name" => "TestName2",
-            "id" => "TestName2",
-            "enabled" => true,
-        );
+        foreach ($enzymeList as $enzyme) {
+            $enzymes[] = array(
+                "name" => $enzyme['name'],
+                "id" => $enzyme['name'],
+                "enabled" => $enzyme['deleted'],
+            );
+        }
+
         return $app['twig']->render('liveinteractions/index.html.twig', array(
             'interactions' => $enzymes,
-            ));
+        ));
     }
 
     /**
@@ -96,11 +80,13 @@ class LiveViewController
      */
     public function viewInteractionAction(Application $app, Request $request)
     {
-        #TODO DB integration
-        #require_once 'api/get/getInteraction.php';
-        #$drug = getDrug($request->get('ID'));
+        require_once 'api/get/getEnzyme.php';
+        $enzyme = getEnzyme($request->get('ID'));
+
+        // Query Database with ID and Return Interactions Name and Information to Twig
         return $app['twig']->render('liveinteractions/view.html.twig', array(
-                'interaction_name' => $request->get('ID')));
+            'interaction' => $enzyme
+        ));
     }
     /**
      * @route /about

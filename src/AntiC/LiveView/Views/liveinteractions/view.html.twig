@@ -17,7 +17,7 @@ class="active"
 
 {% block content %}
 <div>
-    <h1 class="page-header">View - {{ interaction_name }}</h1>
+    <h1 class="page-header">View - {{ interaction.name }}</h1>
     <div class="col-sm-4" style="border-right: 1px solid #595959;">
         <table class="table table-striped">
             <thead>
@@ -33,30 +33,16 @@ class="active"
                 </tr>
             </thead>
             <tbody>
+                {% for substrate in interaction.Substrate %}
                 <tr><td>
                         <div class="col-sm-8">
-                            Substrate 1
+                            {{substrate.compound}}
                         </div>
                         <div class="col-sm-4">
-                            Low
+                            {{substrate.severity}}
                         </div>
                     </td></tr>
-                <tr><td>
-                        <div class="col-sm-8">
-                            Substrate 2
-                        </div>
-                        <div class="col-sm-4">
-                            Moderate
-                        </div>
-                    </td></tr>
-                <tr><td>
-                        <div class="col-sm-8">
-                            Substrate 3
-                        </div>
-                        <div class="col-sm-4">
-                            High
-                        </div>
-                    </td></tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
@@ -75,30 +61,16 @@ class="active"
                 </tr>
             </thead>
             <tbody>
+                {% for inhibitor in interaction.Inhibitor %}
                 <tr><td>
                         <div class="col-sm-8">
-                            Inhibitor 1
+                            {{inhibitor.compound}}
                         </div>
                         <div class="col-sm-4">
-                            Low
+                            {{inhibitor.severity}}
                         </div>
                     </td></tr>
-                <tr><td>
-                        <div class="col-sm-8">
-                            Inhibitor 2
-                        </div>
-                        <div class="col-sm-4">
-                            Moderate
-                        </div>
-                    </td></tr>
-                <tr><td>
-                        <div class="col-sm-8">
-                            Inhibitor 3
-                        </div>
-                        <div class="col-sm-4">
-                            High
-                        </div>
-                    </td></tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
@@ -117,30 +89,16 @@ class="active"
                 </tr>
             </thead>
             <tbody>
+                {% for inducer in interaction.Inducer %}
                 <tr><td>
                         <div class="col-sm-8">
-                            Inducer 1
+                            {{inducer.compound}}
                         </div>
                         <div class="col-sm-4">
-                            Low
+                            {{inducer.severity}}
                         </div>
                     </td></tr>
-                <tr><td>
-                        <div class="col-sm-8">
-                            Inducer 2
-                        </div>
-                        <div class="col-sm-4">
-                            Moderate
-                        </div>
-                    </td></tr>
-                <tr><td>
-                        <div class="col-sm-8">
-                            Inducer 3
-                        </div>
-                        <div class="col-sm-4">
-                            High
-                        </div>
-                    </td></tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
