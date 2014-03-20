@@ -229,6 +229,7 @@ class="active"
                                 <tr>
                                     <td><strong>Interaction</strong></td>
                                     <td><strong>Compound</strong></td>
+                                    <td><strong>Enzyme Effect</strong></td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -236,6 +237,7 @@ class="active"
                                 <tr>
                                     <td>{{interaction.interaction}}</td>
                                     <td>{{interaction.compound}}</td>
+                                    <td>{% if interaction.enzyme_effect_type is defined %}{{interaction.enzyme_effect_type}}{% else %}-{% endif %}</td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
