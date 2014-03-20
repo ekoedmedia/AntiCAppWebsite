@@ -34,6 +34,7 @@ class LiveViewController
                 "tradeName" => $drug['t_name'],
                 "id" => $drug['g_name'],
                 "enabled" => $drug['deleted'],
+                "risk" => $drug['risk'],
             );
         }
 

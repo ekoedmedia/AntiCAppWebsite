@@ -29,11 +29,22 @@ class="active"
     <div class="table-responsive">
         <table class="table table-hover table-striped">
             <tr>
-                <th class="col-md-6">Drug Name</th>
+                <th class="col-md-4">
+                    <div class="col-md-4">Name</div>
+                    <div class="col-md-4">Risk</div>
+                </th>
             </tr>
             <tr class="clickable-row" style="cursor: pointer;" href="/drugs/{% verbatim %}{{ drug.id }}{% endverbatim %}" 
                 ng-repeat="drug in drugs | filter:drugsSearch | orderBy:'enabled' | orderBy:'name'">
-                <td class="col-md-6">{% verbatim %}{{ drug.id }}{% endverbatim %}</td>
+                <td>
+                    <div class="col-md-4">{% verbatim %}{{ drug.id }}{% endverbatim %}</div>
+                    <div class="col-md-4"> 
+                        <img class="ng-hide" ng-show='drug.risk == "High"' height="20" width="40" src="/img/icon_high.png">
+                        <img class="ng-hide" ng-show='drug.risk == "Moderate"' height="20" width="40" src="/img/icon_medium.png">
+                        <img class="ng-hide" ng-show='drug.risk == "Low"' height="20" width="40" src="/img/icon_low.png">
+
+                    </div>
+                </td>
             </tr>
         </table>
     </div>
@@ -51,7 +62,7 @@ class="active"
     anticApp.controller('LiveViewController', ['$scope', function($scope) {
             $scope.drugs = [
     {% for drug in drugs %}
-                {'name': "{{ drug.commonName }}", 'id': "{{ drug.id }}", 'enabled':{{ drug.enabled }}},
+                {'name': "{{ drug.commonName }}", 'id': "{{ drug.id }}", 'enabled':{{ drug.enabled }}, 'risk': "{{ drug.risk }}"},
     {% endfor %}
             ];
         }]);
