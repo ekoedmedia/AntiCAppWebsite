@@ -17,7 +17,7 @@ class="active"
 
 {% block content %}
 <div>
-    <h1 class="page-header">View - {{ drug_name }}</h1>
+    <h1 class="page-header">View - {{ drug.g_name }}</h1>
     <table class="table table-striped">
         <tbody>
             <tr><td>
@@ -25,7 +25,7 @@ class="active"
                         <h4>Common Name: </h4>
                     </div>
                     <div class="col-md-4 table-item">
-                        {{ drug_name }}
+                        {{ drug.g_name }}
                     </div>
                 </td></tr>
             <tr><td>
@@ -33,7 +33,7 @@ class="active"
                         <h4>Trade Name: </h4>
                     </div>
                     <div class="col-md-4 table-item">
-                        trade_name
+                        {{ drug.t_name }}
                     </div>
                 </td></tr>
             <tr><td>
@@ -41,7 +41,7 @@ class="active"
                         <h4>Risk: </h4>
                     </div>
                     <div class="col-md-4 table-item">
-                        risk
+                        {{ drug.risk }}
                     </div>
                 </td></tr>
             <tr><td>
@@ -51,9 +51,9 @@ class="active"
                     <div class="col-md-4 table-item">
                         <table class="table table-bordered">
                             <tbody>
-                                <tr><td>Classification 1</td></tr>
-                                <tr><td>Classification 2</td></tr>
-                                <tr><td>Classification 3</td></tr>
+                                {% for classification in drug.classification %}            
+                                <tr><td>{{ classification }}</td></tr>
+                                {% endfor %}
                             </tbody>
                         </table>
                     </div>
@@ -65,9 +65,9 @@ class="active"
                     <div class="col-md-4 table-item">
                         <table class="table table-bordered">
                             <tbody>
-                                <tr><td>Contraindication 1</td></tr>
-                                <tr><td>Contraindication 2</td></tr>
-                                <tr><td>Contraindication 3</td></tr>
+                                {% for contraindication in drug.contraindications %}            
+                                <tr><td>{{ contraindication }}</td></tr>
+                                {% endfor %}
                             </tbody>
                         </table>
                     </div>
@@ -85,14 +85,12 @@ class="active"
                                 </tr>
                             </thead>
                             <tbody>
+                                {% for oncUse in drug.oncUses %}
                                 <tr>
-                                    <td>Usage 1</td>
-                                    <td>Yes</td>
+                                    <td>{{oncUse.cancer_type}}</td>
+                                    <td>{% if oncUse.approved %}Yes{% else %}No{% endif %}</td>
                                 </tr>
-                                <tr>
-                                    <td>Usage 2</td>
-                                    <td>No</td>
-                                </tr>
+                                {% endfor %}
                             </tbody>
                         </table>
                     </div>
@@ -110,14 +108,12 @@ class="active"
                                 </tr>
                             </thead>
                             <tbody>
+                                {% for precaution in drug.precautions %}
                                 <tr>
-                                    <td>Label 1</td>
-                                    <td>Precaution 1</td>
+                                    <td>{{precaution.name}}</td>
+                                    <td>{{precaution.note}}</td>
                                 </tr>
-                                <tr>
-                                    <td>Label 2</td>
-                                    <td>Precaution 2</td>
-                                </tr>
+                                {% endfor %}
                             </tbody>
                         </table>
                     </div>
@@ -127,7 +123,7 @@ class="active"
                         <h4>Breastfeeding: </h4>
                     </div>
                     <div class="col-md-4 table-item">
-                        Something
+                        {{drug.breastfeeding}}
                     </div>
                 </td></tr>
             <tr><td>
@@ -135,7 +131,7 @@ class="active"
                         <h4>Fertility: </h4>
                     </div>
                     <div class="col-md-4 table-item">
-                        Something
+                        {{drug.fertility}}
                     </div>
                 </td></tr>
             <tr><td>
@@ -143,7 +139,7 @@ class="active"
                         <h4>Metabolism: </h4>
                     </div>
                     <div class="col-md-4 table-item">
-                        Something
+                        {{drug.metabolism}}
                     </div>
                 </td></tr>
             <tr><td>
@@ -151,7 +147,7 @@ class="active"
                         <h4>Usual Oral Dose: </h4>
                     </div>
                     <div class="col-md-4 table-item">
-                        1,000,000
+                        {{drug.uo_dose}}
                     </div>
                 </td></tr>
             <tr><td>
@@ -159,7 +155,7 @@ class="active"
                         <h4>Excretion: </h4>
                     </div>
                     <div class="col-md-4 table-item">
-                        Something
+                        {{drug.excretion}}
                     </div>
                 </td></tr>
             <tr><td>
@@ -167,7 +163,7 @@ class="active"
                         <h4>Available: </h4>
                     </div>
                     <div class="col-md-4 table-item">
-                        Pills
+                        {{drug.available}}
                     </div>
                 </td></tr>
             <tr><td>
@@ -175,7 +171,7 @@ class="active"
                         <h4>Administration: </h4>
                     </div>
                     <div class="col-md-4 table-item">
-                        Something
+                        {{drug.administration}}
                     </div>
                 </td></tr>
             <tr><td>
@@ -183,7 +179,13 @@ class="active"
                         <h4>Monitoring: </h4>
                     </div>
                     <div class="col-md-4 table-item">
-                        Something
+                        <table class="table table-bordered">
+                            <tbody>
+                                {% for monitor in drug.monitoring %}            
+                                <tr><td>{{ monitor }}</td></tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
                 </td></tr>
             <tr><td>
@@ -191,7 +193,7 @@ class="active"
                         <h4>Side Effect Frequency: </h4>
                     </div>
                     <div class="col-md-4 table-item">
-                        Something
+                        -
                     </div>
                 </td></tr>
             <tr><td>
@@ -203,18 +205,16 @@ class="active"
                             <thead>
                                 <tr>
                                     <td><strong>Effect</strong></td>
-                                    <td><strong>Severity</strong></td>
+                                    <td><strong>Severe</strong></td>
                                 </tr>
                             </thead>
                             <tbody>
+                                {% for sideEffect in drug.sideEffects %}
                                 <tr>
-                                    <td>Effect 1</td>
-                                    <td>Severity 1</td>
+                                    <td>{{sideEffect.name}}</td>
+                                    <td>{% if sideEffect.severe %}Yes{% else %}No{% endif %}</td>
                                 </tr>
-                                <tr>
-                                    <td>Effect 2</td>
-                                    <td>Severity 2</td>
-                                </tr>
+                                {% endfor %}
                             </tbody>
                         </table>
                     </div>
@@ -223,43 +223,21 @@ class="active"
                     <div class="col-md-2">
                         <h4>Interactions: </h4>
                     </div>
-                    <div class="col-md-4 table-item">
+                    <div class="col-md-8 table-item">
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <td><strong>Effect</strong></td>
                                     <td><strong>Interaction</strong></td>
-                                    <td><strong>CYP Type</strong></td>
+                                    <td><strong>Compound</strong></td>
                                 </tr>
                             </thead>
                             <tbody>
+                                {% for interaction in drug.drugInteracts %}
                                 <tr>
-                                    <td>Avoid Concomitant Use</td>
-                                    <td>Avoid estrogen</td>
-                                    <td> - </td>
+                                    <td>{{interaction.interaction}}</td>
+                                    <td>{{interaction.compound}}</td>
                                 </tr>
-                                <tr>
-                                    <td><span class="glyphicon glyphicon-arrow-up"></span> Effect (this drug)</td>
-                                    <td>CYP 450 2A6</td>
-                                    <td>Inducer</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </td></tr>
-            <tr><td>
-                    <div class="col-md-2">
-                        <h4>Other Effects: </h4>
-                    </div>
-                    <div class="col-md-4 table-item">
-                        <table class="table table-bordered">
-                            <tbody>
-                                <tr>
-                                    <td>Other 1</td>
-                                </tr>
-                                <tr>
-                                    <td>Other 2</td>
-                                </tr>
+                                {% endfor %}
                             </tbody>
                         </table>
                     </div>
@@ -278,16 +256,13 @@ class="active"
                                 </tr>
                             </thead>
                             <tbody>
+                                {% for doseAdjust in drug.doseAdjusts %}
                                 <tr>
-                                    <td>Name 1</td>
-                                    <td>Adjustment 1</td>
-                                    <td> - </td>
+                                    <td>{{doseAdjust.problem}}</td>
+                                    <td>{{doseAdjust.note}}</td>
+                                    <td>{% if doseAdjust.chart != "" %}<img src={{doseAdjust.chart}}></img>{% else %}-{% endif %}</td>
                                 </tr>
-                                <tr>
-                                    <td>Name 2</td>
-                                    <td>Adjustment 2</td>
-                                    <td><img src="http://i.imgur.com/l8cSq.gif"></img></td>
-                                </tr>
+                                {% endfor %}
                             </tbody>
                         </table>
                     </div>

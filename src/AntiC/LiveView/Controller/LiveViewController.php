@@ -24,21 +24,22 @@ class LiveViewController
      */
     public function drugsListAction(Application $app, Request $request)
     {
-        //TODO DB integration
+        require_once 'api/get/listDrugs.php';
+        $drugsList = getDrugList();
+
         $drugs = array();
-        $drugs[0] = array(
-            "name" => "TestName",
-            "id" => "TestName",
-            "enabled" => true,
-        );
-        $drugs[1] = array(
-            "name" => "TestName2",
-            "id" => "TestName2",
-            "enabled" => true,
-        );
+        foreach ($drugsList as $drug) {
+            $drugs[] = array(
+                "commonName" => $drug['g_name'],
+                "tradeName" => $drug['t_name'],
+                "id" => $drug['g_name'],
+                "enabled" => $drug['deleted'],
+            );
+        }
+
         return $app['twig']->render('livedrugs/index.html.twig', array(
-            'drugs' => $drugs,
-            ));
+            'drugs' => $drugs
+        ));
     }
 
     /**
@@ -46,11 +47,10 @@ class LiveViewController
      */
     public function viewDrugAction(Application $app, Request $request)
     {
-        #TODO DB integration
-        #require_once 'api/get/getDrug.php';
-        #$drug = getDrug($request->get('ID'));
+        require_once 'api/get/getDrug.php';
+        $drug = getDrug($request->get('ID'));
         return $app['twig']->render('livedrugs/view.html.twig', array(
-                'drug_name' => $request->get('ID')));
+                'drug' => $drug));
     }
 
     /**
