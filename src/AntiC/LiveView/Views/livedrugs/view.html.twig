@@ -24,7 +24,7 @@ class="active"
                     <div class="col-md-2">
                         <h4>Common Name: </h4>
                     </div>
-                    <div class="col-md-4 table-item">
+                    <div id="g_name" name="g_name" class="col-md-4 table-item">
                         {{ drug.g_name }}
                     </div>
                 </td></tr>
@@ -32,7 +32,7 @@ class="active"
                     <div class="col-md-2">
                         <h4>Trade Name: </h4>
                     </div>
-                    <div class="col-md-4 table-item">
+                    <div id="t_name" name="t_name" class="col-md-4 table-item">
                         {{ drug.t_name }}
                     </div>
                 </td></tr>
@@ -40,7 +40,7 @@ class="active"
                     <div class="col-md-2">
                         <h4>Risk: </h4>
                     </div>
-                    <div class="col-md-4 table-item">
+                    <div id="risk" name="risk" class="col-md-4 table-item">
                         {{ drug.risk }}
                     </div>
                 </td></tr>
@@ -48,7 +48,7 @@ class="active"
                     <div class="col-md-2">
                         <h4>Classification: </h4>
                     </div>
-                    <div class="col-md-4 table-item">
+                    <div id="classification" name="classification" class="col-md-4 table-item">
                         <table class="table table-bordered">
                             <tbody>
                                 {% for classification in drug.classification %}            
@@ -62,7 +62,7 @@ class="active"
                     <div class="col-md-2">
                         <h4>Contraindications: </h4>
                     </div>
-                    <div class="col-md-4 table-item">
+                    <div id="contraindications" name="contraindications" class="col-md-4 table-item">
                         <table class="table table-bordered">
                             <tbody>
                                 {% for contraindication in drug.contraindications %}            
@@ -76,7 +76,7 @@ class="active"
                     <div class="col-md-2">
                         <h4>Oncology Uses: </h4>
                     </div>
-                    <div class="col-md-4 table-item">
+                    <div id="oncUse" name="oncUse" class="col-md-4 table-item">
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
@@ -99,7 +99,7 @@ class="active"
                     <div class="col-md-2">
                         <h4>Precautions: </h4>
                     </div>
-                    <div class="col-md-4 table-item">
+                    <div id="precautions" name="precautions" class="col-md-4 table-item">
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
@@ -122,7 +122,7 @@ class="active"
                     <div class="col-md-2">
                         <h4>Breastfeeding: </h4>
                     </div>
-                    <div class="col-md-4 table-item">
+                    <div name="breastfeeding" id="breastfeeding" class="col-md-4 table-item">
                         {{drug.breastfeeding}}
                     </div>
                 </td></tr>
@@ -130,7 +130,7 @@ class="active"
                     <div class="col-md-2">
                         <h4>Fertility: </h4>
                     </div>
-                    <div class="col-md-4 table-item">
+                    <div name="fertility" id="fertility" class="col-md-4 table-item">
                         {{drug.fertility}}
                     </div>
                 </td></tr>
@@ -138,7 +138,7 @@ class="active"
                     <div class="col-md-2">
                         <h4>Metabolism: </h4>
                     </div>
-                    <div class="col-md-4 table-item">
+                    <div name="metabolism" id="metabolism" class="col-md-4 table-item">
                         {{drug.metabolism}}
                     </div>
                 </td></tr>
@@ -146,7 +146,7 @@ class="active"
                     <div class="col-md-2">
                         <h4>Usual Oral Dose: </h4>
                     </div>
-                    <div class="col-md-4 table-item">
+                    <div name="uo_dose" id="uo_dose" class="col-md-4 table-item">
                         {{drug.uo_dose}}
                     </div>
                 </td></tr>
@@ -154,7 +154,7 @@ class="active"
                     <div class="col-md-2">
                         <h4>Excretion: </h4>
                     </div>
-                    <div class="col-md-4 table-item">
+                    <div name="excretion" id="excretion" class="col-md-4 table-item">
                         {{drug.excretion}}
                     </div>
                 </td></tr>
@@ -162,7 +162,7 @@ class="active"
                     <div class="col-md-2">
                         <h4>Available: </h4>
                     </div>
-                    <div class="col-md-4 table-item">
+                    <div name="available" id="available" class="col-md-4 table-item">
                         {{drug.available}}
                     </div>
                 </td></tr>
@@ -170,7 +170,7 @@ class="active"
                     <div class="col-md-2">
                         <h4>Administration: </h4>
                     </div>
-                    <div class="col-md-4 table-item">
+                    <div name="administration" id="administration" class="col-md-4 table-item">
                         {{drug.administration}}
                     </div>
                 </td></tr>
@@ -178,7 +178,7 @@ class="active"
                     <div class="col-md-2">
                         <h4>Monitoring: </h4>
                     </div>
-                    <div class="col-md-4 table-item">
+                    <div name="monitoring" id="monitoring" class="col-md-4 table-item">
                         <table class="table table-bordered">
                             <tbody>
                                 {% for monitor in drug.monitoring %}            
@@ -192,7 +192,7 @@ class="active"
                     <div class="col-md-2">
                         <h4>Side Effect Frequency: </h4>
                     </div>
-                    <div class="col-md-4 table-item">
+                    <div name="frequency" id="frequency" class="col-md-4 table-item">
                         -
                     </div>
                 </td></tr>
@@ -200,7 +200,7 @@ class="active"
                     <div class="col-md-2">
                         <h4>Side Effects: </h4>
                     </div>
-                    <div class="col-md-4 table-item">
+                    <div name="sideEffect" id="sideEffect" class="col-md-4 table-item">
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
@@ -223,7 +223,7 @@ class="active"
                     <div class="col-md-2">
                         <h4>Interactions: </h4>
                     </div>
-                    <div class="col-md-8 table-item">
+                    <div name="drugInteracts" id="drugInteracts" class="col-md-8 table-item">
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
@@ -246,7 +246,7 @@ class="active"
                     <div class="col-md-2">
                         <h4>Dose Adjustments: </h4>
                     </div>
-                    <div class="col-md-6 table-item">
+                    <div name="doseAdjust" id="doseAdjust" class="col-md-6 table-item">
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
@@ -272,3 +272,15 @@ class="active"
     </table>
 </div>
 {% endblock content %}
+{% block pageScripts %}
+<script>
+    function addLineBreaks(divId)
+    {
+        var text = $("#" + divId).html().replace(/[|]/g,"<br />");
+        $("#" + divId).html(text);
+    }
+    addLineBreaks("uo_dose");
+    addLineBreaks("administration");
+
+</script>
+{% endblock pageScripts %}
