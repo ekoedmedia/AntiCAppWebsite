@@ -129,7 +129,7 @@ class InteractionsController
 
         if ($request->isMethod('POST')) {
             require 'api/delete/deleteEnzyme.php';
-            $id = $app['user']->getId();
+            $id = $app['user']->getName();
             $enzymeId = $request->get('ID');
             $showHide = $request->get('enabled');
             $response = deleteEnzyme($enzymeId, $id, $showHide);

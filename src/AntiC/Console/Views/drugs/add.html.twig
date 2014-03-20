@@ -145,7 +145,12 @@ class="active"
                             <div class="form-group">
                                 <div class="administration">
                                     <label for="administration">Administration</label>
-                                    <input name="administration" class="form-control" placeholder="e.g. Oral with food" id="administration" type="text">
+                                    <div class="row rowBottomHalfBreak">
+                                        <div class="col-sm-10">
+                                            <input name="administration[0]" class="form-control" placeholder="e.g. Oral with food" id="administration" type="text">
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-success btn-xs addMore" id="addMoreAdministration"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                                 </div>
                             </div>
                             <div class="form-group">

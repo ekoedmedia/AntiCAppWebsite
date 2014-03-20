@@ -245,7 +245,7 @@ class DrugsController
 
         if ($request->isMethod('POST')) {
             require 'api/delete/deleteDrug.php';
-            $id = $app['user']->getId();
+            $id = $app['user']->getName();
             $drugId = $request->get('ID');
             $showHide = $request->get('enabled');
             $response = showHideDrug($drugId, $id, $showHide);

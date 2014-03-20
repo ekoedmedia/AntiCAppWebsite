@@ -189,7 +189,21 @@ class="active"
                             <div class="form-group">
                                 <div class="administration">
                                     <label for="administration">Administration</label>
-                                    <input name="administration" class="form-control" placeholder="e.g. Oral with food" id="administration" value="{{ drug.administration }}" type="text">
+                                    {% for administer in drug.administration %}
+                                        <div class="row rowBottomHalfBreak">
+                                            <div class="col-sm-10">
+                                                <input name="administration[{{ loop.index0 }}]" class="form-control" placeholder="e.g. Oral with food" id="administration" value="{{ administer }}" type="text">
+                                            </div>
+                                            {% if not loop.first %}
+                                                <div class="col-sm-1">
+                                                    <button class="btn btn-danger btn-xs remove-input" id="removeAdministration[{{ loop.index0 }}]" onclick="removeRow(this);" type="button">
+                                                        <span class="glyphicon glyphicon-minus-sign"></span> Remove
+                                                    </button>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    {% endfor %}
+                                    <button type="button" class="btn btn-success btn-xs addMore" id="addMoreAdministration"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                                 </div>
                             </div>
                             <div class="form-group">
