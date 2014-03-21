@@ -32,7 +32,7 @@ class="active"
                 <th class="col-md-6">Interaction Name</th>
             </tr>
             <tr class="clickable-row" style="cursor: pointer;" data-url="/interactions/{% verbatim %}{{ interaction.id }}{% endverbatim %}" 
-                ng-repeat="interaction in interactions | filter:interactionsSearch | orderBy:'enabled' | orderBy:'name'">
+                ng-repeat="interaction in interactions | filter:interactionsSearch | filter:{enabled:0} | orderBy:'enabled' | orderBy:'name'">
                 <td class="col-md-6">{% verbatim %}{{ interaction.name }}{% endverbatim %}</td>
             </tr>
         </table>
