@@ -20,6 +20,18 @@ class="active"
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h1 class="page-header">Add Drug</h1>
 
+        {% if app.session.flashbag.has('success') %}
+            {% for flashMessage in app.session.flashbag.get('success') %}
+                <div class="alert alert-success">{{ flashMessage }}</div>
+            {% endfor %}
+        {% endif %}
+
+        {% if app.session.flashbag.has('failure') %}
+            {% for flashMessage in app.session.flashbag.get('failure') %}
+                <div class="alert alert-danger">{{ flashMessage }}</div>
+            {% endfor %}
+        {% endif %}
+
         <form role="form" method="post" action="{{ path('console.drug.add') }}">
            {# Todo: Figure out Sidebar Floating #}
             <div class="col-sm-2 well" data-spy="affix">
@@ -117,17 +129,21 @@ class="active"
                                 </div>
                             </div>
                             <div class="form-group">
-                                {# Look into this one #}
                                 <div class="metabolism">
                                     <label for="metabolism">Metabolism</label>
                                     <input name="metabolism" class="form-control" placeholder="e.g. Hepatic" id="metabolism" type="text">
                                 </div>
                             </div>
                             <div class="form-group">
-                                {# Look into this one #}
                                 <div class="oraldose">
                                     <label for="oraldose">Usual Oral Dose</label>
                                     <input name="uo_dose" class="form-control" placeholder="e.g. 200-400 mg/day" id="oraldose" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="pregnancy">
+                                    <label for="pregnancy">Pregnancy</label>
+                                    <input name="pregnancy" class="form-control" placeholder="e.g. Category : X" id="available" type="text">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -156,11 +172,11 @@ class="active"
                             <div class="form-group">
                                 <div class="monitoring">
                                     <label for="monitoring">Monitoring</label>
-                                        <div class="row rowBottomHalfBreak">
-                                            <div class="col-sm-10">
-                                                <input name="monitoring[0]" class="form-control" placeholder="e.g. Disease progression and toxicities " id="monitoring" type="text">
-                                            </div>
+                                    <div class="row rowBottomHalfBreak">
+                                        <div class="col-sm-10">
+                                            <input name="monitoring[0]" class="form-control" placeholder="e.g. Disease progression and toxicities " id="monitoring" type="text">
                                         </div>
+                                    </div>
                                     <button id="addMoreMonitoring" type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                                 </div>
                             </div>
@@ -253,6 +269,24 @@ class="active"
                                     </div>
                                 </div>
                                 <button id="addMoreInteractions" type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                            </div>
+                            <div class="form-group">
+                                <label>QT-Prolonging Agents</label>
+                                <div class="row rowBottomHalfBreak">
+                                    <div class="col-sm-4">
+                                        <select name="interactQT[0][type]" class="form-control col-sm-3" style="font-weight:bold;">
+                                            <option></option>
+                                            <option value="Avoid concomitant use">Avoid concomitant use</option>
+                                            <option value="Increases effect of drug">&uarr; Effect (this drug)</option>
+                                            <option value="Decreases effect of drug">&darr; Effect (this drug)</option>
+                                            <option value="Increases/Decreases effect of drug">&uarr;&darr; Effect (this drug)</option>
+                                            <option value="Decreases effect of">&uarr; Effect</option>
+                                            <option value="Increases effect of">&darr; Effect</option>
+                                            <option value="Increases/Decreases effect of">&uarr;&darr; Effect</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <button id="addMoreQTProlonging" type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                             </div>
                             <div class="form-group">
                                 <label><input name="anti-neoplastic" type="checkbox" id="cautionwith" value="cautionwith"> Caution with other anti-neoplastic agents (unless per protocol)</label>

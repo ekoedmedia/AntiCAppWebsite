@@ -62,111 +62,103 @@ class DrugsController
     
         if ($request->isMethod('POST'))
         {
-            //Parse out the data and print it to the error log for now.
-            /* @todo Integration with API */
-            error_log($request->get('g_name'));
-            error_log($request->get('t_name'));
-            error_log($request->get('risk'));
-            foreach($request->get('classification') as $classification){
-                error_log($classification);
+    
+            $g_name = $request->get('g_name');
+            $t_name = $request->get('t_name');
+            $risk = $request->get('risk');
+            $classification = $request->get('classification');
+            $contraindications = $request->get('contraindications');
+            $oncology = array();
+            foreach ($request->get('oncology') as $value) {
+                if (!isset($value['approved']))
+                    $approved = "";
+                else 
+                    $approved = $value['approved'];
+                $arrayOfValues = array("cancer_type" => $value["type"], "approved" => $approved);
+                $oncology[] = $arrayOfValues;
             }
-            foreach($request->get('contraindications') as $row){
-                error_log($row);
+
+            $precaution = array();
+            foreach ($request->get('precaution') as $value) {
+                $arrayOfValues = array("name" => $value["label"], "note" => $value["note"]);
+                $precaution[] = $arrayOfValues;
             }
-            $oncology = $request->get('oncology');
-            $approved = $request->get('approved');
-            for($i = 0; $i < count($oncology); $i++)
-            {
-                error_log($oncology[$i] . ' ' . $approved[$i]);
+
+            $pregnancy = $request->get('pregnancy');
+            $oraldose = $request->get('uo_dose');
+            $breastfeeding = $request->get('breastfeeding');
+            $fertility = $request->get('fertility');
+            $metabolism = $request->get('metabolism');
+            $excretion = $request->get('excretion');
+            $available = $request->get('available');
+            $administration = $request->get('administration');
+            $monitoring = $request->get('monitoring');
+
+            $frequency = $request->get('sideeffect_frequency');
+            $sideeffect = $request->get('sideeffect');
+
+            $interact = array();
+            foreach ($request->get('interact') as $value) {
+                if (empty($value['type'])) continue;
+
+                if (!empty($value['enzymetype'])) {
+                    $arrayOfValues = array("interaction" => $value['type'], "compound" => $value['enzyme'], "enzyme_effect_type" => $value['enzymetype']);
+                    $interact[] = $arrayOfValues;
+                } else {
+                    $arrayOfValues = array("interaction" => $value['type'], "compound" => $value['name']);
+                    $interact[] = $arrayOfValues;
+                }
             }
-            $precaution_name = $request->get('precaution_name');
-            $precaution_note = $request->get('precaution_note');
-            for($i = 0; $i < count($precaution_name); $i++)
-            {
-                error_log($precaution_name[$i] . ' ' . $precaution_note[$i]);
+
+            foreach ($request->get('interactQT') as $value) {
+                $arrayOfValues = array("interaction" => $value['type'], "compound" => "QT-prolonging agents");
+                $interact[] = $arrayOfValues;
             }
-            error_log($request->get('breastfeeding'));
-            error_log($request->get('fertility'));
-            error_log($request->get('metabolism'));
-            error_log($request->get('uo_dose'));
-            error_log($request->get('excretion'));
-            error_log($request->get('available'));
-            error_log($request->get('administration'));
-            error_log($request->get('monitoring'));
-            error_log($request->get('sideeffect_frequency'));
-            $sideeffect_effect = $request->get('sideeffect_effect');
-            $sideeffect_severe = $request->get('sideeffect_severe');
-            for($i = 0; $i < count($sideeffect_effect); $i++)
-            {
-                error_log($sideeffect_effect[$i] . ' ' . $sideeffect_severe[$i]);
+
+            foreach ($request->get('interact_other') as $value) {
+                if (empty($value)) continue;
+                $arrayOfValues = array("interaction" => "Other Interactions", "compound" => $value);
+                $interact[] = $arrayOfValues;
             }
-            $interact_concomit = $request->get('interact_concomit');
-            $interact_concomit_cyp = $request->get('interact_concomit_cyp');
-            $interact_concomit_cyp_type = $request->get('interact_concomit_cyp_type');
-            for($i = 0; $i < count($interact_concomit); $i++)
-            {
-                error_log($interact_concomit[$i] . ' ' . $interact_concomit_cyp[$i] 
-                        . ' ' . $interact_concomit_cyp_type[$i]);
+
+            $antineo = $request->get('anti_neoplastic');
+            
+            $adjustments = array();
+            foreach ($request->get('adjustment') as $value) {
+                $arrayOfValues = array("problem" => $value['name'], "note" => $value['adjustment'], "chart" => $value['chart']);
+                $ajustments[] = $arrayOfValues;
             }
-            $interact_incr_this = $request->get('interact_incr_this');
-            $interact_incr_this_cyp = $request->get('interact_incr_this_cyp');
-            $interact_incr_this_cyp_type = $request->get('interact_incr_this_cyp_type');
-            for($i = 0; $i < count($interact_incr_this); $i++)
-            {
-                error_log($interact_incr_this[$i] . ' ' . $interact_incr_this_cyp[$i] 
-                        . ' ' . $interact_incr_this_cyp_type[$i]);
-            }
-            $interact_decr_this = $request->get('interact_decr_this');
-            $interact_decr_this_cyp = $request->get('interact_decr_this_cyp');
-            $interact_decr_this_cyp_type = $request->get('interact_decr_this_cyp_type');
-            for($i = 0; $i < count($interact_decr_this); $i++)
-            {
-                error_log($interact_decr_this[$i] . ' ' . $interact_decr_this_cyp[$i]
-                        . ' ' . $interact_decr_this_cyp_type[$i]);
-            }
-            $interact_both_this = $request->get('interact_both_this');
-            $interact_both_this_cyp = $request->get('interact_both_this_cyp');
-            $interact_both_this_cyp_type = $request->get('interact_both_this_cyp_type');
-            for($i = 0; $i < count($interact_both_this); $i++)
-            {
-                error_log($interact_both_this[$i] . ' ' . $interact_both_this_cyp[$i] 
-                        . ' ' . $interact_both_this_cyp_type[$i]);
-            }
-            $interact_incr = $request->get('interact_incr');
-            $interact_incr_cyp = $request->get('interact_incr_cyp');
-            $interact_incr_cyp_type = $request->get('interact_incr_cyp_type');
-            for($i = 0; $i < count($interact_incr); $i++)
-            {
-                error_log($interact_incr[$i] . ' ' . $interact_incr_cyp[$i] 
-                        . ' ' . $interact_incr_cyp_type[$i]);
-            }
-            $interact_decr = $request->get('interact_decr');
-            $interact_decr_cyp = $request->get('interact_decr_cyp');
-            $interact_decr_cyp_type = $request->get('interact_decr_cyp_type');
-            for($i = 0; $i < count($interact_decr); $i++)
-            {
-                error_log($interact_decr[$i] . ' ' . $interact_decr_cyp[$i] 
-                        . ' ' . $interact_decr_cyp_type[$i]);
-            }
-            $interact_both = $request->get('interact_both');
-            $interact_both_cyp = $request->get('interact_both_cyp');
-            $interact_both_cyp_type = $request->get('interact_both_cyp_type');
-            for($i = 0; $i < count($interact_both); $i++)
-            {
-                error_log($interact_both[$i] . ' ' . $interact_both_cyp[$i] 
-                        . ' ' . $interact_both_cyp_type[$i]);
-            }
-            error_log($request->get('anti-neoplastic'));
-            foreach($request->get('interact_other') as $row){
-                error_log($row);
-            }
-            $adjust_problem = $request->get('adjust_problem');
-            $adjust_note = $request->get('adjust_note');
-            $adjust_chart = $request->get('adjust_chart');
-            for($i = 0; $i < count($adjust_problem); $i++)
-            {
-                error_log($adjust_problem[$i] . ' ' . $adjust_note[$i] 
-                        . ' ' . $adjust_chart[$i]);
+
+
+            require 'api/dbConnect/connectStart.php';
+            require 'api/put/putDrug.php';
+            $drug = array(
+                "g_name" => $g_name, 
+                "t_name" => $t_name, 
+                "risk" => $risk,              
+                "classification" => $classification, 
+                "pregnancy" => $pregnancy, 
+                "breastfeeding" => $breastfeeding,
+                "fertility" => $fertility, 
+                "metabolism" => $metabolism, 
+                "excretion" => $excretion, 
+                "available" => $available, 
+                "uo_dose" => $oraldose, 
+                "last_revision" => date('now'),
+                "contraindications" => $contraindications,
+                "monitoring" => $monitoring, 
+                "administration" => $administration, 
+                "anti_neoplastic" => $antineo, 
+                "sideEffects" => $sideeffect,
+                "doseAdjusts" => $ajustments, 
+                "drugInteracts" => $interact, 
+                "oncUses" => $oncology,
+                "precautions" => $precaution
+            );
+            if (putDrug($drug, $app['user']->getName(), $dbhandle)) {
+                $app['session']->getFlashBag()->set('success', "Successfully added drug: ".$g_name);
+            } else {
+                $app['session']->getFlashBag()->set('failure', "An error occured. Please try again.");
             }
 
             require 'api/get/listEnzymes.php';
@@ -178,7 +170,7 @@ class DrugsController
            # return $array;
         } else {
             require 'api/get/listEnzymes.php';
-            $enzymeList = getEnzymeList($dbhandle);
+            $enzymeList = getEnzymeList();
 
             return $app['twig']->render('drugs/add.html.twig', array(
                 'enzymes' => $enzymeList
@@ -213,19 +205,31 @@ class DrugsController
         require 'api/get/listEnzymes.php';
         $enzymeList = getEnzymeList($dbhandle);
 
-        if (is_numeric($drug["who_updated"])) {
-            $userManager = new UserManager($app['db'], $app);
-            $user = $userManager->getUser($drug["who_updated"]);
-            $user = $user->getName();
-        } else {
-            $user = $drug["who_updated"];
+
+        $interactions = array();
+        $qtprolonging = array();
+        $othereffects = array();
+        foreach ($drug["drugInteracts"] as $value) {
+            if ($value["compound"] == "QT-prolonging agents") {
+                $qtprolonging[] = $value["interaction"];
+            } else if ($value["interaction"] == "Other Interactions") {
+                $othereffects[] = $value["compound"];
+            } else {
+                $interactions[] = $value;
+            }
         }
+
+
+        $user = $drug["who_updated"];
 
         // Query Database with ID and Return Drug Name and Information to Twig
         return $app['twig']->render('drugs/edit.html.twig', array(
             'drug' => $drug,
             'enzymes' => $enzymeList,
             'last_edited_by' => $user,
+            'interactions' => $interactions,
+            'qtprolonging' => $qtprolonging,
+            'othereffects' => $othereffects
         ));
     }
 
