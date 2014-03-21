@@ -65,14 +65,14 @@ class="active"
                                     </div>
                                     {% if not loop.first %}
                                         <div class="col-sm-3">
-                                            <button class="btn btn-danger btn-xs remove-input" onclick="removeRow(this);" type="button">
+                                            <button class="btn btn-danger btn-xs remove-input" id="removeSubstrate[{{ loop.index0 }}]" onclick="removeRow(this);" type="button">
                                                 <span class="glyphicon glyphicon-minus-sign"></span> Remove
                                             </button>
                                         </div>
                                     {% endif %}
                                 </div>
                             {% endfor %}
-                            <button type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>        
+                            <button type="button" class="btn btn-success btn-xs addMore" id="addMoreSubstrate"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>        
                         </div>
                     </div>
                 </div>
@@ -101,14 +101,14 @@ class="active"
                                     </div>
                                     {% if not loop.first %}
                                         <div class="col-sm-3">
-                                            <button class="btn btn-danger btn-xs remove-input" onclick="removeRow(this);" type="button">
+                                            <button class="btn btn-danger btn-xs remove-input" id="removeInhibitor[{{ loop.index0 }}]" onclick="removeRow(this);" type="button">
                                                 <span class="glyphicon glyphicon-minus-sign"></span> Remove
                                             </button>
                                         </div>
                                     {% endif %}
                                 </div>
                             {% endfor %}
-                            <button type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                            <button type="button" class="btn btn-success btn-xs addMore" id="addMoreInhibitor"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                         </div>
                     </div>
                 </div>
@@ -137,14 +137,14 @@ class="active"
                                     </div>
                                     {% if not loop.first %}
                                         <div class="col-sm-3">
-                                            <button class="btn btn-danger btn-xs remove-input" onclick="removeRow(this);" type="button">
+                                            <button class="btn btn-danger btn-xs remove-input" id="removeInducer[{{ loop.index }}]" onclick="removeRow(this);" type="button">
                                                 <span class="glyphicon glyphicon-minus-sign"></span> Remove
                                             </button>
                                         </div>
                                     {% endif %}
                                 </div>
                             {% endfor %}
-                            <button type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
+                            <button type="button" class="btn btn-success btn-xs addMore" id="addMoreInducer"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                         </div>
                     </div>
                 </div>

@@ -5,6 +5,7 @@ namespace AntiC\Console\Controller;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use AntiC\User\Manager\UserManager;
 
 class DrugsController
 {
@@ -212,10 +213,19 @@ class DrugsController
         require 'api/get/listEnzymes.php';
         $enzymeList = getEnzymeList($dbhandle);
 
+        if (is_numeric($drug["who_updated"])) {
+            $userManager = new UserManager($app['db'], $app);
+            $user = $userManager->getUser($drug["who_updated"]);
+            $user = $user->getName();
+        } else {
+            $user = $drug["who_updated"];
+        }
+
         // Query Database with ID and Return Drug Name and Information to Twig
         return $app['twig']->render('drugs/edit.html.twig', array(
             'drug' => $drug,
-            'enzymes' => $enzymeList
+            'enzymes' => $enzymeList,
+            'last_edited_by' => $user,
         ));
     }
 
@@ -235,7 +245,7 @@ class DrugsController
 
         if ($request->isMethod('POST')) {
             require 'api/delete/deleteDrug.php';
-            $id = $app['user']->getId();
+            $id = $app['user']->getName();
             $drugId = $request->get('ID');
             $showHide = $request->get('enabled');
             $response = showHideDrug($drugId, $id, $showHide);

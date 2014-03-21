@@ -45,6 +45,7 @@ $(function(){
     $('.addMore').click(function(){
         var parent = $(this).parent();
         var clonedRow = parent.find(".toClone").last().clone();
+        var number = 0;
         // Overrides Parent by Cloning class with toClone
         if (!clonedRow.length) {
              clonedRow = parent.find(".row").last().clone();
@@ -54,7 +55,7 @@ $(function(){
         clonedRow.find('input:text, input:password, input:file, select, textarea, input:radio, input:checkbox').each(function(){
             var match = $(this).attr('name').match(/(\d+)/g);
             if (match) {
-                var number = parseInt(match[0]);
+                number = parseInt(match[0]);
                 number = number + 1;
                 $(this).attr('name', $(this).attr('name').replace(/(\d+)/g, number));
             }
@@ -64,9 +65,11 @@ $(function(){
         clonedRow.find('input:text, input:password, input:file, select, textarea').val('');
         clonedRow.find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');
 
+        var itemName = this.id.replace('addMore', "");
+
         // If there is no button, then add the remove, otherwise ignore.
         if (!clonedRow.find('button').length)
-            clonedRow.append("<div class='col-sm-1'><button type='button' onClick='removeRow(this);' class='btn btn-danger btn-xs remove-input'>\n\
+            clonedRow.append("<div class='col-sm-1'><button type='button' id='remove"+itemName+"["+number+"]' onClick='removeRow(this);' class='btn btn-danger btn-xs remove-input'>\n\
 <span class='glyphicon glyphicon-minus-sign'></span> Remove</button></div>");
         clonedRow.insertBefore($(this));
 

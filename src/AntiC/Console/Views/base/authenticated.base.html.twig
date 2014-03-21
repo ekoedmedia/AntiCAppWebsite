@@ -37,9 +37,9 @@ AntiC | {% block title %}{% endblock title %}
         <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar">
-                    <li {% block drugsActive %}{% endblock drugsActive %}><a href="/console">Drugs</a></li>
-                    <li {% block interactionsActive %}{% endblock interactionsActive %}><a href="/console/interactions">Interactions</a></li>
-                    {% if is_granted('ROLE_ADMIN') %}<li {% block usersActive %}{% endblock usersActive %}><a href="{{ path('user.list') }}">User Management</a></li>{% endif %}
+                    <li {% block drugsActive %}{% endblock drugsActive %}><a href="/console" id="drugsList">Drugs</a></li>
+                    <li {% block interactionsActive %}{% endblock interactionsActive %}><a href="/console/interactions" id="interactionsList">Interactions</a></li>
+                    {% if is_granted('ROLE_ADMIN') %}<li {% block usersActive %}{% endblock usersActive %}><a href="{{ path('user.list') }}" id="usersList">User Management</a></li>{% endif %}
                 </ul>
             </div>
             {% block content %}{% endblock content %}
