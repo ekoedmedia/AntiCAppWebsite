@@ -53,23 +53,39 @@ class InteractionsController
         }
 
         if ($request->isMethod('POST')) {
-            /** 
-             * @todo using API Functions from JB/Tanvir
-             */
-            error_log("Substrates:");
+            $interactions = array();
+            $interactions['name'] = $request->get('name');
+
+            $substrates = array();
             foreach($request->get('substrate') as $substrate)
             {
-                error_log($substrate);
+                $arrayOfValues = array("compound" => $substrate['name'], "severity" => $substrate['risk']);
+                $substrates = $arrayOfValues;
             }
-            error_log("Inhibitors:");
+
+            $inhibitors = array();
             foreach($request->get('inhibitor') as $inhibitor)
             {
-                error_log($inhibitor);
+                $arrayOfValues = array("compound" => $inhibitor['name'], "severity" => $inhibitor['risk']);
+                $inhibitors[] = $arrayOfValues;
             }
-            error_log("Inducers:");
+
+            $inducers = array();
             foreach($request->get('inducer') as $inducer)
             {
-                error_log($inducer);
+                $arrayOfValues = array("compound" => $inducer['name'], "severity" => $inducer['risk']);
+                $inducers[] = $arrayOfValues;
+            }
+
+            $interactions["Substrate"] = $substrates;
+            $interactions["Inhibitor"] = $inhibitors;
+            $interactions["Inducer"] = $induers;
+
+            require 'api/put/putEnzyme.php';
+            if (insertEnzyme($interactions, $app['user']->getName())) {
+                $app['session']->getFlashBag()->set('success', "Successfully added Interaction: ".$interactions['name']);
+            } else {
+                $app['session']->getFlashBag()->set('failure', "An error occured. Please try again.");
             }
         }
 

@@ -92,7 +92,7 @@ class="active"
                                         <input class="form-control" placeholder="e.g. Amiodarone" name="inhibitor[{{ loop.index0 }}][name]" value="{{ inhibitor.compound }}" id="inhibitor" type="text">
                                     </div>
                                     <div class="col-sm-3">
-                                        <select class="form-control" name="substrate[{{ loop.index0 }}][risk]" id="risk-level">
+                                        <select class="form-control" name="inhibitor[{{ loop.index0 }}][risk]" id="risk-level">
                                             <option {% if inhibitor.severity == "Weak" %}selected="selected"{% endif %}>Weak</option>
                                             <option {% if inhibitor.severity == "Moderate" %}selected="selected"{% endif %}>Moderate</option>
                                             <option {% if inhibitor.severity == "Strong" %}selected="selected"{% endif %}>Strong</option>
@@ -128,7 +128,7 @@ class="active"
                                         <input class="form-control" placeholder="e.g. Aminogluthethimide" name="inducer[{{ loop.index0 }}][name]" value="{{ inducer.compound }}" id="inducer" type="text">
                                     </div>
                                     <div class="col-sm-3">
-                                        <select class="form-control" name="substrate[{{ loop.index0 }}][risk]" id="risk-level">
+                                        <select class="form-control" name="inducer[{{ loop.index0 }}][risk]" id="risk-level">
                                             <option {% if inducer.severity == "Weak" %}selected="selected"{% endif %}>Weak</option>
                                             <option {% if inducer.severity == "Moderate" %}selected="selected"{% endif %}>Moderate</option>
                                             <option {% if inducer.severity == "Strong" %}selected="selected"{% endif %}>Strong</option>

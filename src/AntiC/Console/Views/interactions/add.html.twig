@@ -20,6 +20,18 @@ class="active"
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h1 class="page-header">Add Interaction</h1>
 
+        {% if app.session.flashbag.has('success') %}
+            {% for flashMessage in app.session.flashbag.get('success') %}
+                <div class="alert alert-success">{{ flashMessage }}</div>
+            {% endfor %}
+        {% endif %}
+
+        {% if app.session.flashbag.has('failure') %}
+            {% for flashMessage in app.session.flashbag.get('failure') %}
+                <div class="alert alert-danger">{{ flashMessage }}</div>
+            {% endfor %}
+        {% endif %}
+
         <form role="form" method="post" action="{{ path('console.interactions.add') }}">
             <div class="col-sm-2 well" data-spy="affix">
                 <div class="form-group">
@@ -73,7 +85,7 @@ class="active"
                                     <input class="form-control" placeholder="e.g. Amiodarone" name="inhibitor[0][name]" id="inhibitor" type="text">
                                 </div>
                                 <div class="col-sm-3">
-                                    <select class="form-control" name="substrate[0][risk]" id="risk-level">
+                                    <select class="form-control" name="inhibitor[0][risk]" id="risk-level">
                                         <option>Weak</option>
                                         <option>Moderate</option>
                                         <option>Strong</option>
@@ -100,7 +112,7 @@ class="active"
                                     <input class="form-control" placeholder="e.g. Aminogluthethimide" name="inducer[0][name]" id="inducer" type="text">
                                 </div>
                                 <div class="col-sm-3">
-                                    <select class="form-control" name="substrate[0][risk]" id="risk-level">
+                                    <select class="form-control" name="inducer[0][risk]" id="risk-level">
                                         <option>Weak</option>
                                         <option>Moderate</option>
                                         <option>Strong</option>
