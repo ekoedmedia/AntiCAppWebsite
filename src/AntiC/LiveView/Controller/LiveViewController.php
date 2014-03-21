@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 class LiveViewController
 {
     /**
-     * Controller for Homepage of Oralchemotherapy.ca
+     * Controller for Homepage of Oralchemotherapy.ca.
      *
      * @route /
      * @param Application
@@ -20,9 +20,13 @@ class LiveViewController
     }
 
     /**
+     * Controller for viewing list of all drugs.
+     * 
      * @route /drugs
+     * @param Application
+     * @return rendered twig template
      */
-    public function drugsListAction(Application $app, Request $request)
+    public function drugsListAction(Application $app)
     {
         require_once 'api/get/listDrugs.php';
         $drugsList = getDrugList();
@@ -44,7 +48,12 @@ class LiveViewController
     }
 
     /**
+     * Controller for viewing one particular drug.
+     * 
      * @route /drugs/{ID}
+     * @param Application
+     * @param Request
+     * @return rendered twig template
      */
     public function viewDrugAction(Application $app, Request $request)
     {
@@ -55,9 +64,13 @@ class LiveViewController
     }
 
     /**
+     * Controller for viewing list of all interactions.
+     * 
      * @route /interactions
+     * @param Application
+     * @return rendered twig template
      */
-    public function interactionsListAction(Application $app, Request $request)
+    public function interactionsListAction(Application $app)
     {
         require_once 'api/get/listEnzymes.php';
         $enzymeList = getEnzymeList();
@@ -77,7 +90,11 @@ class LiveViewController
     }
 
     /**
+     * Controller for viewing one specific interaction.
+     * 
      * @route /interactions/{ID}
+     * @param Application
+     * @param Request
      */
     public function viewInteractionAction(Application $app, Request $request)
     {
@@ -90,6 +107,8 @@ class LiveViewController
         ));
     }
     /**
+     * Controller for viewing About page.
+     * 
      * @route /about
      */
     public function aboutAction(Application $app, Request $request)
