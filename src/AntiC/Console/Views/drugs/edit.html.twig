@@ -33,7 +33,8 @@ class="active"
                 </div>
                 <div class="form-group">
                     <label for="risk-level">Risk</label>
-                    <select name="risk" class="form-control" id="risk-level">
+                    <select name="risk" class="form-control" id="risk-level" required>
+                        <option></option>
                         <option {% if drug.risk == "Low" %}selected="selected"{% endif %}>Low</option>
                         <option {% if drug.risk == "Moderate" %}selected="selected"{% endif %}>Moderate</option>
                         <option {% if drug.risk == "High" %}selected="selected"{% endif %}>High</option>

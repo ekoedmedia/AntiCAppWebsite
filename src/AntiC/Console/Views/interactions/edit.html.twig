@@ -57,6 +57,7 @@ class="active"
                                     </div>
                                     <div class="col-sm-3">
                                         <select class="form-control" name="substrate[0][risk]" id="risk-level">
+                                            <option></option>
                                             <option>Weak</option>
                                             <option>Moderate</option>
                                             <option>Strong</option>
@@ -72,6 +73,7 @@ class="active"
                                         </div>
                                         <div class="col-sm-3">
                                             <select class="form-control" name="substrate[{{ loop.index0 }}][risk]" id="risk-level">
+                                                <option></option>
                                                 <option {% if substrate.severity == "Weak" %}selected="selected"{% endif %}>Weak</option>
                                                 <option {% if substrate.severity == "Moderate" %}selected="selected"{% endif %}>Moderate</option>
                                                 <option {% if substrate.severity == "Strong" %}selected="selected"{% endif %}>Strong</option>
@@ -109,6 +111,7 @@ class="active"
                                     </div>
                                     <div class="col-sm-3">
                                         <select class="form-control" name="inhibitor[0][risk]" id="risk-level">
+                                            <option></option>
                                             <option>Weak</option>
                                             <option>Moderate</option>
                                             <option>Strong</option>
@@ -124,6 +127,7 @@ class="active"
                                         </div>
                                         <div class="col-sm-3">
                                             <select class="form-control" name="inhibitor[{{ loop.index0 }}][risk]" id="risk-level">
+                                                <option></option>
                                                 <option {% if inhibitor.severity == "Weak" %}selected="selected"{% endif %}>Weak</option>
                                                 <option {% if inhibitor.severity == "Moderate" %}selected="selected"{% endif %}>Moderate</option>
                                                 <option {% if inhibitor.severity == "Strong" %}selected="selected"{% endif %}>Strong</option>
@@ -161,6 +165,7 @@ class="active"
                                     </div>
                                     <div class="col-sm-3">
                                         <select class="form-control" name="inducer[0][risk]" id="risk-level">
+                                            <option></option>
                                             <option>Weak</option>
                                             <option>Moderate</option>
                                             <option>Strong</option>
@@ -176,6 +181,7 @@ class="active"
                                         </div>
                                         <div class="col-sm-3">
                                             <select class="form-control" name="inducer[{{ loop.index0 }}][risk]" id="risk-level">
+                                                <option></option>
                                                 <option {% if inducer.severity == "Weak" %}selected="selected"{% endif %}>Weak</option>
                                                 <option {% if inducer.severity == "Moderate" %}selected="selected"{% endif %}>Moderate</option>
                                                 <option {% if inducer.severity == "Strong" %}selected="selected"{% endif %}>Strong</option>
