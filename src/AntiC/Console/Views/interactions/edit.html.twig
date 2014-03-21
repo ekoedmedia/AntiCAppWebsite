@@ -50,7 +50,7 @@ class="active"
                     </div>
                     <div id="collapseOne" class="panel-collapse collapse in">
                         <div class="panel-body">
-                            {% if substrate is empty %}
+                            {% if interaction.Substrate is empty %}
                                 <div class="row" style="margin-bottom:5px;">
                                     <div class="col-sm-6">
                                         <input class="form-control" placeholder="e.g. Acetaminophen" name="substrate[0][name]" id="substrate" type="text">
@@ -102,7 +102,7 @@ class="active"
                     </div>
                     <div id="collapseTwo" class="panel-collapse collapse">
                         <div class="panel-body">
-                            {% if inhibitor is empty %}
+                            {% if interaction.Inhibitor is empty %}
                                 <div class="row" style="margin-bottom:5px;">
                                     <div class="col-sm-6">
                                         <input class="form-control" placeholder="e.g. Amiodarone" name="inhibitor[0][name]" id="inhibitor" type="text">
@@ -154,7 +154,7 @@ class="active"
                     </div>
                     <div id="collapseThree" class="panel-collapse collapse">
                         <div class="panel-body">
-                            {% if inducer is empty %}
+                            {% if interaction.Inducer is empty %}
                                 <div class="row" style="margin-bottom:5px;">
                                     <div class="col-sm-6">
                                         <input class="form-control" placeholder="e.g. Aminogluthethimide" name="inducer[0][name]" id="inducer" type="text">
