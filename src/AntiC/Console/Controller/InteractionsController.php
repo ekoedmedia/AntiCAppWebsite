@@ -60,7 +60,7 @@ class InteractionsController
             foreach($request->get('substrate') as $substrate)
             {
                 $arrayOfValues = array("compound" => $substrate['name'], "severity" => $substrate['risk']);
-                $substrates = $arrayOfValues;
+                $substrates[] = $arrayOfValues;
             }
 
             $inhibitors = array();
@@ -79,7 +79,7 @@ class InteractionsController
 
             $interactions["Substrate"] = $substrates;
             $interactions["Inhibitor"] = $inhibitors;
-            $interactions["Inducer"] = $induers;
+            $interactions["Inducer"] = $inducers;
 
             require 'api/put/putEnzyme.php';
             if (insertEnzyme($interactions, $app['user']->getName())) {
