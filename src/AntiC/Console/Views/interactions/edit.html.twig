@@ -50,28 +50,44 @@ class="active"
                     </div>
                     <div id="collapseOne" class="panel-collapse collapse in">
                         <div class="panel-body">
-                            {% for substrate in interaction.Substrate %}
+                            {% if substrate is empty %}
                                 <div class="row" style="margin-bottom:5px;">
                                     <div class="col-sm-6">
-                                        <input class="form-control" placeholder="e.g. Acetaminophen" name="substrate[{{ loop.index0 }}][name]" value="{{ substrate.compound }}" id="substrate" type="text">
+                                        <input class="form-control" placeholder="e.g. Acetaminophen" name="substrate[0][name]" id="substrate" type="text">
                                     </div>
                                     <div class="col-sm-3">
-                                        <select class="form-control" name="substrate[{{ loop.index0 }}][risk]" id="risk-level">
-                                            <option {% if substrate.severity == "Weak" %}selected="selected"{% endif %}>Weak</option>
-                                            <option {% if substrate.severity == "Moderate" %}selected="selected"{% endif %}>Moderate</option>
-                                            <option {% if substrate.severity == "Strong" %}selected="selected"{% endif %}>Strong</option>
-                                            <option {% if substrate.severity == "Unknown" %}selected="selected"{% endif %}>Unknown</option>
+                                        <select class="form-control" name="substrate[0][risk]" id="risk-level">
+                                            <option>Weak</option>
+                                            <option>Moderate</option>
+                                            <option>Strong</option>
+                                            <option>Unknown</option>
                                         </select>
                                     </div>
-                                    {% if not loop.first %}
-                                        <div class="col-sm-3">
-                                            <button class="btn btn-danger btn-xs remove-input" id="removeSubstrate[{{ loop.index0 }}]" onclick="removeRow(this);" type="button">
-                                                <span class="glyphicon glyphicon-minus-sign"></span> Remove
-                                            </button>
-                                        </div>
-                                    {% endif %}
                                 </div>
-                            {% endfor %}
+                            {% else %}
+                                {% for substrate in interaction.Substrate %}
+                                    <div class="row" style="margin-bottom:5px;">
+                                        <div class="col-sm-6">
+                                            <input class="form-control" placeholder="e.g. Acetaminophen" name="substrate[{{ loop.index0 }}][name]" value="{{ substrate.compound }}" id="substrate" type="text">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <select class="form-control" name="substrate[{{ loop.index0 }}][risk]" id="risk-level">
+                                                <option {% if substrate.severity == "Weak" %}selected="selected"{% endif %}>Weak</option>
+                                                <option {% if substrate.severity == "Moderate" %}selected="selected"{% endif %}>Moderate</option>
+                                                <option {% if substrate.severity == "Strong" %}selected="selected"{% endif %}>Strong</option>
+                                                <option {% if substrate.severity == "Unknown" %}selected="selected"{% endif %}>Unknown</option>
+                                            </select>
+                                        </div>
+                                        {% if not loop.first %}
+                                            <div class="col-sm-3">
+                                                <button class="btn btn-danger btn-xs remove-input" id="removeSubstrate[{{ loop.index0 }}]" onclick="removeRow(this);" type="button">
+                                                    <span class="glyphicon glyphicon-minus-sign"></span> Remove
+                                                </button>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
                             <button type="button" class="btn btn-success btn-xs addMore" id="addMoreSubstrate"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>        
                         </div>
                     </div>
@@ -86,28 +102,44 @@ class="active"
                     </div>
                     <div id="collapseTwo" class="panel-collapse collapse">
                         <div class="panel-body">
-                            {% for inhibitor in interaction.Inhibitor %}
+                            {% if inhibitor is empty %}
                                 <div class="row" style="margin-bottom:5px;">
                                     <div class="col-sm-6">
-                                        <input class="form-control" placeholder="e.g. Amiodarone" name="inhibitor[{{ loop.index0 }}][name]" value="{{ inhibitor.compound }}" id="inhibitor" type="text">
+                                        <input class="form-control" placeholder="e.g. Amiodarone" name="inhibitor[0][name]" id="inhibitor" type="text">
                                     </div>
                                     <div class="col-sm-3">
-                                        <select class="form-control" name="inhibitor[{{ loop.index0 }}][risk]" id="risk-level">
-                                            <option {% if inhibitor.severity == "Weak" %}selected="selected"{% endif %}>Weak</option>
-                                            <option {% if inhibitor.severity == "Moderate" %}selected="selected"{% endif %}>Moderate</option>
-                                            <option {% if inhibitor.severity == "Strong" %}selected="selected"{% endif %}>Strong</option>
-                                            <option {% if inhibitor.severity == "Unknown" %}selected="selected"{% endif %}>Unknown</option>
+                                        <select class="form-control" name="inhibitor[0][risk]" id="risk-level">
+                                            <option>Weak</option>
+                                            <option>Moderate</option>
+                                            <option>Strong</option>
+                                            <option>Unknown</option>
                                         </select>
                                     </div>
-                                    {% if not loop.first %}
-                                        <div class="col-sm-3">
-                                            <button class="btn btn-danger btn-xs remove-input" id="removeInhibitor[{{ loop.index0 }}]" onclick="removeRow(this);" type="button">
-                                                <span class="glyphicon glyphicon-minus-sign"></span> Remove
-                                            </button>
-                                        </div>
-                                    {% endif %}
                                 </div>
-                            {% endfor %}
+                            {% else %}
+                                {% for inhibitor in interaction.Inhibitor %}
+                                    <div class="row" style="margin-bottom:5px;">
+                                        <div class="col-sm-6">
+                                            <input class="form-control" placeholder="e.g. Amiodarone" name="inhibitor[{{ loop.index0 }}][name]" value="{{ inhibitor.compound }}" id="inhibitor" type="text">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <select class="form-control" name="inhibitor[{{ loop.index0 }}][risk]" id="risk-level">
+                                                <option {% if inhibitor.severity == "Weak" %}selected="selected"{% endif %}>Weak</option>
+                                                <option {% if inhibitor.severity == "Moderate" %}selected="selected"{% endif %}>Moderate</option>
+                                                <option {% if inhibitor.severity == "Strong" %}selected="selected"{% endif %}>Strong</option>
+                                                <option {% if inhibitor.severity == "Unknown" %}selected="selected"{% endif %}>Unknown</option>
+                                            </select>
+                                        </div>
+                                        {% if not loop.first %}
+                                            <div class="col-sm-3">
+                                                <button class="btn btn-danger btn-xs remove-input" id="removeInhibitor[{{ loop.index0 }}]" onclick="removeRow(this);" type="button">
+                                                    <span class="glyphicon glyphicon-minus-sign"></span> Remove
+                                                </button>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
                             <button type="button" class="btn btn-success btn-xs addMore" id="addMoreInhibitor"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                         </div>
                     </div>
@@ -122,28 +154,44 @@ class="active"
                     </div>
                     <div id="collapseThree" class="panel-collapse collapse">
                         <div class="panel-body">
-                            {% for inducer in interaction.Inducer %}
+                            {% if inducer is empty %}
                                 <div class="row" style="margin-bottom:5px;">
                                     <div class="col-sm-6">
-                                        <input class="form-control" placeholder="e.g. Aminogluthethimide" name="inducer[{{ loop.index0 }}][name]" value="{{ inducer.compound }}" id="inducer" type="text">
+                                        <input class="form-control" placeholder="e.g. Aminogluthethimide" name="inducer[0][name]" id="inducer" type="text">
                                     </div>
                                     <div class="col-sm-3">
-                                        <select class="form-control" name="inducer[{{ loop.index0 }}][risk]" id="risk-level">
-                                            <option {% if inducer.severity == "Weak" %}selected="selected"{% endif %}>Weak</option>
-                                            <option {% if inducer.severity == "Moderate" %}selected="selected"{% endif %}>Moderate</option>
-                                            <option {% if inducer.severity == "Strong" %}selected="selected"{% endif %}>Strong</option>
-                                            <option {% if inducer.severity == "Unknown" %}selected="selected"{% endif %}>Unknown</option>
+                                        <select class="form-control" name="inducer[0][risk]" id="risk-level">
+                                            <option>Weak</option>
+                                            <option>Moderate</option>
+                                            <option>Strong</option>
+                                            <option>Unknown</option>
                                         </select>
                                     </div>
-                                    {% if not loop.first %}
-                                        <div class="col-sm-3">
-                                            <button class="btn btn-danger btn-xs remove-input" id="removeInducer[{{ loop.index }}]" onclick="removeRow(this);" type="button">
-                                                <span class="glyphicon glyphicon-minus-sign"></span> Remove
-                                            </button>
-                                        </div>
-                                    {% endif %}
                                 </div>
-                            {% endfor %}
+                            {% else %}
+                                {% for inducer in interaction.Inducer %}
+                                    <div class="row" style="margin-bottom:5px;">
+                                        <div class="col-sm-6">
+                                            <input class="form-control" placeholder="e.g. Aminogluthethimide" name="inducer[{{ loop.index0 }}][name]" value="{{ inducer.compound }}" id="inducer" type="text">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <select class="form-control" name="inducer[{{ loop.index0 }}][risk]" id="risk-level">
+                                                <option {% if inducer.severity == "Weak" %}selected="selected"{% endif %}>Weak</option>
+                                                <option {% if inducer.severity == "Moderate" %}selected="selected"{% endif %}>Moderate</option>
+                                                <option {% if inducer.severity == "Strong" %}selected="selected"{% endif %}>Strong</option>
+                                                <option {% if inducer.severity == "Unknown" %}selected="selected"{% endif %}>Unknown</option>
+                                            </select>
+                                        </div>
+                                        {% if not loop.first %}
+                                            <div class="col-sm-3">
+                                                <button class="btn btn-danger btn-xs remove-input" id="removeInducer[{{ loop.index }}]" onclick="removeRow(this);" type="button">
+                                                    <span class="glyphicon glyphicon-minus-sign"></span> Remove
+                                                </button>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+                            {% endif }
                             <button type="button" class="btn btn-success btn-xs addMore" id="addMoreInducer"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                         </div>
                     </div>

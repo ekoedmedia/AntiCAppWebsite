@@ -503,10 +503,10 @@ class="active"
                                             <div class="col-sm-10">
                                                 <input name="interact_other[{{ loop.index0 }}]" class="form-control" placeholder="e.g. Caution with agents" value="{{ effect }}" id="othereffects" type="text">
                                             </div>
+                                            {% if not loop.first %}
+                                                <div class="col-sm-1"><button class="btn btn-danger btn-xs remove-input" id="removeOtherInteractions[{{ loop.index0 }}]" onclick="removeRow(this);" type="button"><span class="glyphicon glyphicon-minus-sign"></span> Remove</button></div>
+                                            {% endif %}
                                         </div>
-                                        {% if not loop.first %}
-                                            <div class="col-sm-1"><button class="btn btn-danger btn-xs remove-input" id="removeOtherInteractions[{{ loop.index0 }}]" onclick="removeRow(this);" type="button"><span class="glyphicon glyphicon-minus-sign"></span> Remove</button></div>
-                                        {% endif %}
                                     {% endfor %}
                                 {% endif %}
                                 <button type="button" class="btn btn-success btn-xs addMore" id="addMoreOtherInteractions"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
