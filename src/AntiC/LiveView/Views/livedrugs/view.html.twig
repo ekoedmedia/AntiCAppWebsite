@@ -171,7 +171,9 @@ class="active"
                         <h4>Administration: </h4>
                     </div>
                     <div name="administration" id="administration" class="col-md-4 table-item">
-                        {{drug.administration}}
+                                {% for admin in drug.administration %}            
+                                {{ admin }}<br/>
+                                {% endfor %}
                     </div>
                 </td></tr>
             <tr><td>
@@ -286,15 +288,15 @@ class="active"
 <script>
     function addLineBreaks(divId)
     {
-        var text = $("#" + divId).html().replace(/[|]/g,"<br />");
+        var text = $("#" + divId).html().replace(/[|]/g, "<br />");
         $("#" + divId).html(text);
     }
     addLineBreaks("uo_dose");
-    addLineBreaks("administration");
-    
+    //addLineBreaks("administration");
+
     //Hyperlink NCI Common Toxicity Criteria
     var text = $("#monitoring").html().replace(/NCI Common Toxicity Criteria/g,
-    "<a href=\"http://www.acrin.org/Portals/0/Administration/Regulatory/CTCAE_4.02_2009-09-15_QuickReference_5x7.pdf\">NCI Common Toxicity Criteria</a>")
+            "<a href=\"http://www.acrin.org/Portals/0/Administration/Regulatory/CTCAE_4.02_2009-09-15_QuickReference_5x7.pdf\">NCI Common Toxicity Criteria</a>")
     $("#monitoring").html(text);
 
 </script>
