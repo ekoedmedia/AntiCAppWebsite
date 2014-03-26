@@ -30,12 +30,13 @@ class="active"
         <table class="table table-hover table-striped">
             <tr>
                 <th class="col-md-4">
-                    <div class="col-md-4">Name</div>
-                    <div class="col-md-4">Risk</div>
-                </th>
+            <div class="col-md-4">Name</div>
+            <div class="col-md-4">Risk</div>
+            </th>
             </tr>
-            <tr class="clickable-row" style="cursor: pointer;" href="/drugs/{% verbatim %}{{ drug.id }}{% endverbatim %}" 
+            <tr style="cursor: pointer;" onclick="clickScript(this);" href="/drugs/{% verbatim %}{{ drug.id }}{% endverbatim %}"
                 ng-repeat="drug in drugs | filter:drugsSearch | filter:{enabled:0} | orderBy:'enabled' | orderBy:'name'">
+
                 <td>
                     <div class="col-md-4">{% verbatim %}{{ drug.id }}{% endverbatim %}</div>
                     <div class="col-md-4"> 
@@ -44,6 +45,7 @@ class="active"
                         <img class="ng-hide" ng-show='drug.risk == "Low"' height="20" width="40" src="/img/icon_low.png">
                     </div>
                 </td>
+
             </tr>
         </table>
     </div>
@@ -55,22 +57,20 @@ class="active"
 {% block pageScripts %}
 <script>
 // Setup of Antic App
-    var anticApp = angular.module('anticApp', []);
-
+            var anticApp = angular.module('anticApp', []);
 // User Controller for User Filtering
-    anticApp.controller('LiveViewController', ['$scope', function($scope) {
+            anticApp.controller('LiveViewController', ['$scope', function($scope) {
             $scope.drugs = [
     {% for drug in drugs %}
-                {'name': "{{ drug.commonName }}", 'id': "{{ drug.id }}", 'enabled':{{ drug.enabled }}, 'risk': "{{ drug.risk }}"},
+            {'name': "{{ drug.commonName }}", 'id': "{{ drug.id }}", 'enabled':{{ drug.enabled }}, 'risk': "{{ drug.risk }}"},
     {% endfor %}
             ];
-        }]);
+            }]);
 </script>
 <script>
-    jQuery(document).ready(function($) {
-        $(".clickable-row").click(function() {
-            window.document.location = $(this).attr("href");
-        });
-    });
+    function clickScript(obj)
+    {
+        window.document.location = obj.getAttribute("href");
+    }
 </script>
 {% endblock pageScripts %}

@@ -31,9 +31,11 @@ class="active"
             <tr>
                 <th class="col-md-6">Interaction Name</th>
             </tr>
-            <tr class="clickable-row" style="cursor: pointer;" data-url="/interactions/{% verbatim %}{{ interaction.id }}{% endverbatim %}" 
+            <tr style="cursor: pointer;" onclick="clickScript(this);" href="interactions/{% verbatim %}{{ interaction.id }}{% endverbatim %}"
                 ng-repeat="interaction in interactions | filter:interactionsSearch | filter:{enabled:0} | orderBy:'enabled' | orderBy:'name'">
-                <td class="col-md-6">{% verbatim %}{{ interaction.name }}{% endverbatim %}</td>
+                <td class="col-md-6">
+                    {% verbatim %}{{ interaction.name }}{% endverbatim %}
+                </td>
             </tr>
         </table>
     </div>
@@ -57,10 +59,9 @@ class="active"
         }]);
 </script>
 <script>
-    jQuery(document).ready(function($) {
-        $(".clickable-row").click(function() {
-            window.document.location = $(this).data("url");
-        });
-    });
+    function clickScript(obj)
+    {
+        window.document.location = obj.getAttribute("href");
+    }
 </script>
 {% endblock pageScripts %}
