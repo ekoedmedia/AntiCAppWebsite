@@ -220,13 +220,13 @@ class DrugsController
         }
 
 
-        $user = $drug["who_updated"];
+        $who_updated = $drug["who_updated"];
 
         // Query Database with ID and Return Drug Name and Information to Twig
         return $app['twig']->render('drugs/edit.html.twig', array(
             'drug' => $drug,
             'enzymes' => $enzymeList,
-            'last_edited_by' => $user,
+            'last_edited_by' => $who_updated,
             'interactions' => $interactions,
             'qtprolonging' => $qtprolonging,
             'othereffects' => $othereffects
