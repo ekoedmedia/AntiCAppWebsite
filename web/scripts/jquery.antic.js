@@ -76,4 +76,6 @@ $(function(){
         
     });
 
+    $('#last-revision').datepicker();
+
 });
