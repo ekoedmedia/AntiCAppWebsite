@@ -152,6 +152,14 @@ class="active"
                 </td></tr>
             <tr><td>
                     <div class="col-md-2">
+                        <h4>Pregnancy: </h4>
+                    </div>
+                    <div name="pregnancy" id="pregnancy" class="col-md-4 table-item">
+                        {{drug.pregnancy}}
+                    </div>
+                </td></tr>
+            <tr><td>
+                    <div class="col-md-2">
                         <h4>Excretion: </h4>
                     </div>
                     <div name="excretion" id="excretion" class="col-md-4 table-item">
@@ -272,8 +280,7 @@ class="active"
                                 <tr>
                                     <td>{{doseAdjust.problem}}</td>
                                     <td>{{doseAdjust.note}}</td>
-{#                                    <td>{% if doseAdjust.chart != "" %}<img src={{doseAdjust.chart}}></img>{% else %}-{% endif %}</td>#}
-                                    <td> Charts coming soon </td>
+                                    <td>{% if doseAdjust.chart != "" %}<img src=/{{doseAdjust.chart}}></img>{% else %}-{% endif %}</td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
