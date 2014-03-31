@@ -59,6 +59,7 @@ class InteractionsController
             $substrates = array();
             foreach($request->get('substrate') as $substrate)
             {
+                if (is_empty($substrate["risk"]) || is_empty($substrate["name"])) continue;
                 $arrayOfValues = array("compound" => $substrate['name'], "severity" => $substrate['risk']);
                 $substrates[] = $arrayOfValues;
             }
@@ -66,6 +67,7 @@ class InteractionsController
             $inhibitors = array();
             foreach($request->get('inhibitor') as $inhibitor)
             {
+                if (is_empty($inhibitor["risk"]) || is_empty($inhibitor["name"])) continue;
                 $arrayOfValues = array("compound" => $inhibitor['name'], "severity" => $inhibitor['risk']);
                 $inhibitors[] = $arrayOfValues;
             }
@@ -73,6 +75,7 @@ class InteractionsController
             $inducers = array();
             foreach($request->get('inducer') as $inducer)
             {
+                if (is_empty($inducer["risk"]) || is_empty($inducer["name"])) continue;
                 $arrayOfValues = array("compound" => $inducer['name'], "severity" => $inducer['risk']);
                 $inducers[] = $arrayOfValues;
             }
