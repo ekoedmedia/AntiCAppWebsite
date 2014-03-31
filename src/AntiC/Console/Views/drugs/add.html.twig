@@ -32,7 +32,7 @@ class="active"
             {% endfor %}
         {% endif %}
 
-        <form role="form" method="post" action="{{ path('console.drug.add') }}">
+        <form role="form" method="post" action="{{ path('console.drug.add') }}" enctype="multipart/form-data">
            {# Todo: Figure out Sidebar Floating #}
             <div class="col-sm-2 well" data-spy="affix">
                 <div class="form-group">

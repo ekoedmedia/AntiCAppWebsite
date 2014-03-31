@@ -122,10 +122,15 @@ class DrugsController
             }
 
             $antineo = $request->get('anti_neoplastic');
-            
+
             $adjustments = array();
-            foreach ($request->get('adjustment') as $value) {
-                $arrayOfValues = array("problem" => $value['name'], "note" => $value['adjustment'], "chart" => $value['chart']);
+            foreach ($request->get('adjustment') as $key => $value) {
+                $arrayOfValues = array(
+                    "problem" => $value['name'], 
+                    "note" => $value['adjustment'], 
+                    "chart_type" => $_FILES['adjustment']['type'][$key]['chart'], 
+                    "chart" => $_FILES['adjustment']['tmp_name'][$key]['chart']
+                );
                 $ajustments[] = $arrayOfValues;
             }
 
@@ -167,7 +172,6 @@ class DrugsController
             return $app['twig']->render('drugs/add.html.twig', array(
                 'enzymes' => $enzymeList
             ));
-           # return $array;
         } else {
             require 'api/get/listEnzymes.php';
             $enzymeList = getEnzymeList();
