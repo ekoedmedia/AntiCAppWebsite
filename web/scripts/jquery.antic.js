@@ -76,6 +76,6 @@ $(function(){
         
     });
 
-    $('#last-revision').datepicker();
+    $('#last-revision').datepicker({ dateFormat: "yy-mm-dd" });
 
 });

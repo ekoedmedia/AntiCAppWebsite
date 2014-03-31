@@ -125,6 +125,7 @@ class DrugsController
             
             $adjustments = array();
             foreach ($request->get('adjustment') as $value) {
+                error_log($value['chart']);
                 $arrayOfValues = array("problem" => $value['name'], "note" => $value['adjustment'], "chart" => $value['chart']);
                 $ajustments[] = $arrayOfValues;
             }
@@ -167,7 +168,6 @@ class DrugsController
             return $app['twig']->render('drugs/add.html.twig', array(
                 'enzymes' => $enzymeList
             ));
-           # return $array;
         } else {
             require 'api/get/listEnzymes.php';
             $enzymeList = getEnzymeList();
