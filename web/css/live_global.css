@@ -1,12 +1,6 @@
 /**
  * Liveview Global Stylesheet
  **/
-.masthead {
-   background-image: url("/img/logo_small.png");
-   height: 98px;
-   width: 25%;
-   background-repeat:no-repeat;
-}
 
 @font-face {
   font-family: "OpenSans";
