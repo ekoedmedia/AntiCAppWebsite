@@ -106,6 +106,33 @@ class LiveViewController
             'interaction' => $enzyme
         ));
     }
+        /**
+     * Controller for viewing list of all doseAdjusts.
+     * 
+     * @route /doseAdjust
+     * @param Application
+     * @return rendered twig template
+     */
+    public function doseAdjustListAction(Application $app)
+    {
+        require_once 'api/get/getDoseCharts.php';
+        $chartList = getCharts();
+
+        $charts = array();
+        foreach ($chartList as $chart) {
+            $charts[] = array(
+                "name" => $chart['drug'],
+                "id" => $chart['drug'],
+                "problem" => $chart['problem'],
+                "chart" => $chart['chart'],
+            );
+        }
+
+        return $app['twig']->render('livedoseadjust/index.html.twig', array(
+            'doseAdjusts' => $charts,
+        ));
+    }
+
     /**
      * Controller for viewing About page.
      * 

@@ -53,6 +53,7 @@ $app->get('/interactions', "AntiC\LiveView\Controller\LiveViewController::intera
 $app->get('/interactions/{ID}', "AntiC\LiveView\Controller\LiveViewController::viewInteractionAction");
 $app->get('/drugs', "AntiC\LiveView\Controller\LiveViewController::drugsListAction");
 $app->get('/drugs/{ID}', "AntiC\LiveView\Controller\LiveViewController::viewDrugAction");
+$app->get('/doseadjust', "AntiC\LiveView\Controller\LiveViewController::doseAdjustListAction");
 $app->get('/about', "AntiC\LiveView\Controller\LiveViewController::aboutAction");
 
 // Install Path
