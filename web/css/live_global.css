@@ -28,10 +28,10 @@ body {
     padding-right:40px;
     border-left-color: #2A44A1;
     border-left-width: 5px;
-    border-left-style:ridge;
+    border-left-style: solid;
     border-right-color: #2A44A1;
     border-right-width: 5px;
-    border-right-style:ridge;
+    border-right-style: solid;
 }
 .navbar {
     padding-top: 10px;
