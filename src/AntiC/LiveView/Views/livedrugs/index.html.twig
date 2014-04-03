@@ -38,7 +38,7 @@ class="active"
                 ng-repeat="drug in drugs | filter:drugsSearch | filter:{enabled:0} | orderBy:'enabled' | orderBy:'name'">
 
                 <td>
-                    <div class="col-md-4">{% verbatim %}{{ drug.id }}{% endverbatim %}</div>
+                    <div class="col-md-4">{% verbatim %}{{ drug.id }}{% endverbatim %} ({% verbatim %}{{ drug.tradeName }}{% endverbatim %})</div>
                     <div class="col-md-4"> 
                         <img class="ng-hide" ng-show='drug.risk == "High"' height="30" width="30" src="/img/icon_high.png">
                         <img class="ng-hide" ng-show='drug.risk == "Moderate"' height="30" width="30" src="/img/icon_moderate.png">
@@ -62,7 +62,7 @@ class="active"
             anticApp.controller('LiveViewController', ['$scope', function($scope) {
             $scope.drugs = [
     {% for drug in drugs %}
-            {'name': "{{ drug.commonName }}", 'id': "{{ drug.id }}", 'enabled':{{ drug.enabled }}, 'risk': "{{ drug.risk }}"},
+            {'name': "{{ drug.commonName }}",'tradeName': "{{ drug.tradeName }}", 'id': "{{ drug.id }}", 'enabled':{{ drug.enabled }}, 'risk': "{{ drug.risk }}"},
     {% endfor %}
             ];
             }]);
