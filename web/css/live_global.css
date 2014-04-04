@@ -16,22 +16,20 @@ h1
     font-size: 24px;
 }
 body {
-    background-image:url('/img/Moraine_Lake.jpg');
+    background-image:url('/img/flowers4.jpg');
     background-size: cover;
     background-attachment:fixed;
     
 }
 .container {
-    background-color: #3388CC; 
+    background-color: #539bd4; 
     padding:25px; 
     padding-left:40px;
     padding-right:40px;
-    border-left-color: #2A44A1;
-    border-left-width: 5px;
-    border-left-style:ridge;
-    border-right-color: #2A44A1;
-    border-right-width: 5px;
-    border-right-style:ridge;
+    border-color: #2A44A1;
+    border-width: 5px;
+    border-style: solid;
+    border-top-width: 0px;
 }
 .navbar {
     padding-top: 10px;
