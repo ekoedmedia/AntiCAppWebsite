@@ -87,6 +87,7 @@ class InteractionsController
             require 'api/put/putEnzyme.php';
             if (insertEnzyme($interactions, $app['user']->getName())) {
                 $app['session']->getFlashBag()->set('success', "Successfully added Interaction: ".$interactions['name']);
+                return $app->redirect($app['url_generator']->generate('console.interactions.edit', array('ID' => $interactions['name'])));
             } else {
                 $app['session']->getFlashBag()->set('failure', "An error occured. Please try again.");
             }

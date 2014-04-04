@@ -102,16 +102,16 @@ class DrugsController
                 if (empty($value['type'])) continue;
 
                 if (!empty($value['enzymetype'])) {
-                    $arrayOfValues = array("interaction" => $value['type'], "compound" => $value['enzyme'], "enzyme_effect_type" => $value['enzymetype']);
+                    $arrayOfValues = array("interaction" => str_replace('drug', $g_name, $value['type']), "compound" => $value['enzyme'], "enzyme_effect_type" => $value['enzymetype']);
                     $interact[] = $arrayOfValues;
                 } else {
-                    $arrayOfValues = array("interaction" => $value['type'], "compound" => $value['name']);
+                    $arrayOfValues = array("interaction" => str_replace('drug', $g_name, $value['type']), "compound" => $value['name']);
                     $interact[] = $arrayOfValues;
                 }
             }
 
             foreach ($request->get('interactQT') as $value) {
-                $arrayOfValues = array("interaction" => $value['type'], "compound" => "QT-prolonging agents");
+                $arrayOfValues = array("interaction" => str_replace('drug', $g_name, $value['type']), "compound" => "QT-prolonging agents");
                 $interact[] = $arrayOfValues;
             }
 
@@ -134,6 +134,8 @@ class DrugsController
                 $ajustments[] = $arrayOfValues;
             }
 
+            $last_revision = $request->get('last_revision');
+
 
             require 'api/dbConnect/connectStart.php';
             require 'api/put/putDrug.php';
@@ -149,11 +151,12 @@ class DrugsController
                 "excretion" => $excretion, 
                 "available" => $available, 
                 "uo_dose" => $oraldose, 
-                "last_revision" => date('now'),
+                "last_revision" => $last_revision,
                 "contraindications" => $contraindications,
                 "monitoring" => $monitoring, 
                 "administration" => $administration, 
                 "anti_neoplastic" => $antineo, 
+                "frequency" => $frequency,
                 "sideEffects" => $sideeffect,
                 "doseAdjusts" => $ajustments, 
                 "drugInteracts" => $interact, 
@@ -162,6 +165,7 @@ class DrugsController
             );
             if (putDrug($drug, $app['user']->getName(), $dbhandle)) {
                 $app['session']->getFlashBag()->set('success', "Successfully added drug: ".$g_name);
+                return $app->redirect($app['url_generator']->generate('console.drug.edit', array('ID' => $g_name)));
             } else {
                 $app['session']->getFlashBag()->set('failure', "An error occured. Please try again.");
             }
