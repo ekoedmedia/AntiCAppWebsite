@@ -109,14 +109,105 @@ class InteractionsController
             return $app->redirect($app['url_generator']->generate('user.login'));
         }
 
+        require 'api/dbConnect/connectStart.php';
+        require 'api/get/getEnzyme.php';
+        require 'api/post/postEnzyme.php';
+
         if ($request->isMethod('POST')) {
-            /** 
-             * @todo Processing of form and using API Functions from JB/Tanvir
-             */
+            $orig_name = $request->get('orig_name');
+            $currentEnzyme = getEnzyme($orig_name, $dbhandle);
+
+            // Name of Drug to Update
+            $name = $orig_name;
+            if ($orig_name != $request->get('name')) 
+                $name = $request->get('name');
+
+            $update["name"] = $name;
+
+            // Flat Array structuring of POSTED data
+            $substrateList = array();
+            foreach ($request->get('substrate') AS $substrate) {
+                $substrateList[$substrate["name"]] = $substrate["risk"];
+            }
+
+            $inhibitorList = array();
+            foreach ($request->get('inhibitor') AS $inhibitor) {
+                $inhibitorList[$inhibitor["name"]] = $substrate["risk"];
+            }
+
+            $inducerList = array();
+            foreach ($request->get('inducer') AS $inducer) {
+                $inducerList[$inducer["name"]] = $inducer["risk"];
+            }
+
+
+            // Flat Array structuring of DB data
+            $dbSubstrateList = array();
+            foreach ($currentEnzyme['Substrate'] AS $substrate) {
+                $dbSubstrateList[$substrate["compound"]] = $substrate["severity"];
+            }
+
+            $dbInhibitorList = array();
+            foreach ($currentEnzyme['Inhibitor'] AS $inhibitor) {
+                $dbInhibitorList[$inhibitor["compound"]] = $substrate["severity"];
+            }
+
+            $dbInducerList = array();
+            foreach ($currentEnzyme['Inducer'] AS $inducer) {
+                $dbInducerList[$inducer["compound"]] = $inducer["severity"];
+            }
+
+            
+            $addSubstrateUpdate = array_diff_assoc($substrateList, $dbSubstrateList);
+            $addInhibitorUpdate = array_diff_assoc($inhibitorList, $dbInhibitorList);
+            $addInducerUpdate = array_diff_assoc($inducerList, $dbInducerList);
+
+            $removeSubstrateUpdate = array_diff_assoc($dbSubstrateList, $substrateList);
+            $removeInhibitorUpdate = array_diff_assoc($dbInhibitorList, $inhibitorList);
+            $removeInducerUpdate = array_diff_assoc($dbInducerList, $inducerList);
+
+            // Create Updates Array
+            foreach ($removeSubstrateUpdate AS $compound => $risk) {
+                $update["substrate"]["values"][] = array("compound" => $compound);
+                $update["substrate"]["options"][] = array("status" => "deleted", "compound" => $compound, "interaction" => $compound);
+            }
+            foreach ($addSubstrateUpdate AS $compound => $risk) {
+                $update["substrate"]["values"][] = array("compound" => $compound, "severity" => $risk);
+                $update["substrate"]["options"][] = array("status" => "added");
+            }
+
+            foreach ($addInhibitorUpdate AS $compound => $risk) {
+                $update["inhibitor"]["values"][] = array("compound" => $compound);
+                $update["inhibitor"]["options"][] = array("status" => "deleted", "compound" => $compound, "interaction" => $compound);   
+            }
+            foreach ($addInhibitorUpdate AS $compound => $risk) {
+                $update["inhibitor"]["values"][] = array("compound" => $compound, "severity" => $risk);
+                $update["inhibitor"]["options"][] = array("status" => "added");   
+            }
+
+            foreach ($addInducerUpdate AS $compound => $risk) {
+                $update["inducer"]["values"][] = array("compound" => $compound);
+                $update["inducer"]["options"][] = array("status" => "deleted", "compound" => $compound, "interaction" => $compound);   
+            }
+            foreach ($addInducerUpdate AS $compound => $risk) {
+                $update["inducer"]["values"][] = array("compound" => $compound, "severity" => $risk);
+                $update["inducer"]["options"][] = array("status" => "added");   
+            }
+            
+
+            error_log(print_r($update, true));
+
+            if (updateEnzyme($update, $app['user']->getName(), $orig_name, $dbhandle)) {
+                $app['session']->getFlashBag()->set('success', "Successfully edited Interaction: ".$name);
+                if ($name != $orig_name)
+                    return $app->redirect($app['url_generator']->generate('console.interactions.edit', array('ID' => $name)));
+            } else {
+                $app['session']->getFlashBag()->set('failure', "An error occured. Please try again.");
+            }
         }
 
-        require_once 'api/get/getEnzyme.php';
-        $enzyme = getEnzyme($request->get('ID'));
+        
+        $enzyme = getEnzyme($request->get('ID'), $dbhandle);
 
         $who_updated = $enzyme["who_updated"];
 
