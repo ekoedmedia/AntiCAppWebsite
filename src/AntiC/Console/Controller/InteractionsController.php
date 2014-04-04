@@ -128,16 +128,19 @@ class InteractionsController
             // Flat Array structuring of POSTED data
             $substrateList = array();
             foreach ($request->get('substrate') AS $substrate) {
+                if (empty($substrate["name"]) || empty($substrate["risk"])) continue;
                 $substrateList[$substrate["name"]] = $substrate["risk"];
             }
 
             $inhibitorList = array();
             foreach ($request->get('inhibitor') AS $inhibitor) {
+                if (empty($inhibitor["name"]) || empty($inhibitor["risk"])) continue;
                 $inhibitorList[$inhibitor["name"]] = $substrate["risk"];
             }
 
             $inducerList = array();
             foreach ($request->get('inducer') AS $inducer) {
+                if (empty($inducer["name"]) || empty($inducer["risk"])) continue;
                 $inducerList[$inducer["name"]] = $inducer["risk"];
             }
 
@@ -170,31 +173,30 @@ class InteractionsController
             // Create Updates Array
             foreach ($removeSubstrateUpdate AS $compound => $risk) {
                 $update["substrate"]["values"][] = array("compound" => $compound);
-                $update["substrate"]["options"][] = array("status" => "deleted", "compound" => $compound, "interaction" => $compound);
+                $update["substrate"]["options"][] = array("status" => "deleted", "compound" => $compound, "interaction" => "Substrate");
             }
             foreach ($addSubstrateUpdate AS $compound => $risk) {
-                $update["substrate"]["values"][] = array("compound" => $compound, "severity" => $risk);
+                $update["substrate"]["values"][] = array("enzyme" => $name, "compound" => $compound, "severity" => $risk, "interaction" => "Substrate");
                 $update["substrate"]["options"][] = array("status" => "added");
             }
 
-            foreach ($addInhibitorUpdate AS $compound => $risk) {
+            foreach ($removeInhibitorUpdate AS $compound => $risk) {
                 $update["inhibitor"]["values"][] = array("compound" => $compound);
-                $update["inhibitor"]["options"][] = array("status" => "deleted", "compound" => $compound, "interaction" => $compound);   
+                $update["inhibitor"]["options"][] = array("status" => "deleted", "compound" => $compound, "interaction" => "Inhibitor");   
             }
             foreach ($addInhibitorUpdate AS $compound => $risk) {
-                $update["inhibitor"]["values"][] = array("compound" => $compound, "severity" => $risk);
+                $update["inhibitor"]["values"][] = array("enzyme" => $name, "compound" => $compound, "severity" => $risk, "interaction" => "Inhibitor");
                 $update["inhibitor"]["options"][] = array("status" => "added");   
             }
 
-            foreach ($addInducerUpdate AS $compound => $risk) {
+            foreach ($removeInducerUpdate AS $compound => $risk) {
                 $update["inducer"]["values"][] = array("compound" => $compound);
-                $update["inducer"]["options"][] = array("status" => "deleted", "compound" => $compound, "interaction" => $compound);   
+                $update["inducer"]["options"][] = array("status" => "deleted", "compound" => $compound, "interaction" => "Inducer");   
             }
             foreach ($addInducerUpdate AS $compound => $risk) {
-                $update["inducer"]["values"][] = array("compound" => $compound, "severity" => $risk);
+                $update["inducer"]["values"][] = array("enzyme" => $name, "compound" => $compound, "severity" => $risk, "interaction" => "Inducer");
                 $update["inducer"]["options"][] = array("status" => "added");   
             }
-            
 
             error_log(print_r($update, true));
 
