@@ -44,9 +44,6 @@ $app->match('/console/interactions/add', "AntiC\Console\Controller\InteractionsC
 $app->match('/console/interactions/{ID}', "AntiC\Console\Controller\InteractionsController::editAction")->method('GET|POST')->bind('console.interactions.edit');
 $app->post('/console/interactions/{ID}/showhide', "AntiC\Console\Controller\InteractionsController::showHideAction")->bind('console.interactions.showhide');
 
-// About Routes
-$app->get('/console/about', "AntiC\Console\Controller\AboutController::indexAction")->bind('console.about');
-
 // LiveView Routes
 $app->get('/', "AntiC\LiveView\Controller\LiveViewController::indexAction");
 $app->get('/interactions', "AntiC\LiveView\Controller\LiveViewController::interactionsListAction");

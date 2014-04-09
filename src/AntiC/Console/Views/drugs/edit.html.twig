@@ -154,7 +154,7 @@ class="active"
                                                     <input name="oncology[{{ loop.index0 }}][type]" class="form-control" placeholder="e.g. Prostate Cancer" value="{{ oncUse.cancer_type }}" id="oncology" type="text">
                                                 </div>
                                                 <div class="col-sm-1 checkbox">
-                                                    <label><input name="oncology[{{ loop.index0 }}][approved]" type="checkbox" id="approved" value="approved" {% if oncUse.approved %}selected="selected"{% endif %}> Approved</label>
+                                                    <label><input name="oncology[{{ loop.index0 }}][approved]" type="checkbox" id="approved" value="approved" {% if oncUse.approved %}checked="checked"{% endif %}> Approved</label>
                                                 </div>
                                                 {% if not loop.first %}
                                                     <div class="col-sm-1">
@@ -484,7 +484,7 @@ class="active"
                                         <div class="row rowBottomHalfBreak">
                                             <div class="col-sm-4">
                                                 <select name="interactQT[{{ loop.index0 }}][type]" class="form-control col-sm-3" style="font-weight:bold;">
-                                                    <option>{{ qt }}</option>
+                                                    <option></option>
                                                     <option value="Avoid concomitant use" {% if qt == "Avoid concomitant use" %}selected="selected"{% endif %}>Avoid concomitant use</option>
                                                     <option value="Increases effect of drug" {% if qt == "Increases effect of drug" %}selected="selected"{% endif %}>&uarr; Effect (this drug)</option>
                                                     <option value="Decreases effect of drug" {% if qt == "Decreases effect of drug" %}selected="selected"{% endif %}>&darr; Effect (this drug)</option>
@@ -504,7 +504,7 @@ class="active"
                                 <button id="addMoreQTProlonging" type="button" class="btn btn-success btn-xs addMore"><span class="glyphicon glyphicon-plus-sign"></span> Add More</button>
                             </div>
                             <div class="form-group">
-                                <label><input name="anti-neoplastic" type="checkbox" id="cautionwith" value="cautionwith" {% if drug.anti_neoplastic %}selected="selected"{% endif %}> Caution with other anti-neoplastic agents (unless per protocol)</label>
+                                <label><input name="anti-neoplastic" type="checkbox" id="cautionwith" value="cautionwith" {% if drug.anti_neoplastic %}checked="checked"{% endif %}> Caution with other anti-neoplastic agents (unless per protocol)</label>
                             </div>
                             <div class="form-group">
                                 <label>Other Effects</label>
