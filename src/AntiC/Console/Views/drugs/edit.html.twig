@@ -555,7 +555,7 @@ class="active"
                                         <div class="col-sm-3">
                                             <label for="chartimage">Adjustment Chart</label>
                                             <input name="adjustment[{{ loop.index0 }}][chart]" type="file" id="chartimage">
-                                            <div style="margin-top:10px;">{% if doseAdjust %}<a href="" target="_blank">Click to view chart</a>{% else %}<em>No chart</em>{% endif %}</div>
+                                            <div style="margin-top:10px;">{% if doseAdjust %}<a href="/{{ doseAdjust.chart }}" target="_blank">Click to view chart</a>{% else %}<em>No chart</em>{% endif %}</div>
                                         </div>
                                         {% if not loop.first %}
                                             <div class="col-sm-1">
