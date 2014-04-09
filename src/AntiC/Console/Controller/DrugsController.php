@@ -448,17 +448,22 @@ class DrugsController
             // $expectedColumnOncs = array("drug", "cancer_type", "approved");
             // $expectedColumnDrugCyp = array("enzyme", "drug", "drug_effect_type", "enzyme_effect_type");
 
-            // $adjustments = array();
-            // foreach ($request->get('adjustment') as $key => $value) {
-            //     if (empty($value['name'])) continue;
-            //     $arrayOfValues = array(
-            //         "problem" => $value['name'], 
-            //         "note" => $value['adjustment'], 
-            //         "chart_type" => $_FILES['adjustment']['type'][$key]['chart'], 
-            //         "chart" => $_FILES['adjustment']['tmp_name'][$key]['chart']
-            //     );
-            //     $ajustments[] = $arrayOfValues;
-            // }
+            $adjustmentsList = array();
+            $chartList = array();
+            foreach ($request->get('adjustment') AS $key => $value) {
+                if (empty($value['name'])) continue;
+                $adjustmentsList[][$value['name']] = $value['adjustment'];
+                $chartList[][$value['name']] = array(
+                    "chart_type" => $_FILES['adjustment']['type'][$key]['chart'],
+                    "chart" => $_FILES['adjustment']['tmp_name'][$key]['chart']
+                );
+            }
+            $dbAdjustmentsList = array();
+            foreach ($orig_drug['doseAdjusts'] AS $key => $value) {
+                $dbAdjustmentsList[][$value['problem']] = $value['note'];
+            }
+
+            # TODO: Do this Next, requires some refactor in postDrug.php
 
 
             if (updateDrug($update, $app['user']->getName(), $name, $dbhandle)) {
