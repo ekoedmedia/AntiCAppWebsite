@@ -75,6 +75,14 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 if ($_SERVER["REQUEST_METHOD"] == "PUT") {
 
 	$data = json_decode(file_get_contents("php://input"), True);
+	
+	include __DIR__."/tools/authenticate.php";
+	$result = authenticate($data["email"],$data["password"]);
+
+	if (!$result) {
+		exit("");
+	}
+
 	if (isset($data["Enzyme"])) {
 		require_once __DIR__."/put/putEnzyme.php";
 		echoInsertEnzyme($data["Enzyme"]);
@@ -100,6 +108,14 @@ if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
 	 * generic object.
 	 */
 	$data = json_decode(file_get_contents("php://input"), True);
+	
+	include __DIR__."/tools/authenticate.php";
+	$result = authenticate($data["email"],$data["password"]);
+
+	if (!$result) {
+		exit("");
+	}
+
 	if (isset($data["Drug"])) {
 		require_once __DIR__."/delete/deleteDrug.php";
 		echoDeleteDrug($data["Drug"]);
@@ -121,6 +137,14 @@ if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
 if($_SERVER["REQUEST_METHOD"] == "POST") {
 
 	$data = json_decode(file_get_contents("php://input"), True);
+
+	include __DIR__."/tools/authenticate.php";
+	$result = authenticate($data["email"],$data["password"]);
+
+	if (!$result) {
+		exit("");
+	}
+
 	if(isset($data["drug"])) {
 		require_once __DIR__."/post/postDrug.php";
 		echoPostDrug($data["drug"]);
