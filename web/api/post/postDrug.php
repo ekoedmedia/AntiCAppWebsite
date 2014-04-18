@@ -509,20 +509,23 @@ function updateDoseAdjustments($doseAdjustments, $name, $dbhandle, $user)
                 $updateStmt = $dbhandle->prepare($sql);
                 $status = $status && $updateStmt->execute(array($adjustment['problem'], $adjustment['note'], $user, $name, $adjustment['orig_name']));
             } else {
-                // Upload New Chart
-                $chart = $adjustment["chart"];
+                $chart_value = "";
+                if (isset($adjustment['chart']) && !empty($adjustment['chart'])) {
+                    // Upload New Chart
+                    $chart = $adjustment["chart"];
 
-                $type = explode("/", $adjustment["chart_type"]);
-                $type = end($type);
+                    $type = explode("/", $adjustment["chart_type"]);
+                    $type = end($type);
 
-                if (substr($chart,0,5) != "api/d") {
-                    $parts = explode(".", $chart);
-                    $chart_value = "api/doseAdjustCharts/".$name."_"
-                              .$adjustment["problem"]."."
-                              .$type;
-                    $destination = "/var/www/web/" . $chart_value;
-                    move_uploaded_file($chart, $destination);
-                    //unlink($adjustment['orig_chart']); // Delete Original Chart (stop name collisions)
+                    if (substr($chart,0,5) != "api/d") {
+                        $parts = explode(".", $chart);
+                        $chart_value = "api/doseAdjustCharts/".$name."_"
+                                  .$adjustment["problem"]."."
+                                  .$type;
+                        $destination = "/var/www/web/" . $chart_value;
+                        move_uploaded_file($chart, $destination);
+                        //unlink($adjustment['orig_chart']); // Delete Original Chart (stop name collisions)
+                    }
                 }
                 $sql = "UPDATE dose_adjusts SET problem = ?, note = ?, chart = ?, who_updated = ? WHERE drug = ? AND problem = ?";
                 $updateStmt = $dbhandle->prepare($sql);

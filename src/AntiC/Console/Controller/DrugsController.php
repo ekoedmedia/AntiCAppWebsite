@@ -481,7 +481,8 @@ class DrugsController
                     } else {
                         $update['dose_adjusts'][] = array(
                             "problem" => $value['name'],
-                            "note" => $value['adjustment']
+                            "note" => $value['adjustment'],
+                            "chart_url" => ""
                         );
                     }
                 }
@@ -491,7 +492,7 @@ class DrugsController
             foreach ($orig_drug['doseAdjusts'] AS $orig_value) {
                 $found = false;
                 foreach ($request->get('adjustment') AS $key => $value) {
-                    if ($orig_value['problem'] == $value['orig_name']) {
+                    if (isset($value['orig_name']) && $orig_value['problem'] == $value['orig_name']) {
                         $found = true;
                         break;
                     }
@@ -503,8 +504,6 @@ class DrugsController
                     );
                 }
             }
-
-            error_log(print_r($update['dose_adjusts'], true));
 
 
             if (updateDrug($update, $app['user']->getName(), $name, $dbhandle)) {
