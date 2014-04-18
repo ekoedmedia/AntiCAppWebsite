@@ -88,7 +88,7 @@ function updateDrug($drug, $user = "unknown", $name = "", $dbhandle=null) {
     /* For every table check if they exist in the drug dictionary */
 
     foreach($expectedColumn as $columnName) {
-        if(isset($drug[$columnName]) && $columnName=="drugs") {
+        if (isset($drug[$columnName]) && $columnName=="drugs") {
 
             $returnStmt = getStmtForDrugs($drug[$columnName], $expectedColumnDrugs, $name, $dbhandle);
             $updateStmt = $returnStmt[1];
@@ -98,7 +98,7 @@ function updateDrug($drug, $user = "unknown", $name = "", $dbhandle=null) {
             array_push($updateVal, $user, $name);
             // To make sure that compounds table has new drug name 
             // and other updates to other table can occur with this new_name, since cascaded
-            if($new_name != null) {
+            if ($new_name != null) {
                 $table["compound"] = $new_name;
                 $status = $status && updateToCompounds($table, $user, $dbhandle);
                 $name = $new_name;
@@ -108,49 +108,49 @@ function updateDrug($drug, $user = "unknown", $name = "", $dbhandle=null) {
             $status = $status && updateToDrugs($updateStmt, $updateVal, $dbhandle);
         }
         
-        If(isset($drug[$columnName]) && $columnName=="drug_interacts") {
+        if (isset($drug[$columnName]) && $columnName=="drug_interacts") {
 
             $updateDrugInt = $drug[$columnName];
-                        $updateStmt = "";
+            $updateStmt = "";
                         
             $status = $status && updateToInterTables($updateDrugInt, $expectedColumnDrugInts, $expectedColumnDrugCyp, $name, $dbhandle, $user);
                         
         }
 
-         If(isset($drug[$columnName]) && $columnName=="side_effects") {
+        if (isset($drug[$columnName]) && $columnName=="side_effects") {
 
-                        $updateSEffects = $drug[$columnName];
-                        $updateStmt = "";
+            $updateSEffects = $drug[$columnName];
+            $updateStmt = "";
                         
             $status = $status && updateToTable($updateSEffects, $expectedColumnSEffects, $name, $dbhandle, $user, $columnName);
                         
-                }
+        }
 
-         If(isset($drug[$columnName]) && $columnName=="dose_adjusts") {
+        if (isset($drug[$columnName]) && $columnName == "dose_adjusts") {
 
-                        $updateDose = $drug[$columnName];
-                        $updateStmt = "";
+            $updateDose = $drug[$columnName];
+            $updateStmt = "";
 
-            $status = $status && updateToTable($updatePre, $expectedColumnPre, $name, $dbhandle, $user, $columnName);
+            $status = $status && updateDoseAdjustments($updateDose, $name, $dbhandle, $user);
 
-                }
+        }
 
-         If(isset($drug[$columnName]) && $columnName=="precautions") {
+        if (isset($drug[$columnName]) && $columnName=="precautions") {
 
-                        $updatePre = $drug[$columnName];
-                        $updateStmt = "";
+            $updatePre = $drug[$columnName];
+            $updateStmt = "";
 
             $status = $status && updateToTable($updatePre, $expectedColumnPre, $name, $dbhandle, $user, $columnName);
                         
-                }
+        }
 
-         If(isset($drug[$columnName]) && $columnName=="onc_uses") {
+        if (isset($drug[$columnName]) && $columnName=="onc_uses") {
 
-                        $updateOncs = $drug[$columnName];
-                        $updateStmt = "";
+            $updateOncs = $drug[$columnName];
+            $updateStmt = "";
                         
             $status = $status && updateToTable($updateOncs, $expectedColumnOncs, $name, $dbhandle, $user, $columnName);
-                }
+        }
     }
 
     if($new_name != null) {
@@ -491,6 +491,72 @@ function updateToTable($updateTablesHash, $expectedColumns, $name, $dbhandle, $u
         return($status);
 }
 
+/* Update Dose Adjustments
+ *
+ * Function Uploads new Dose Adjustments, and Edits Existing ones.
+ */
+function updateDoseAdjustments($doseAdjustments, $name, $dbhandle, $user) 
+{
+    $status = TRUE;
+    foreach ($doseAdjustments AS $adjustment) {
+        if (isset($adjustment['delete']) && $adjustment['delete'] == TRUE) {
+            $sql = "DELETE FROM dose_adjusts WHERE problem = ?";
+            $updateStmt = $dbhandle->prepare($sql);
+            $status = $status && $updateStmt->execute(array($adjustment['orig_name']));
+        } else if (isset($adjustment['orig_name']) && !empty($adjustment['orig_name'])) {
+            if (isset($adjustment['chart_url']) && !empty($adjustment['chart_url'])) {
+                $sql = "UPDATE dose_adjusts SET problem = ?, note = ?, who_updated = ? WHERE drug = ? AND problem = ?";
+                $updateStmt = $dbhandle->prepare($sql);
+                $status = $status && $updateStmt->execute(array($adjustment['problem'], $adjustment['note'], $user, $name, $adjustment['orig_name']));
+            } else {
+                // Upload New Chart
+                $chart = $adjustment["chart"];
+
+                $type = explode("/", $adjustment["chart_type"]);
+                $type = end($type);
+
+                if (substr($chart,0,5) != "api/d") {
+                    $parts = explode(".", $chart);
+                    $chart_value = "api/doseAdjustCharts/".$name."_"
+                              .$adjustment["problem"]."."
+                              .$type;
+                    $destination = "/var/www/web/" . $chart_value;
+                    move_uploaded_file($chart, $destination);
+                    //unlink($adjustment['orig_chart']); // Delete Original Chart (stop name collisions)
+                }
+                $sql = "UPDATE dose_adjusts SET problem = ?, note = ?, chart = ?, who_updated = ? WHERE drug = ? AND problem = ?";
+                $updateStmt = $dbhandle->prepare($sql);
+                $status = $status && $updateStmt->execute(array($adjustment['problem'], $adjustment['note'], $chart_value, $user, $name, $adjustment['orig_name']));
+            }
+        } else {
+            if (isset($adjustment['chart']) && !empty($adjustment['chart'])) {
+                $chart = $adjustment["chart"];
+
+                $type = explode("/", $adjustment["chart_type"]);
+                $type = end($type);
+
+                if (substr($chart,0,5) != "api/d") {
+                    $parts = explode(".", $chart);
+                    $chart_value = "api/doseAdjustCharts/".$name."_"
+                              .$adjustment["problem"]."."
+                              .$type;
+                    $destination = "/var/www/web/" . $chart_value;
+                    move_uploaded_file($chart, $destination);
+                }
+                $sql = "INSERT INTO dose_adjusts (drug, problem, note, chart, who_updated) VALUES (?,?,?,?,?)";
+                $updateStmt = $dbhandle->prepare($sql);
+                $status = $status && $updateStmt->execute(array($name, $adjustment['problem'], $adjustment['note'], $chart_value, $user));
+            } else {
+                $sql = "INSERT INTO dose_adjusts (drug, problem, note, chart, who_updated) VALUES (?,?,?,?,?)";
+                $updateStmt = $dbhandle->prepare($sql);
+                $status = $status && $updateStmt->execute(array($name, $adjustment['problem'], $adjustment['note'], "", $user));
+            }
+        }
+    }
+    
+    return $status;
+}
+
 /* Function to save doseAdjust Image file into the server based on drug name. These files
  * are never removed but their links in the databases are.
  */
@@ -531,7 +597,7 @@ function checkIfInputValid($tableValues, $tableName, $dbhandle) {
                         return false;
                 }
         $checkStmt = "SELECT * FROM ".$tableName." WHERE drug = ? AND problem = ?";
-        $qCheck = $dbhandl->prepare($checkStmt);
+        $qCheck = $dbhandle->prepare($checkStmt);
         $qCheck->execute(array($tableValues["drug"], $tableValues["problem"]));
     }
 

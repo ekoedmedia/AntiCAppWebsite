@@ -32,7 +32,7 @@ class="active"
             {% endfor %}
         {% endif %}
 
-        <form role="form" method="post" action="{{ path('console.drug.edit', { 'ID':drug.g_name }) }}">
+        <form role="form" method="post" action="{{ path('console.drug.edit', { 'ID':drug.g_name }) }}" enctype="multipart/form-data">
             <div class="col-sm-2 well" data-spy="affix">
                 <div class="form-group">
                     <label for="common-name">Common Name</label>
@@ -547,6 +547,7 @@ class="active"
                                         <div class="col-sm-2">
                                             <label for="adjustmentname">Name</label>
                                             <input name="adjustment[{{ loop.index0 }}][name]" type="text" class="form-control" id="adjustmentname" value="{{ doseAdjust.problem }}" placeholder="Name">
+                                            <input name="adjustment[{{ loop.index0 }}][orig_name]" type="hidden" value="{{ doseAdjust.problem }}">
                                         </div>
                                         <div class="col-sm-4">
                                             <label for="adjustmentdesc">Adjustment</label>

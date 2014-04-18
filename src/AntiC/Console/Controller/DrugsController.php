@@ -288,7 +288,7 @@ class DrugsController
                 "anti_neoplastic" => $antineo, 
                 "frequency" => $frequency,
                 "sideEffects" => $sideeffect,
-                "doseAdjusts" => $adjustments, 
+                "doseAdjusts" => $request->get('adjustment'), 
                 "drugInteracts" => $interact, 
                 "oncUses" => $oncology
             );
@@ -399,7 +399,7 @@ class DrugsController
             foreach ($request->get('interact') AS $value) {
                 if (isset($value['enzyme']) && !empty($value['enzyme'])) {
                     if (empty($value['enzymetype'])) continue;
-                    $enzyInterList[] = array("enzyme" => $value['enzyme'], "effect" => $value['type'], "type" => $value['enzymetype']);
+                    $enzyInterList[$value['enzyme']."_".$value['enzymetype']] = $value['type'];
                 } else {
                     $drugInterList[$value['name']] = $value['type'];
                 }
@@ -409,7 +409,7 @@ class DrugsController
             foreach ($orig_drug['drugInteracts'] AS $value) {
                 if ($value["compound"] == "QT-prolonging agents" || $value["interaction"] == "Other Interactions") continue;
                 if (isset($value['enzyme_effect_type'])) {
-                    $dbEnzyInterList[] = array("enzyme" => $value['compound'], "effect" => $value['interaction'], "type" => $value['enzyme_effect_type']);
+                    $dbEnzyInterList[$value['compound']."_".$value['enzyme_effect_type']] = $value['interaction'];
                 } else {
                     $dbDrugInterList[$value['compound']] = $value['interaction'];
                 }
@@ -419,6 +419,7 @@ class DrugsController
             $addEnzyInterValues = array_diff_assoc($enzyInterList, $dbEnzyInterList);
             $removeDrugInterValues = array_diff_assoc($dbDrugInterList, $drugInterList);
             $removeEnzyInterValues = array_diff_assoc($dbEnzyInterList, $enzyInterList);
+
 
             foreach ($removeDrugInterValues AS $key => $value) {
                 if (empty($key) || empty($value)) continue;
@@ -439,31 +440,71 @@ class DrugsController
                 $update['drug_interacts']['options'][] = array("status" => "added");
             }
 
-
-            // $expectedColumn = array("drugs", "drug_interacts","side_effects", "dose_adjusts", "precautions", "onc_uses");
-            // $expectedColumnDrugInts = array("interaction", "compound", "drug");
-            // $expectedColumnSEffects = array("drug", "name", "severe");
-            // $expectedColumnDose = array("drug", "problem", "note", "chart");
-            // $expectedColumnPre = array("drug", "name", "note");
-            // $expectedColumnOncs = array("drug", "cancer_type", "approved");
-            // $expectedColumnDrugCyp = array("enzyme", "drug", "drug_effect_type", "enzyme_effect_type");
-
-            $adjustmentsList = array();
-            $chartList = array();
             foreach ($request->get('adjustment') AS $key => $value) {
                 if (empty($value['name'])) continue;
-                $adjustmentsList[][$value['name']] = $value['adjustment'];
-                $chartList[][$value['name']] = array(
-                    "chart_type" => $_FILES['adjustment']['type'][$key]['chart'],
-                    "chart" => $_FILES['adjustment']['tmp_name'][$key]['chart']
-                );
-            }
-            $dbAdjustmentsList = array();
-            foreach ($orig_drug['doseAdjusts'] AS $key => $value) {
-                $dbAdjustmentsList[][$value['problem']] = $value['note'];
+                $found = false;
+                foreach ($orig_drug['doseAdjusts'] AS $orig_value) {
+                    // If a current problem equals an original name (it exists)
+                    if (isset($value['orig_name']) && $orig_value['problem'] == $value['orig_name']) {
+                        $found = true;
+                        // Update info and upload file
+                        if (isset($_FILES['adjustment']['type'][$key]['chart']) && !empty($_FILES['adjustment']['type'][$key]['chart'])) {
+                            $update['dose_adjusts'][] = array(
+                                "orig_name" => $value['orig_name'],
+                                "problem" => $value['name'],
+                                "note" => $value['adjustment'], 
+                                "orig_chart" => $orig_value['chart'],
+                                "chart_type" => $_FILES['adjustment']['type'][$key]['chart'],
+                                "chart" => $_FILES['adjustment']['tmp_name'][$key]['chart']
+                            );
+                        // Otherwise just update the info
+                        } else {
+                            $update['dose_adjusts'][] = array(
+                                "orig_name" => $value['orig_name'],
+                                "problem" => $value['name'],
+                                "note" => $value['adjustment'], 
+                                "chart_url" => $orig_value['chart']
+                            );
+                        }
+                    }
+                }
+
+                // If not found, assume its new
+                if (!$found) {
+                    if (isset($_FILES['adjustment']['type'][$key]['chart']) && !empty($_FILES['adjustment']['type'][$key]['chart'])) {
+                        $update['dose_adjusts'][] = array(
+                            "problem" => $value['name'],
+                            "note" => $value['adjustment'],
+                            "chart_type" => $_FILES['adjustment']['type'][$key]['chart'],
+                            "chart" => $_FILES['adjustment']['tmp_name'][$key]['chart']
+                        );    
+                    } else {
+                        $update['dose_adjusts'][] = array(
+                            "problem" => $value['name'],
+                            "note" => $value['adjustment']
+                        );
+                    }
+                }
             }
 
-            # TODO: Do this Next, requires some refactor in postDrug.php
+            // Checks for things to remove
+            foreach ($orig_drug['doseAdjusts'] AS $orig_value) {
+                $found = false;
+                foreach ($request->get('adjustment') AS $key => $value) {
+                    if ($orig_value['problem'] == $value['orig_name']) {
+                        $found = true;
+                        break;
+                    }
+                }
+                if (!$found) {
+                    $update['dose_adjusts'][] = array(
+                        "orig_name" => $orig_value['problem'],
+                        "delete" => TRUE
+                    );
+                }
+            }
+
+            error_log(print_r($update['dose_adjusts'], true));
 
 
             if (updateDrug($update, $app['user']->getName(), $name, $dbhandle)) {

@@ -88,7 +88,7 @@ function getDrug($name, $dbhandle = null) {
 	$drug["doseAdjusts"] = $doseResults[0];
 
 	for ($i = 0; $i < count($doseResults[1]); $i++) {
-		$drug[$doseResults[1][$i]] = fopen($doseResults[2][$i], "r");
+		$drug[$doseResults[1][$i]] = $doseResults[2][$i];
 	}
 
 	$drug["drugInteracts"] = extractFromDrugInteracts($name, $dbhandle);
